@@ -1,0 +1,55 @@
+const toTop = document.querySelector(".to-top");
+
+window.addEventListener("scroll", ()=>{
+    if(window.pageYOffset>100){
+        toTop.classList.add("active");
+    }
+    else{
+        toTop.classList.remove("active");
+    }
+});
+
+//Shop Now button
+document.getElementById("shop-now").addEventListener("click", function(event){
+    document.body.style.opacity = 0;
+    setTimeout(function(){
+        window.location.href = "shop.html"
+    }, 0);
+      
+});
+
+const bar = document.getElementById('bar');
+const close = document.getElementById('close');
+const nav = document.getElementById('navbar');
+
+bar.addEventListener('click', () => {
+    nav.classList.add('active');
+    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : 'auto';
+})
+
+
+close.addEventListener('click', () => {
+    nav.classList.remove('active');
+    document.body.style.overflow ='auto';
+})
+
+function highlightDescription(url) {
+    const description = event.target.closest('.product').querySelector('.product-description');
+    if (event.target.tagName === 'IMG' || event.target.classList.contains('product-description')) {
+      description.classList.add('highlighted');
+      setTimeout(() => {
+        description.classList.remove('highlighted');
+        window.location.href = url; // Redirect to the product page after removing the highlight class
+      }, 1000);
+    }
+  }
+  
+  function addToCart() {
+    // Add logic for adding the product to the cart
+    // This function is called when the "Add to Cart" button is clicked
+  }
+  
+
+
+
+
