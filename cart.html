@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="/images/favicon-16x16.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="cart.js"></script>
     <title>TechHaven</title>
 </head>
 
@@ -27,99 +30,99 @@
         </div>
     </section>
 
-    <section id="cart">
-        <table>
-            <thead>
-                <tr>
-                    <td>Remove</td>
-                    <td>Image</td>
-                    <td>Product</td>
-                    <td>Price</td>
-                    <td>Quantity</td>
-                    <td>SubTotal</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><i class="fa-solid fa-trash"></i></td>
-                    <td><img src="images/Techno-camon20.jpg" alt=""></td>
-                    <td>Techno Camon 20</td>
-                    <td>Ksh 20,000</td>
-                    <td><input type="number" value="1"></option></td>
-                    <td>Ksh 20,000</td> 
-                </tr>
-                <tr>
-                    <td><i class="fa-solid fa-trash"></i></td>
-                    <td><img src="images/Techno-camon20.jpg" alt=""></td>
-                    <td>Techno Camon 20</td>
-                    <td>Ksh 20,000</td>
-                    <td><input type="number" value="1"></option></td>
-                    <td>Ksh 20,000</td> 
-                </tr>
-                <tr>
-                    <td><i class="fa-solid fa-trash"></i></td>
-                    <td><img src="images/Techno-camon20.jpg" alt=""></td>
-                    <td>Techno Camon 20</td>
-                    <td>Ksh 20,000</td>
-                    <td><input type="number" value="1"></option></td>
-                    <td>Ksh 20,000</td> 
-                </tr>
-            </tbody>
-        </table>
-    </section> 
+    <section>
+        <h3 id="cart-count">Cart(1)</h3>
+        <div class="cart-page">
+            <div class="product-container">
+                <div id="product-details">
+                    <div id="product-img">
+                        <img src="images/Infinix Hot 30i.jpg" alt="Infinix Hot 30">
+                        <i class="fa-solid fa-trash" id="remove"> Remove</i>
+                    </div>
+                    <div id="product-description">
+                        <h4>Infinix Hot 30i, 6.56", 4GB RAM, 128GB, 5000mAh, 
+                            (DUAL SIM), 4G - Mirror Black
+                        </h4>
+                    </div>
+                    <div id="product-price">
+                        <h4>Ksh 10,000</h4>
+                        <div id="quantity-btn">
+                            <button id="minus-btn">-</button>
+                            <input type="text" class="input-quantity" value="0">
+                            <button id="plus-btn">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="product-details">
+                    <div id="product-img">
+                        <img src="images/Infinix Hot 30i.jpg" alt="Infinix Hot 30">
+                        <i class="fa-solid fa-trash"> Remove</i>
+                    </div>
+                    <div id="product-description">
+                        <h4>Infinix Hot 30i, 6.56", 4GB RAM, 128GB, 5000mAh, 
+                            (DUAL SIM), 4G - Mirror Black
+                        </h4>
+                    </div>
+                    <div id="product-price">
+                        <h4>Ksh 10,000</h4>
+                        <div id="quantity-btn">
+                            <button id="minus-btn">-</button>
+                            <input type="text" class="input-quantity" value="0">
+                            <button id="plus-btn">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="product-details">
+                    <div id="product-img">
+                        <img src="images/Infinix Hot 30i.jpg" alt="Infinix Hot 30">
+                        <i class="fa-solid fa-trash"> Remove</i>
+                    </div>
+                    <div id="product-description">
+                        <h4>Infinix Hot 30i, 6.56", 4GB RAM, 128GB, 5000mAh, 
+                            (DUAL SIM), 4G - Mirror Black
+                        </h4>
+                    </div>
+                    <div id="product-price">
+                        <h4>Ksh 10,000</h4>
+                        <div id="quantity-btn">
+                            <button id="minus-btn">-</button>
+                            <input type="text" class="input-quantity" value="0">
+                            <button id="plus-btn">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="product-details">
+                    <div id="product-img">
+                        <img src="images/Infinix Hot 30i.jpg" alt="Infinix Hot 30">
+                        <i class="fa-solid fa-trash"> Remove</i>
+                    </div>
+                    <div id="product-description">
+                        <h4>Infinix Hot 30i, 6.56", 4GB RAM, 128GB, 5000mAh, 
+                            (DUAL SIM), 4G - Mirror Black
+                        </h4>
+                    </div>
+                    <div id="product-price">
+                        <h4>Ksh 10,000</h4>
+                        <div id="quantity-btn">
+                            <button id="minus-btn">-</button>
+                            <input type="text" class="input-quantity" value="0">
+                            <button id="plus-btn">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="checkout">
+                <h3>Cart Summary</h3>
+                <div id="subtotal">
+                    <h4>Subtotal</h4>
+                    <h4>Ksh 10,000</h4>
+                </div>
+                <p>Delivery fees not included yet</p>
+                <button>checkout (Ksh 10,000)</button>
 
-    <!--<section class="shopping-cart">
-        <div>
-            <div class="cart">
-                <div class="image-button">
-                    <img src="images/Infinix Hot 30i.jpg" alt="">
-                    <i class="fa-solid fa-trash"></i> 
-                </div>
-                <div class="product-name">
-                    <h5>Infinix Hot 30i, 6.56", 4GB RAM, 128GB, 5000mAh, 
-                        (DUAL SIM), 4G - Mirror Black
-                    </h5>
-                </div>
-                <div class="price-quantity">
-                    <h3>Ksh 10,000</h3>
-                    <input type="number" value="1">
-                </div>
             </div>
-            <div class="cart">
-                <div class="image-button">
-                    <img src="images/Infinix Hot 30i.jpg" alt="">
-                    <i class="fa-solid fa-trash"></i> 
-                </div>
-                <div class="product-name">
-                    <h5>Infinix Hot 30i, 6.56", 4GB RAM, 128GB, 5000mAh, 
-                        (DUAL SIM), 4G - Mirror Black
-                    </h5>
-                </div>
-                <div class="price-quantity">
-                    <h3>Ksh 10,000</h3>
-                    <input type="number" value="1">
-                </div>
-            </div>
-        </div> -->
-        
-        <div class="subtotal">
-            <h3>Cart Totals</h3>
-            <table>
-                <tr>
-                    <td>Cart Subtotal</td>
-                    <td>ksh 20000</td>
-                </tr>
-                <tr>
-                    <td>Shipping</td>
-                    <td>Free</td>
-                </tr>
-                <tr>
-                    <td><strong>Total</strong></td>
-                    <td><strong>Ksh 20,000</strong></td>
-                </tr>
-            </table>
-            <button>PROCEED TO CHECKOUT</button>
         </div>
+        
     </section>
 
     
@@ -130,7 +133,7 @@
             </div>
             <div class="contact">
                 <h4>Contact</h4>
-                <p><strong>Address:</strong>0100-2005,Wellington</p>
+                <p><strong>Address:</strong>Westlands,Nairobi</p>
                 <p><strong>Phone:</strong>+254713621330</p>
                 <p><strong>Hours:</strong>10:00am-4:00pm</p>
             </div>
@@ -157,7 +160,7 @@
         </div>
         <hr>
         <div class="copyright">
-            <p><span>&copy;2023 TechHaven. All rights reserved.</span>
+            <p><span>&copy;2023 Developed by Mulindi. All rights reserved.</span>
         </div>
 
     </footer>
@@ -165,7 +168,23 @@
      <a href="#" class="to-top">
         <i class="fas fa-chevron-up"></i>
     </a>
+    <!-- Checkout div -->
+<script>
+    $(document).ready(function() {
+        $(window).scroll(function() {
+            var fixedDiv = $("#checkout");
+            var footerOffset = $("footer").offset().top;
+            var fixedDivHeight = fixedDiv.height();
+            var windowScroll = $(window).scrollTop();
 
+            if (windowScroll + fixedDivHeight >= footerOffset) {
+                fixedDiv.css("top", footerOffset - fixedDivHeight - windowScroll);
+            } else {
+                fixedDiv.css("top", 70); // Reset back to the initial position
+            }
+        });
+    });
+</script>
     <script src="main.js"></script>
 </body>
 </html>

@@ -10,13 +10,13 @@ window.addEventListener("scroll", ()=>{
 });
 
 //Shop Now button
-document.getElementById("shop-now").addEventListener("click", function(event){
-    document.body.style.opacity = 0;
-    setTimeout(function(){
-        window.location.href = "shop.html"
-    }, 0);
-      
-});
+//document.getElementById("shop-now").addEventListener("click", function(event){
+//    document.body.style.opacity = 0;
+//    setTimeout(function(){
+//        window.location.href = "shop.html"
+//    }, 0);
+//      
+//});
 
 const bar = document.getElementById('bar');
 const close = document.getElementById('close');
@@ -47,8 +47,10 @@ function highlightDescription(url) {
   function addToCart() {
     // Add logic for adding the product to the cart
     // This function is called when the "Add to Cart" button is clicked
-  }
-  
+}
+ //SHOPPING CART FUNCTIONALITY
+
+ 
 
 
 
