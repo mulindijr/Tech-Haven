@@ -27,16 +27,6 @@ import {
     spark20HeroBackground
 } from '../assets/images'
 
-export const navLinks = [
-    {label: "Home", path: "/"},
-    {label: "Shop", path: "/shop"},
-    {label: "About", path: "/about-us"},
-    {label: "Contact", path: "/contact-us"},
-    {label: "Cart", path: "/cart"},
-    {label: "Login", path: "/login"},
-    {label: "SignUp", path: "signup"},
-]
-
 export const productsData =[
     {   
         imgURL: macbook,
@@ -177,21 +167,6 @@ export const heroBackgrounds = {
     skyworthHeroBackground,
     spark20HeroBackground,
 };
-
-export const reviews = [
-    {
-        imgURL: customer1,
-        customerName: 'Solomon Kitonyi',
-        rating: 4.5,
-        feedback: "The attention to detail and the quality of the product exceeded my expectations. Highly recommended!"
-    },
-    {
-        imgURL: customer2,
-        customerName: 'Maryanne Wamboi',
-        rating: 4.5,
-        feedback: "The product not only met but exceeded my expectations. I'll definitely be a returning customer!"
-    }
-]
 
 export const footerLinks = [
     {
