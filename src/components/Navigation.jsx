@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { navLinks } from '../constants';
-import { FaSearch, FaUser } from 'react-icons/fa';
+import { CiSearch } from "react-icons/ci";
+import { FaRegUser } from "react-icons/fa6";
+import { AiOutlineShopping } from "react-icons/ai";
 
 const Navigation = () => {
 
@@ -27,11 +29,11 @@ const Navigation = () => {
               ))}
             </ul>
 
-            <div className='flex items-center gap-6'>
-              <FaSearch className='w-5 cursor-pointer'/>
+            <div className='flex items-center gap-4'>
+              <CiSearch className='w-5 cursor-pointer'/>
 
               <div className='group relative'>
-                <FaUser className='w-5 cursor-pointer'/>
+                <FaRegUser className='w-5 cursor-pointer'/>
                 <div className='group-hover:block hidden absolute dropdown-menu right-0 p-4'>
                   <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
                     <p className='cursor-pointer hover:text-black'>My Profile</p>
@@ -39,7 +41,12 @@ const Navigation = () => {
                     <p className='cursor-pointer hover:text-black'>Logout</p>
                   </div>
                 </div>
-              </div>   
+              </div>
+
+              <Link to='/cart' className='relative'>
+                <AiOutlineShopping className='w-5 m-w-5 bg-white'/>
+                <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>10</p>
+              </Link> 
                         
             </div>
           </nav>
