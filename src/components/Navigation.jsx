@@ -4,19 +4,20 @@ import { navLinks } from '../constants';
 import { CiSearch } from "react-icons/ci";
 import { FaRegUser } from "react-icons/fa6";
 import { AiOutlineShopping } from "react-icons/ai";
+import { FaBars } from "react-icons/fa";
 
 const Navigation = () => {
 
     return (
-        <header className='bg-white sticky top-0 left-0 right-0 z-10 shadow-md p-5'>
-          <nav className='flex justify-between items-center max-lg:ml-5 mx-20'>
+        <header className='bg-white sticky top-0 left-0 right-0 z-10 p-5 shadow-md'>
+          <nav className='flex justify-between items-center font-medium'>
             <Link to="/">
               <h1 className='text-xl font-bold cursor-pointer'>
                 Tech<span className='text-red-500'>Haven</span>
               </h1>
             </Link>
 
-            <ul className='flex justify-end items-center gap-5 max-md:hidden'>
+            <ul className='hidden sm:flex gap-5 text-sm text-gray-700'>
               {navLinks.map((link) => (
                 <NavLink 
                   to={link.path} 
@@ -47,7 +48,8 @@ const Navigation = () => {
                 <AiOutlineShopping className='w-5 m-w-5 bg-white'/>
                 <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>10</p>
               </Link> 
-                        
+
+              <FaBars className='w-5 cursor-pointer sm:hidden'/>   
             </div>
           </nav>
         </header>
