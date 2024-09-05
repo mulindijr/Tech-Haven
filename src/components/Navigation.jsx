@@ -5,14 +5,16 @@ import { CiSearch } from "react-icons/ci";
 import { FaRegUser } from "react-icons/fa6";
 import { AiOutlineShopping } from "react-icons/ai";
 import { FaBars } from "react-icons/fa";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+
 
 const Navigation = () => {
 
   const [visible, setVisible] = useState(false);
 
     return (
-        <header className='bg-white sticky top-0 left-0 right-0 z-10 p-5 shadow-md'>
-          <nav className='flex justify-between items-center font-medium'>
+        <header className=''>
+          <nav className='flex justify-between items-center font-medium p-5'>
             <Link to="/">
               <h1 className='text-xl font-bold cursor-pointer'>
                 Tech<span className='text-red-500'>Haven</span>
@@ -52,6 +54,25 @@ const Navigation = () => {
               </Link> 
               <FaBars onClick={() => setVisible(true)} className='w-5 cursor-pointer sm:hidden'/>   
             </div>
+              {/* Mobile Navigation */}
+              <div className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${visible ? 'w-full': 'w-0'}`}>
+                <div className='flex flex-col text-gray-600'>
+                  <div onClick={()=>setVisible(false)} className='flex items-center gap-4 p-3'>
+                    <MdOutlineKeyboardArrowRight className='h-4 rotate-180'/>
+                    <p>Back</p>
+                  </div>
+                  {navLinks.map((link) => (
+                    <NavLink 
+                      to={link.path} 
+                      key={link.path} 
+                      onClick={()=>setVisible(false)}
+                      className='py-2 pl-6 border'
+                    >
+                      {link.label}
+                    </NavLink>
+                  ))}
+                </div>
+              </div>
           </nav>
         </header>
     );
