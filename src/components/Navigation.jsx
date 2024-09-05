@@ -8,6 +8,8 @@ import { FaBars } from "react-icons/fa";
 
 const Navigation = () => {
 
+  const [visible, setVisible] = useState(false);
+
     return (
         <header className='bg-white sticky top-0 left-0 right-0 z-10 p-5 shadow-md'>
           <nav className='flex justify-between items-center font-medium'>
@@ -48,8 +50,7 @@ const Navigation = () => {
                 <AiOutlineShopping className='w-5 m-w-5 bg-white'/>
                 <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]'>10</p>
               </Link> 
-
-              <FaBars className='w-5 cursor-pointer sm:hidden'/>   
+              <FaBars onClick={() => setVisible(true)} className='w-5 cursor-pointer sm:hidden'/>   
             </div>
           </nav>
         </header>
