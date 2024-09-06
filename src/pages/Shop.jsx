@@ -5,7 +5,7 @@ import Title from "../components/Title";
 import ProductItem from "../components/ProductItem";
 
 const Shop = () => {
-  const {productsData} =useContext(ShopContext)
+  const {productsData, search, showSearch} =useContext(ShopContext)
   const [showFilter, setShowFilter] = useState(false)
   const [filterProducts, setFilterProducts] = useState([])
   const [category, setCategory] = useState([])
@@ -32,6 +32,11 @@ const Shop = () => {
 
   const applyFilter = () => {
     let productsCopy = productsData.slice()
+
+    if(showSearch && search){
+      productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
+    }
+
     if(category.length > 0){
       productsCopy = productsCopy.filter(item => category.includes(item.category))
     }
@@ -62,7 +67,7 @@ const Shop = () => {
 
   useEffect(() => {
     applyFilter();
-  },[category, brand])
+  },[category, brand, search, showSearch])
 
   useEffect(() => { 
     sortProduct();
