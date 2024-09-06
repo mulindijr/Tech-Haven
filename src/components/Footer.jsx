@@ -18,7 +18,7 @@ const Footer = () => {
                         <div className="flex justify-center items-center w-5 h-5 rounded-full p-5 cursor-pointer bg-white">l</div>
                     </div>
                 </div>    
-                <div className="mt-5 flex flex-1 flex-wrap justify-between max-lg:gap-20 gap-5">
+                <div className="mt-5 flex flex-1 flex-wrap justify-between">
                     {footerLinks.map((section) => (
                         <div key={section.title}>
                             <h4 className="text-2xl leading-normal font-medium">
