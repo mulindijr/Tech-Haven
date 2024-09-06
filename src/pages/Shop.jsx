@@ -67,8 +67,14 @@ const Shop = () => {
 
       {/*Right Side*/}
       <div className="flex-1">
-        <div>
+        <div className="flex justify-between text-base sm:text-2xl mb-4">
           <Title title1={'ALL'} title2={'PRODUCTS'}/>
+          {/*sort by*/}
+          <select className="border-2 border-gray-300 text-sm px-2">
+            <option value="Sort by: Relevance">Sort by: Relavance</option>
+            <option value="Price: Low to High">Price: Low to High</option>
+            <option value="Price: High to Low">Price: High to Low</option>
+          </select>
         </div>
       </div>
     </div>
