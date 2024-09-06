@@ -41,10 +41,6 @@ const Shop = () => {
   }
 
   useEffect(() => {
-    setFilterProducts(productsData)
-  },[])
-
-  useEffect(() => {
     applyFilter();
   },[category, brand])
 
