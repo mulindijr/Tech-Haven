@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import Title from "../components/Title";
 
 const Shop = () => {
   const [showFilter, setShowFilter] = useState(false)
@@ -62,8 +63,15 @@ const Shop = () => {
             </p>
           </div>
         </div>               
-      </div>    
-  </div>
+      </div>   
+
+      {/*Right Side*/}
+      <div className="flex-1">
+        <div>
+          <Title title1={'ALL'} title2={'PRODUCTS'}/>
+        </div>
+      </div>
+    </div>
   )
 }
 
