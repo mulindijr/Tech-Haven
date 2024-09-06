@@ -1,9 +1,17 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { ShopContext } from "../context/ShopContext"
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import Title from "../components/Title";
+import ProductItem from "../components/ProductItem";
 
 const Shop = () => {
+  const {productsData} =useContext(ShopContext)
   const [showFilter, setShowFilter] = useState(false)
+  const [filterProducts, setFilterProducts] = useState([])
+
+  useEffect(() => {
+    setFilterProducts(productsData)
+  },[])
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
@@ -76,7 +84,23 @@ const Shop = () => {
             <option value="Price: High to Low">Price: High to Low</option>
           </select>
         </div>
-      </div>
+        {/*Map Products*/}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6 mb-6">
+          {
+            filterProducts.map((item,index) => (
+              <ProductItem 
+                key={index}
+                id = {item._id}
+                img = {item.imgURL}
+                brand = {item.brand}
+                name = {item.name}
+                price = {item.price}
+                rating = {item.rating}
+              />
+            ))
+          }
+        </div>
+      </div>      
     </div>
   )
 }
