@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { navLinks } from '../constants';
 import { CiSearch } from "react-icons/ci";
@@ -6,11 +6,13 @@ import { FaRegUser } from "react-icons/fa6";
 import { AiOutlineShopping } from "react-icons/ai";
 import { FaBars } from "react-icons/fa";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { ShopContext } from '../context/ShopContext';
 
 
 const Navigation = () => {
 
   const [visible, setVisible] = useState(false);
+  const {setShowSearch} = useContext(ShopContext);
 
     return (
         <header className=''>
@@ -35,7 +37,7 @@ const Navigation = () => {
             </ul>
 
             <div className='flex items-center gap-4'>
-              <CiSearch className='w-5 cursor-pointer'/>
+              <CiSearch onClick={() => setShowSearch(true)} className='w-5 cursor-pointer'/>
 
               <div className='group relative'>
                 <FaRegUser className='w-5 cursor-pointer'/>
