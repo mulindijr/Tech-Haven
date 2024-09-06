@@ -20,6 +20,15 @@ const Shop = () => {
     }
   }
 
+  const toggleBrand = (e) => {
+    if(brand.includes(e.target.value)){
+      setBrand(prev => prev.filter(item => item !== e.target.value))
+    }
+    else{
+      setBrand(prev => [...prev, e.target.value])
+    }
+  }
+
   useEffect(() => {
     setFilterProducts(productsData)
   },[])
@@ -58,31 +67,31 @@ const Shop = () => {
           <p className="mb-3 font-medium text-sm">FILTER BY BRAND</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={'Techno'} />Techno
+              <input className="w-3" type="checkbox" value={'Techno'} onChange={toggleBrand}/>Techno
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={'Samsung'} />Lenovo
+              <input className="w-3" type="checkbox" value={'Lenovo'} onChange={toggleBrand}/>Lenovo
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={'Apple'} />Apple
+              <input className="w-3" type="checkbox" value={'Apple'} onChange={toggleBrand}/>Apple
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={'Dell'} />Dell
+              <input className="w-3" type="checkbox" value={'Dell'} onChange={toggleBrand}/>Dell
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={'Sony'} />Infinix
+              <input className="w-3" type="checkbox" value={'Infinix'} onChange={toggleBrand}/>Infinix
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={'Amtec'} />Amtec
+              <input className="w-3" type="checkbox" value={'Amtec'} onChange={toggleBrand}/>Amtec
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={'Tornado'} />Tornado
+              <input className="w-3" type="checkbox" value={'Tornado'} onChange={toggleBrand}/>Tornado
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={'Vitron'} />Vitron
+              <input className="w-3" type="checkbox" value={'Vitron'} onChange={toggleBrand}/>Vitron
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={'Redmi'} />Redmi
+              <input className="w-3" type="checkbox" value={'Redmi'} onChange={toggleBrand}/>Redmi
             </p>
           </div>
         </div>               
