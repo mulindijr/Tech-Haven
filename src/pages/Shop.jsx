@@ -29,13 +29,24 @@ const Shop = () => {
     }
   }
 
+  const applyFilter = () => {
+    let productsCopy = productsData.slice()
+    if(category.length > 0){
+      productsCopy = productsCopy.filter(item => category.includes(item.category))
+    }
+    if(brand.length > 0){
+      productsCopy = productsCopy.filter(item => brand.includes(item.brand))
+    }
+    setFilterProducts(productsCopy)
+  }
+
   useEffect(() => {
     setFilterProducts(productsData)
   },[])
 
   useEffect(() => {
-    console.log(category)
-  },[category])
+    applyFilter();
+  },[category, brand])
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
@@ -67,7 +78,7 @@ const Shop = () => {
           <p className="mb-3 font-medium text-sm">FILTER BY BRAND</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={'Techno'} onChange={toggleBrand}/>Techno
+              <input className="w-3" type="checkbox" value={'Tecno'} onChange={toggleBrand}/>Tecno
             </p>
             <p className="flex gap-2">
               <input className="w-3" type="checkbox" value={'Lenovo'} onChange={toggleBrand}/>Lenovo
