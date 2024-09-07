@@ -6,13 +6,13 @@ const Product = () => {
 
   const { productId} = useParams();
   const {productsData} = useContext(ShopContext);
-  const [products, setProducts] = useState([]);
+  const [productData, setProductData] = useState([]);
 
   const fetchProductsData = async () => {
 
     productsData.map(item => {
       if(item._id === productId) {
-        setProducts(item)
+        setProductData(item)
         console.log(item)
         return null;
       }
