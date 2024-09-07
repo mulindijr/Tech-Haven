@@ -45,11 +45,21 @@ const Product = () => {
           </div>
           <button className="bg-yellow-500 text-white font-bold px-8 py-1 sm:py-3 mt-2 w-full sm:text-md cursor-pointer active:bg-gray-700">ADD TO CART</button>
           <hr className="mt-4 sm:w-5/5"/>
-          <div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">
+          <div className="text-sm sm:text-lg text-gray-500 mt-5 flex flex-col gap-1">
             <p>100% original product</p>
             <p>Cash on delivery is available on  this product</p>
             <p>Easy return and exchange policy within 7 days</p>
           </div>      
+        </div>
+      </div>
+      {/* description and review section */}
+      <div className="mt-10">
+        <div className="flex">
+          <b className="border px-5 py-3 text-sm">Description</b>
+          <p className="border px-5 py-3 text-sm">Reviews(64)</p>
+        </div>
+        <div className="flex flex-col gap-4 border px-6 py-6 text-sm leading-normal sm:text-lg text-gray-500">
+          <p>{productData.description}</p>
         </div>
       </div>
     </div>
