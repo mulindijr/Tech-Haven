@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { ShopContext } from "../context/ShopContext";
 import { renderStars } from "../components/utils";
+import RelatedProducts from "../components/RelatedProducts";
 
 const Product = () => {
 
@@ -62,6 +63,8 @@ const Product = () => {
           <p>{productData.description}</p>
         </div>
       </div>
+      {/* ----------- Display Related Products ----------- */}
+      <RelatedProducts category={productData.category} brand={productData.brand} currentProductId={productId}/>
     </div>
   ): <div className="opacity-0"></div>
 }
