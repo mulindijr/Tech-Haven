@@ -3,7 +3,7 @@ import { renderStars } from "./utils";
 import { ShopContext } from "../context/ShopContext";
 import { Link } from "react-router-dom";
 
-const ProductItem = ({id, img, brand, name, price, rating}) => {
+const ProductItem = ({id, img, brand, name, price, rating, onClick}) => {
 
   const {currency} =useContext(ShopContext)
 
@@ -11,6 +11,7 @@ const ProductItem = ({id, img, brand, name, price, rating}) => {
       <Link 
         className="shadow-md p-5 cursor-pointer group"
         to={`/product/${id}`}
+        onClick={() => onClick(id)}
       >
       <div className="">
         <div className="flex justify-center items-center">
