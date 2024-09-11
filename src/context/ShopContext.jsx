@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { productsData } from "../constants";
+import { useNavigate } from "react-router-dom";
 
 
 export const ShopContext = createContext();
@@ -10,6 +11,7 @@ const ShopContextProvider = ({children}) => {
     const[search, setSearch] = useState('')
     const[showSearch, setShowSearch] = useState(false)
     const[cartItems, setCartItems] = useState({})
+    const navigate = useNavigate();
 
     const addToCart = async(itemId) => {
         const cartData = structuredClone(cartItems);
@@ -63,7 +65,7 @@ const ShopContextProvider = ({children}) => {
         productsData, currency, delivery_fee,  
         search, setSearch, showSearch, setShowSearch,
         cartItems, addToCart, getCartCount, updateQuantity,
-        getCartAmount
+        getCartAmount, navigate
 
     }
     
