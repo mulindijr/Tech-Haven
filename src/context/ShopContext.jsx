@@ -46,10 +46,24 @@ const ShopContextProvider = ({children}) => {
         setCartItems(cartData);
     }
 
+    const getCartAmount = () => {
+        let totalAmount = 0;
+    
+        for (const itemId in cartItems) {
+            let itemInfo = productsData.find(product => product._id === itemId);
+            if (itemInfo && cartItems[itemId] > 0) {
+                totalAmount += itemInfo.price * cartItems[itemId];
+            }
+        }
+    
+        return totalAmount;
+    };    
+
     const value ={
         productsData, currency, delivery_fee,  
         search, setSearch, showSearch, setShowSearch,
-        cartItems, addToCart, getCartCount, updateQuantity
+        cartItems, addToCart, getCartCount, updateQuantity,
+        getCartAmount
 
     }
     
