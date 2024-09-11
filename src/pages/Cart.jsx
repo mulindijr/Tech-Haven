@@ -1,9 +1,10 @@
 import { useContext, useState, useEffect } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "../components/Title";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const Cart = () => {
-  const { productsData, currency, cartItems } = useContext(ShopContext);
+  const { productsData, currency, cartItems, updateQuantity } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
@@ -46,6 +47,7 @@ const Cart = () => {
                 </div>
               </div>
               <input className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1" type="number" min={1} defaultValue={item.quantity} />
+              <RiDeleteBin6Line onClick={() => updateQuantity(item._id,0)} className="w-8 h-8 cursor-pointer"/>
             </div>
           ))
         }
