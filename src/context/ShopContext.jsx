@@ -30,14 +30,14 @@ const ShopContextProvider = ({children}) => {
         setCartItems(cartData);
     }
     
-    useEffect(() => {
-        console.log(cartItems)
-    }, [cartItems])
+    const getCartCount = () => {
+        return Object.values(cartItems).reduce((total, quantity) => total + quantity, 0);
+    };
 
     const value ={
         productsData, currency, delivery_fee,  
         search, setSearch, showSearch, setShowSearch,
-        cartItems, addToCart
+        cartItems, addToCart, getCartCount
 
     }
     
