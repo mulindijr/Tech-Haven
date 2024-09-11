@@ -34,10 +34,18 @@ const ShopContextProvider = ({children}) => {
         return Object.values(cartItems).reduce((total, quantity) => total + quantity, 0);
     };
 
+    const updateQuantity = async (itemId, quantity) => {
+        let cartData = structuredClone(cartItems);
+
+        cartData[itemId] = quantity;
+
+        setCartItems(cartData);
+    }
+
     const value ={
         productsData, currency, delivery_fee,  
         search, setSearch, showSearch, setShowSearch,
-        cartItems, addToCart, getCartCount
+        cartItems, addToCart, getCartCount, updateQuantity
 
     }
     
