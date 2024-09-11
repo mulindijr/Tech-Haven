@@ -11,7 +11,7 @@ const ShopContextProvider = ({children}) => {
     const[showSearch, setShowSearch] = useState(false)
     const[cartItems, setCartItems] = useState({})
 
-    const addToCart = (itemId) => {
+    const addToCart = async(itemId) => {
         const cartData = structuredClone(cartItems);
     
         if (cartData[itemId]) {
@@ -22,6 +22,17 @@ const ShopContextProvider = ({children}) => {
     
         setCartItems(cartData);
     }
+
+    useEffect(() => {
+        // Load cart items from local storage on component mount
+        const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || {};
+        setCartItems(storedCartItems);
+    }, []);
+    
+    useEffect(() => {
+        // Save cart items to local storage whenever they change
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    }, [cartItems]);
     
     const getCartCount = () => {
         return Object.values(cartItems).reduce((total, quantity) => total + quantity, 0);
