@@ -12,21 +12,14 @@ const ShopContextProvider = ({children}) => {
     const[cartItems, setCartItems] = useState({})
 
     const addToCart = (itemId) => {
-
         const cartData = structuredClone(cartItems);
-
+    
         if (cartData[itemId]) {
-            if (cartData[itemId]){
-                cartData[itemId] += 1;
-            }
-            else{
-                cartData[itemId] = 1;
-            }
-        }
-        else{
-            cartData[itemId] = {};
+            cartData[itemId] += 1;
+        } else {
             cartData[itemId] = 1;
         }
+    
         setCartItems(cartData);
     }
     
