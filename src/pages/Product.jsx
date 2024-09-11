@@ -44,7 +44,7 @@ const Product = () => {
             <span className="font-medium text-sm">{renderStars(productData.rating)}</span>
             <p className="italic">(66 verified ratings)</p>
           </div>
-          <button onClick={() => addToCart(productData._id)} className="bg-yellow-500 text-white font-bold px-8 py-1 sm:py-3 mt-2 w-full sm:text-md cursor-pointer active:bg-gray-700">ADD TO CART</button>
+          <button onClick={() => addToCart(productData._id)} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold px-8 py-1 sm:py-3 mt-2 w-full sm:text-md cursor-pointer active:bg-gray-700">ADD TO CART</button>
           <hr className="mt-4 sm:w-5/5"/>
           <div className="text-sm sm:text-lg text-gray-500 mt-5 flex flex-col gap-1">
             <p>100% original product</p>
