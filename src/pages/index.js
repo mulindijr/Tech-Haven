@@ -8,6 +8,7 @@ import Login from './Login';
 import SignUp from './Signup';
 import Product from './Product';
 import PlaceOrder from './PlaceOrder';
+import Orders from './Orders';
 
 export {    
     Home,
@@ -19,5 +20,6 @@ export {
     Login,
     SignUp,
     Product,
-    PlaceOrder
+    PlaceOrder,
+    Orders
 }
