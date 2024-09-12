@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { Home, Shop, About, Contact, Cart, Faqs, Login, SignUp, Product, PlaceOrder } from './pages';
+import { Home, Shop, About, Contact, Cart, Faqs, Login, SignUp, Product, PlaceOrder, Orders } from './pages';
 import Navigation from './components/Navigation'; 
 import Footer from './components/Footer'
 import SearchBar from './components/SearchBar';
@@ -20,6 +20,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/place-order" element={<PlaceOrder />} />
+        <Route path="/orders" element={<Orders />} />
       </Routes>
       <Footer />
     </div>   
