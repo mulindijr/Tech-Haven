@@ -32,6 +32,10 @@ const PlaceOrder = () => {
         <div className="mt-8">
             <div className="mt-8 min-w-80">
                 <CartTotal />
+            </div>
+
+            <div className="mt-12"> 
+                <Title title1={'PAYMENT'} title2={'METHOD'} />
             </div>         
         </div>
     </div>
