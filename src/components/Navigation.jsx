@@ -40,7 +40,9 @@ const Navigation = () => {
               <CiSearch onClick={() => setShowSearch(true)} className='w-5 cursor-pointer'/>
 
               <div className='group relative'>
-                <FaRegUser className='w-5 cursor-pointer'/>
+                <Link to="/login">
+                  <FaRegUser className='w-5 cursor-pointer'/>
+                </Link>
                 <div className='group-hover:block hidden absolute dropdown-menu right-0 p-4'>
                   <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
                     <p className='cursor-pointer hover:text-black'>My Profile</p>
