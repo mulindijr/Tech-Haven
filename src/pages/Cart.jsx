@@ -3,6 +3,7 @@ import { ShopContext } from "../context/ShopContext";
 import Title from "../components/Title";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import CartTotal from "../components/CartTotal";
+import { PiShoppingCartThin } from "react-icons/pi";
 
 const Cart = () => {
   const { productsData, currency, cartItems, updateQuantity,navigate } = useContext(ShopContext);
@@ -35,8 +36,15 @@ const Cart = () => {
       </div>
 
       {cartData.length === 0 ? (
-        <div className="text-center text-gray-500">
-          Your cart is empty
+        <div className="bg-slate-300 p-5 my-5 rounded">
+          <div className="flex flex-col items-center justify-center text-center gap-4">
+            <div className="flex items-center justify-center p-5 bg-slate-400 w-24 h-24 rounded-full">
+              <PiShoppingCartThin className="w-20 h-20 text-red-700"/>
+            </div>
+            <h2 className="text-xl sm:text-2xl">Your cart is empty!</h2>
+            <p className="text-sm sm:text-xl">Browse our categories and discover our best deals!</p>
+            <button className="p-4 bg-black text-white text-sm font-semibold rounded-2xl">START SHOPPING</button>
+          </div>
         </div>
       ) : 
         <>
