@@ -20,8 +20,12 @@ const RelatedProducts = ({ category, brand, currentProductId }) => {
   }, [productsData, category, brand, currentProductId]);
 
   const handleProductClick = (id) => {
-    navigate(`/product/${id}`); 
-  };
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+    navigate(`/product/${id}`);
+  }; 
 
   return (
     <div className="my-20">
