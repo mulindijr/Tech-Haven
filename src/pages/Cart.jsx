@@ -43,7 +43,7 @@ const Cart = () => {
             </div>
             <h2 className="text-xl sm:text-2xl">Your cart is empty!</h2>
             <p className="text-sm sm:text-xl">Browse our categories and discover our best deals!</p>
-            <button className="p-4 bg-black text-white text-sm font-semibold rounded-2xl">START SHOPPING</button>
+            <button onClick={() => navigate('/shop')} className="p-4 bg-black hover:bg-gray-900 text-white text-sm font-semibold rounded-2xl">START SHOPPING</button>
           </div>
         </div>
       ) : 
