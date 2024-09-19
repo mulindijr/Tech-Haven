@@ -30,7 +30,8 @@ const ShopContextProvider = ({children}) => {
         // Load cart items from local storage on component mount
         const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || {};
         setCartItems(storedCartItems);
-
+        
+        // Load recently viewed items from local storage on component mount
         const storedRecentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed')) || [];
         setRecentlyViewed(storedRecentlyViewed);
     }, []);
