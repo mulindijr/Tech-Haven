@@ -24,7 +24,7 @@ const ProductItem = ({id, img, brand, name, price, rating, onClick}) => {
         <span className="text-sm text-green-400">{brand}</span>
         <p className="mt-2 text-sm leading-normal font-semibold line-clamp-2">{name}</p>
         <div>{renderStars(rating)}</div>
-        <p className="text-pink-400">{currency}{price}</p>
+        <p className="text-pink-400">{currency} {price}</p>
       </div>
     </Link>
     )
