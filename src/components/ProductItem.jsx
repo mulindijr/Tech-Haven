@@ -9,7 +9,7 @@ const ProductItem = ({id, img, brand, name, price, rating, onClick}) => {
 
     return (
       <Link 
-        className="shadow-md p-5 cursor-pointer group"
+        className="border shadow-md rounded-md p-5 cursor-pointer group"
         to={`/product/${id}`}
         onClick={() => onClick(id)}
       >
@@ -24,7 +24,7 @@ const ProductItem = ({id, img, brand, name, price, rating, onClick}) => {
         <span className="text-sm text-green-400">{brand}</span>
         <p className="mt-2 text-sm leading-normal font-semibold line-clamp-2">{name}</p>
         <div>{renderStars(rating)}</div>
-        <p className="text-pink-400">{currency} {price}</p>
+        <p className="text-red-500 font-extrabold">{currency} {price}</p>
       </div>
     </Link>
     )
