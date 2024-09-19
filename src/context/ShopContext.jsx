@@ -40,6 +40,11 @@ const ShopContextProvider = ({children}) => {
         // Save cart items to local storage whenever they change
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
     }, [cartItems]);
+
+    useEffect(() => {
+        // Save recently viewed items to local storage whenever they change
+        localStorage.setItem('recentlyViewed', JSON.stringify(recentlyViewed));
+    }, [recentlyViewed]);
     
     const getCartCount = () => {
         return Object.values(cartItems).reduce((total, quantity) => total + quantity, 0);
