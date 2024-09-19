@@ -11,6 +11,7 @@ const ShopContextProvider = ({children}) => {
     const[search, setSearch] = useState('')
     const[showSearch, setShowSearch] = useState(false)
     const[cartItems, setCartItems] = useState({})
+    const [recentlyViewed, setRecentlyViewed] = useState([])
     const navigate = useNavigate();
 
     const addToCart = async(itemId) => {
@@ -29,6 +30,9 @@ const ShopContextProvider = ({children}) => {
         // Load cart items from local storage on component mount
         const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || {};
         setCartItems(storedCartItems);
+
+        const storedRecentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed')) || [];
+        setRecentlyViewed(storedRecentlyViewed);
     }, []);
     
     useEffect(() => {
