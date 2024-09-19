@@ -54,12 +54,15 @@ const ShopContextProvider = ({children}) => {
         for (const itemId in cartItems) {
             let itemInfo = productsData.find(product => product._id === itemId);
             if (itemInfo && cartItems[itemId] > 0) {
-                totalAmount += itemInfo.price * cartItems[itemId];
+                // Remove commas from the price string and convert it to a number
+                const price = parseInt(itemInfo.price.replace(/,/g, ''), 10);
+                totalAmount += price * cartItems[itemId];
             }
         }
     
-        return totalAmount;
-    };    
+        // Format the total amount with commas
+        return totalAmount.toLocaleString();
+    };       
 
     const value ={
         productsData, currency, delivery_fee,  
