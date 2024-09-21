@@ -1,5 +1,5 @@
 import React, { useState,useContext,useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { navLinks } from '../constants';
 import { CiSearch } from "react-icons/ci";
 import { FaRegUser } from "react-icons/fa6";
@@ -13,6 +13,7 @@ const Navigation = () => {
 
   const [visible, setVisible] = useState(false);
   const {setShowSearch, getCartCount} = useContext(ShopContext);
+  const location = useLocation();
 
   useEffect(() => {
     if (visible) {
@@ -47,7 +48,9 @@ const Navigation = () => {
           ))}
         </ul>
         <div className='flex items-center gap-4'>
-          <CiSearch onClick={() => setShowSearch(true)} className='w-5 cursor-pointer'/>
+          {location.pathname === '/shop' && ( // Show search icon only on the Shop page
+            <CiSearch onClick={() => setShowSearch(true)} className='w-5 cursor-pointer'/>
+          )}
           <div className='group relative'>
             <Link to="/login">
               <FaRegUser className='w-5 cursor-pointer'/>
