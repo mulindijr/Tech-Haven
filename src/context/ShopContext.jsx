@@ -26,6 +26,17 @@ const ShopContextProvider = ({children}) => {
         setCartItems(cartData);
     }
 
+    // Function to add a product to recently viewed
+    const addToRecentlyViewed = (product) => {
+        setRecentlyViewed((prev) => {
+          const exists = prev.find((item) => item._id === product._id);
+          if (exists) return prev;
+      
+          const newRecent = [product, ...prev];
+          return newRecent.length > 5 ? newRecent.slice(0, 5) : newRecent;
+        });
+    };     
+
     useEffect(() => {
         // Load cart items from local storage on component mount
         const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || {};
@@ -78,8 +89,7 @@ const ShopContextProvider = ({children}) => {
         productsData, currency, delivery_fee,  
         search, setSearch, showSearch, setShowSearch,
         cartItems, addToCart, getCartCount, updateQuantity,
-        getCartAmount, navigate
-
+        getCartAmount, navigate, recentlyViewed, addToRecentlyViewed        
     }
     
     return (
