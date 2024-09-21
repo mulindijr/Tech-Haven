@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react';
+import React, { useState,useContext,useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { navLinks } from '../constants';
 import { CiSearch } from "react-icons/ci";
@@ -13,6 +13,18 @@ const Navigation = () => {
 
   const [visible, setVisible] = useState(false);
   const {setShowSearch, getCartCount} = useContext(ShopContext);
+
+  useEffect(() => {
+    if (visible) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+    
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+    };
+  }, [visible]);
 
     return (
         <header className='sticky top-0 z-10 bg-white shadow px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
