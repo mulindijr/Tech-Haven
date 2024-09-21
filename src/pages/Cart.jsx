@@ -4,6 +4,7 @@ import Title from "../components/Title";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import CartTotal from "../components/CartTotal";
 import { PiShoppingCartThin } from "react-icons/pi";
+import RecentlyViewedProducts from "../components/RecentlyViewedProducts";
 
 const Cart = () => {
   const { productsData, currency, cartItems, updateQuantity,navigate } = useContext(ShopContext);
@@ -80,6 +81,7 @@ const Cart = () => {
           </div>
         </>
       }      
+      <RecentlyViewedProducts />  
     </div>
   );
 };
