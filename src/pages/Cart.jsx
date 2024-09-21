@@ -30,19 +30,19 @@ const Cart = () => {
   }, [cartItems, productsData]);
 
   return (
-    <div className=" border-t pt-14">
+    <div className="pt-4">
 
-      <div className="text-2xl mb-3">
-        <Title title1={'Your'} title2={'Cart'}/> 
+      <div className="text-xl mb-2">
+        <Title title1={'YOUR'} title2={'CART'}/> 
       </div>
 
       {cartData.length === 0 ? (
-        <div className="bg-slate-300 p-5 my-5 rounded">
+        <div className="bg-slate-300 p-5 my-2 rounded">
           <div className="flex flex-col items-center justify-center text-center gap-4">
             <div className="flex items-center justify-center p-5 bg-slate-400 w-24 h-24 rounded-full">
               <PiShoppingCartThin className="w-20 h-20 text-red-700"/>
             </div>
-            <h2 className="text-xl sm:text-2xl">Your cart is empty!</h2>
+            <h2 className="text-xl">Your cart is empty!</h2>
             <p className="text-sm sm:text-xl">Browse our categories and discover our best deals!</p>
             <button onClick={() => navigate('/shop')} className="p-4 bg-black hover:bg-gray-900 text-white text-sm font-semibold rounded-2xl">START SHOPPING</button>
           </div>
@@ -69,7 +69,7 @@ const Cart = () => {
             }
           </div>
 
-          <div className="flex justify-end my-20">
+          <div className="flex justify-end my-10">
             <div className="w-full sm:w-[450px]">
               <CartTotal />
               <div className="w-full text-end">
