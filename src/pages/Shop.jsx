@@ -77,7 +77,7 @@ const Shop = () => {
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
       {/*filter options*/}
       <div className="min-w-60">
-        <p onClick={() => setShowFilter(!showFilter)} className="my-2 text-xl flex items-center cursor-pointer gap-1">FILTERS
+        <p onClick={() => setShowFilter(!showFilter)} className="my-2 text-sm font-medium sm:text-xl flex items-center cursor-pointer gap-1">FILTERS
           <MdOutlineKeyboardArrowRight className={`h-10 flex items-center sm:hidden ${showFilter ? 'rotate-90' : ''}`}/>                   
         </p> 
         {/*filter by category*/}
