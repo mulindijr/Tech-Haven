@@ -33,11 +33,11 @@ Welcome to Tech Haven, your one-stop destination for the latest and greatest in 
 
 To get started with Tech Haven, clone the repository:
 ```bash
-   git clone https://github.com/mulindijr/tech-haven.git
+   git clone https://github.com/mulindijr/Tech-Haven.git
 ```
 Navigate to the repository
 ```bash
-   cd tech-haven
+   cd Tech-Haven
 ```
 Install the dependencies:
 ```bash
