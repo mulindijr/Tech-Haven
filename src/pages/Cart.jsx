@@ -5,6 +5,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import CartTotal from "../components/CartTotal";
 import { PiShoppingCartThin } from "react-icons/pi";
 import RecentlyViewedProducts from "../components/RecentlyViewedProducts";
+import {toast} from 'react-toastify';
 
 const Cart = () => {
   const { productsData, currency, cartItems, updateQuantity,navigate } = useContext(ShopContext);
@@ -28,6 +29,19 @@ const Cart = () => {
     
     setCartData(tempData);
   }, [cartItems, productsData]);
+
+  const handleDelete = (itemId) => {
+    updateQuantity(itemId, 0);
+    toast.success('Item removed from cart!', {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
   return (
     <div className="pt-4">
@@ -63,7 +77,7 @@ const Cart = () => {
                     </div>
                   </div>
                   <input onChange={(e) => e.target.value === '' || e.target.value === '0' ? null : updateQuantity(item._id, Number(e.target.value))} className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1" type="number" min={1} defaultValue={item.quantity} />
-                  <RiDeleteBin6Line onClick={() => updateQuantity(item._id,0)} className="w-5 h-5 cursor-pointer"/>
+                  <RiDeleteBin6Line onClick={() => handleDelete(item._id)} className="w-5 h-5 cursor-pointer"/>
                 </div>
               ))
             }
