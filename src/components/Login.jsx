@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { MdClose } from "react-icons/md";
 
 const Login = ({setShowLogin}) => {
@@ -8,6 +8,20 @@ const Login = ({setShowLogin}) => {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
   }
+
+  // Prevent scrolling when the modal is open
+  useEffect(() => {
+    if (setShowLogin) {
+      document.body.style.overflow = "hidden"; // Prevent scrolling
+    } else {
+      document.body.style.overflow = "unset"; // Restore scrolling
+    }
+
+    // Cleanup function to restore scrolling on unmount
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [setShowLogin]);
 
   return (
     <div className="absolute z-[1] w-full h-full bg-[#00000090] grid">
