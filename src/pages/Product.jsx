@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import { renderStars } from "../components/utils";
 import RelatedProducts from "../components/RelatedProducts";
+import { toast, ToastContainer } from 'react-toastify';
 
 const Product = () => {
   const { productId } = useParams();
@@ -18,6 +19,19 @@ const Product = () => {
   }, [productId, productsData, addToRecentlyViewed]);
 
   if (!productData) return <div>Loading...</div>;
+
+  const handleAddToCart = (productId) => {
+    addToCart(productId);
+    toast.success('Item added to cart!', {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
   return (
     <div className="border-t pt-10 mb-10 transition-opacity duration-500 opacity-100">
@@ -38,7 +52,7 @@ const Product = () => {
             <span className="font-medium text-sm">{renderStars(productData.rating)}</span>
             <p className="italic">(66 verified ratings)</p>
           </div>
-          <button onClick={() => addToCart(productData._id)} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold px-8 py-1 sm:py-3 mt-2 w-full sm:text-md cursor-pointer active:bg-gray-700">ADD TO CART</button>
+          <button onClick={() => handleAddToCart(productData._id)} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold px-8 py-1 sm:py-3 mt-2 w-full sm:text-md cursor-pointer active:bg-gray-700">ADD TO CART</button>
           <hr className="mt-4 sm:w-5/5" />
           <div className="text-sm sm:text-lg text-gray-500 mt-5 flex flex-col gap-1">
             <p>100% original product</p>
