@@ -9,7 +9,7 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { ShopContext } from '../context/ShopContext';
 
 
-const Navigation = () => {
+const Navigation = ({setShowLogin}) => {
 
   const [visible, setVisible] = useState(false);
   const {setShowSearch, getCartCount} = useContext(ShopContext);
@@ -52,9 +52,10 @@ const Navigation = () => {
             <CiSearch onClick={() => setShowSearch(true)} className='w-5 cursor-pointer'/>
           )}
           <div className='group relative'>
-            <Link to="/login">
+            <div onClick={() => setShowLogin(true)}>
               <FaRegUser className='w-5 cursor-pointer'/>
-            </Link>
+            </div>
+            {/*
             <div className='group-hover:block hidden absolute dropdown-menu right-0 p-4'>
               <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
                 <p className='cursor-pointer hover:text-black'>My Profile</p>
@@ -62,6 +63,7 @@ const Navigation = () => {
                 <p className='cursor-pointer hover:text-black'>Logout</p>
               </div>
             </div>
+            */}
           </div>
           <Link to='/cart' className='relative'>
             <AiOutlineShopping className='w-5 m-w-5 bg-white'/>
