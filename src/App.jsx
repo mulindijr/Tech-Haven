@@ -5,12 +5,15 @@ import Footer from './components/Footer'
 import SearchBar from './components/SearchBar';
 import Login from './components/Login';
 import { useState } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false)
   return (  
     <>
       {showLogin ? <Login setShowLogin = {setShowLogin}/> : <></>}  
+      <ToastContainer />
       <div>
         <Navigation setShowLogin = {setShowLogin}/>
         <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>      
