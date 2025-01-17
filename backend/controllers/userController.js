@@ -1,4 +1,5 @@
 import userModel from "../models/userModel";
+import validator from "validator";
 
 //Route for user login
 const loginUser = async (req, res) => {
@@ -16,6 +17,15 @@ const registerUser = async (req, res) => {
         const userExists = await userModel.findOne({email});
         if (userExists) {
             return res.json({success:false, message: "User already exists"});
+        }
+
+        //Validating email and strong password
+        if (!validator.isEmail(email)) {
+            return res.json({success:false, message: "Invalid email"})
+        }
+
+        if (password.length < 8) {
+            return res.json({success:false, message: "Password must be at least 8 characters long"})
         }
 
     } 
