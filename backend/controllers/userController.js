@@ -1,5 +1,6 @@
 import userModel from "../models/userModel";
 import validator from "validator";
+import bcrypt from "bcrypt";
 
 //Route for user login
 const loginUser = async (req, res) => {
@@ -27,6 +28,10 @@ const registerUser = async (req, res) => {
         if (password.length < 8) {
             return res.json({success:false, message: "Password must be at least 8 characters long"})
         }
+
+        //Hashing user password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
     } 
     catch (error) {}
