@@ -51,7 +51,10 @@ const registerUser = async (req, res) => {
 
         res.json({success:true, token})
     } 
-    catch (error) {}
+    catch (error) {
+        console.log(error);
+        res.json({success:false, message:error.message})
+    }
 }
 
 //Route for admin login
