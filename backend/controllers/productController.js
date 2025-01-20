@@ -1,4 +1,4 @@
-
+import { v2 as cloudinary } from "cloudinary";
 
 // Function for adding a new product
 const addProduct = async (req, res) => {
@@ -15,8 +15,12 @@ const addProduct = async (req, res) => {
             return res.status(400).json({ success: false, message: "Image file is required" });
         }
 
-        console.log(name, brand, price, description, category, rating)
-        console.log(image)
+        // Upload image to Cloudinary
+        const result = await cloudinary.uploader.upload(req.file.path, {
+            folder: "products", // Folder in Cloudinary where images will be stored
+            use_filename: true,
+            unique_filename: false,
+        });
 
     } catch (error) {
         console.error(error);
