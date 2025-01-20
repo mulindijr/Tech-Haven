@@ -1,4 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
+import productModel from "../models/productModel.js";
 
 // Function for adding a new product
 const addProduct = async (req, res) => {
@@ -33,6 +34,10 @@ const addProduct = async (req, res) => {
             date: Date.now(),
         };
         console.log(productData);
+
+        // Save product to database 
+        const product = new productModel(productData);
+        await product.save();
 
     } catch (error) {
         console.error(error);
