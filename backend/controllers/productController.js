@@ -21,6 +21,18 @@ const addProduct = async (req, res) => {
             use_filename: true,
             unique_filename: false,
         });
+        
+        const productData = {
+            name,
+            brand,
+            price,
+            description,
+            category,
+            rating,
+            imgURL: result.secure_url,
+            date: Date.now(),
+        };
+        console.log(productData);
 
     } catch (error) {
         console.error(error);
