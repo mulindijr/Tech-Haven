@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { Routes, Route } from "react-router-dom"
 import Navbar from "./components/Navbar"
 import Sidebar from "./components/Sidebar"
@@ -12,7 +12,11 @@ export const backendUrl = import.meta.env.VITE_BACKEND_URL
 
 function App() {
 
-  const [token, setToken] = useState("")
+  const [token, setToken] = useState(localStorage.getItem('token') || '');
+
+  useEffect(() => {
+    localStorage.setItem('token', token)
+  }, [token])
 
   return (
     <div className="bg-gray-50 min-h-screen">
