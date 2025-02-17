@@ -1,30 +1,59 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { IoIosAddCircleOutline, IoIosList } from "react-icons/io";
-import { IoBagCheckOutline } from "react-icons/io5";;
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { IoIosAddCircleOutline, IoIosList } from 'react-icons/io';
+import { IoBagCheckOutline } from 'react-icons/io5';
 
 const Sidebar = () => {
   return (
-    <div className='w-[18%] min-h-screen border-r-2 '>
-        <div className='flex flex-col gap-2 pt-6 pl-[5%] text-[15px]'>
-            <NavLink className='flex items-center gap-2 border border-gray-300 border-r-0 px-3 py-2 rounded-l' to='/add'>
-                <IoIosAddCircleOutline className='text-3xl'/>
-                <p className='hidden md:block'>Add Items</p>
-            </NavLink>
+    <div className="w-[18%] min-h-screen border-r-2 border-gray-200 bg-white">
+      <div className="flex flex-col gap-3 pt-8 pl-[5%]">
+        {/* Add Items Link */}
+        <NavLink
+          to="/add"
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-4 py-3 rounded-l-lg transition-all duration-200 ${
+              isActive
+                ? 'bg-[#ffebf5] border-l-4 border border-red-300 border-r-0 text-black font-semibold'
+                : 'text-gray-600 bg-gray-100 border border-r-0 hover:text-gray-900'
+            }`
+          }
+        >
+          <IoIosAddCircleOutline className="text-2xl" />
+          <p className="hidden md:block text-sm">Add Items</p>
+        </NavLink>
 
-            <NavLink className='flex items-center gap-2 border border-gray-300 border-r-0 px-3 py-2 rounded-l' to='/list'>
-                <IoIosList className='text-3xl'/>
-                <p className='hidden md:block'>List Items</p>
-            </NavLink>
+        {/* List Items Link */}
+        <NavLink
+          to="/list"
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-4 py-3 rounded-l-lg transition-all duration-200 ${
+              isActive
+                ? 'bg-[#ffebf5] border-l-4 border border-red-300 border-r-0 text-black font-semibold'
+                : 'text-gray-600 bg-gray-100 border border-r-0 hover:text-gray-900'
+            }`
+          }
+        >
+          <IoIosList className="text-2xl" />
+          <p className="hidden md:block text-sm">List Items</p>
+        </NavLink>
 
-            <NavLink className='flex items-center gap-2 border border-gray-300 border-r-0 px-3 py-2 rounded-l' to='/orders'>
-                <IoBagCheckOutline className='text-3xl'/>
-                <p className='hidden md:block'>Orders</p>
-            </NavLink>
-        </div>
-                   
+        {/* Orders Link */}
+        <NavLink
+          to="/orders"
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-4 py-3 rounded-l-lg transition-all duration-200 ${
+              isActive
+                ? 'bg-[#ffebf5] border-l-4 border border-red-300 border-r-0 text-black font-semibold'
+                : 'text-gray-600 bg-gray-100 border border-r-0 hover:text-gray-900'
+            }`
+          }
+        >
+          <IoBagCheckOutline className="text-2xl" />
+          <p className="hidden md:block text-sm">Orders</p>
+        </NavLink>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;
