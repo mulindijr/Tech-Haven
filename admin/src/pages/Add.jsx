@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { MdOutlineCloudUpload } from "react-icons/md";
 
 const Add = () => {
-  const [image, setImage] = useState(null);
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImage(URL.createObjectURL(file));
-    }
-  };
+  const [image, setImage] = useState(false);
+  const [name,setName] = useState('');
+  const [brand,setBrand] = useState('');
+  const [category,setCategory] = useState('Laptop');
+  const [rating,setRating] = useState('');
+  const [price,setPrice] = useState('');
+  const [description,setDescription] = useState('');
 
   return (
     <form className="space-y-6 p-6 border rounded-xl shadow-lg w-full max-w-2xl mx-auto bg-white">
@@ -18,9 +17,7 @@ const Add = () => {
         <p className="text-lg font-semibold text-gray-700 mb-2">Upload Product Image</p>
         <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center transition-colors duration-200 hover:border-blue-500 hover:bg-gray-50">
           <label htmlFor="image" className="group flex flex-col items-center gap-3 cursor-pointer">
-            {image ? (
-              <img src={image} alt="Preview" className="w-48 h-48 object-cover rounded-lg shadow-sm" />
-            ) : (
+            {!image ? (
               <>
                 <MdOutlineCloudUpload 
                   size={60} 
@@ -33,8 +30,14 @@ const Add = () => {
                   <p className="text-sm text-gray-500">PNG, JPG, JPEG (max. 5MB)</p>
                 </div>
               </>
+            ): (
+              <img 
+                src={URL.createObjectURL(image)}
+                alt="Preview" 
+                className="w-36 h-36 sm:w-48 sm:h-48 object-cover rounded-lg shadow-sm" 
+              />
             )}
-            <input type="file" id="image" hidden onChange={handleImageChange} />
+            <input type="file" id="image" hidden onChange={e => setImage(e.target.files[0])} />
           </label>
         </div>
       </div>
@@ -48,6 +51,8 @@ const Add = () => {
               Product Name
             </label>
             <input
+              onChange = {e => setName(e.target.value)}
+              value={name}
               type="text"
               required
               className="w-full px-4 py-2.5 border-xl transition-all"
@@ -61,6 +66,8 @@ const Add = () => {
               Brand
             </label>
             <input
+              onChange = {e => setBrand(e.target.value)}
+              value={brand}
               type="text"
               required
               className="w-full px-4 py-2.5 border-xl transition-all"
@@ -73,7 +80,7 @@ const Add = () => {
           {/* Category Select */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
-            <select className="w-full px-4 py-2.5 border-xl transition-all">  
+            <select onChange={e => setCategory(e.target.value)} className="w-full px-4 py-2.5 border-xl transition-all"> 
               <option value="laptop">Laptop</option>
               <option value="smartphone">Smartphone</option>
               <option value="television">Television</option>
@@ -87,6 +94,8 @@ const Add = () => {
               Rating (1-5)
             </label>
             <input
+              onChange = {e => setRating(e.target.value)}
+              value={rating}
               type="number"
               min="1"
               max="5"
@@ -103,6 +112,8 @@ const Add = () => {
             Price (Ksh)
           </label>
           <input
+            onChange = {e => setPrice(e.target.value)}
+            value={price}
             type="number"
             required
             className="w-full px-4 py-2.5 border-xl transition-all"
@@ -116,6 +127,8 @@ const Add = () => {
             Description
           </label>
           <textarea
+            onChange = {e => setDescription(e.target.value)}
+            value={description}
             rows="4"
             required
             className="w-full px-4 py-2.5 border-xl transition-all resize-none"
