@@ -12,9 +12,11 @@ const Add = ({token}) => {
   const [rating,setRating] = useState('');
   const [price,setPrice] = useState('');
   const [description,setDescription] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData();
 
@@ -44,6 +46,8 @@ const Add = ({token}) => {
 
     } catch (error) {
       toast.error(error.message)
+    }finally{
+      setLoading(false);
     }
   } 
 
@@ -177,9 +181,12 @@ const Add = ({token}) => {
       {/* Submit Button */}
       <button
         type="submit"
-        className="w-full bg-blue-600 rounded text-white py-3.5 font-semibold hover:bg-blue-700 transition-colors duration-200"
+        disabled={loading}
+        className={`w-full rounded text-white py-3.5 font-semibold transition-colors duration-200 ${
+          loading ? 'bg-blue-900 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
+        }`}
       >
-        Add Product
+        {loading ? `Adding ${name}...` : 'Add Product'}
       </button>
     </form>
   );
