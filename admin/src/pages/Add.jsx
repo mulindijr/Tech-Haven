@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { MdOutlineCloudUpload } from "react-icons/md";
+import axios from 'axios';
+import {backendUrl} from '../App';
 
-const Add = () => {
+const Add = ({token}) => {
   const [image, setImage] = useState(false);
   const [name,setName] = useState('');
   const [brand,setBrand] = useState('');
@@ -10,8 +12,29 @@ const Add = () => {
   const [price,setPrice] = useState('');
   const [description,setDescription] = useState('');
 
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("name", name);
+    formData.append("brand", brand);
+    formData.append("category", category);
+    formData.append("rating", rating);
+    formData.append("price", price);
+    formData.append("description", description);
+    formData.append("image", image);
+
+    try {
+      const response = await axios.post(backendUrl + '/api/product/add', formData, {headers:{token}});
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  } 
+
   return (
-    <form className="space-y-6 p-6 border rounded-xl shadow-lg w-full max-w-2xl mx-auto bg-white">
+    <form onSubmit={onSubmitHandler} className="space-y-6 p-6 border rounded-xl shadow-lg w-full max-w-2xl mx-auto bg-white">
       {/* Image Upload Section */}
       <div>
         <p className="text-lg font-semibold text-gray-700 mb-2">Upload Product Image</p>
