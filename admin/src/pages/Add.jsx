@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { MdOutlineCloudUpload } from "react-icons/md";
 import axios from 'axios';
 import {backendUrl} from '../App';
+import { toast } from 'react-toastify';
 
 const Add = ({token}) => {
-  const [image, setImage] = useState(false);
+  const [image, setImage] = useState(null);
   const [name,setName] = useState('');
   const [brand,setBrand] = useState('');
   const [category,setCategory] = useState('Laptop');
@@ -27,9 +28,22 @@ const Add = ({token}) => {
 
     try {
       const response = await axios.post(backendUrl + '/api/product/add', formData, {headers:{token}});
-      console.log(response.data);
+
+      if(response.data.success) {
+        toast.success(response.data.message);
+        setImage(null);
+        setName('');
+        setBrand('');
+        setCategory('Laptop');
+        setRating('');
+        setPrice('');
+        setDescription('');
+      } else {
+        toast.error(response.data.message);
+      }
+
     } catch (error) {
-      console.log(error);
+      toast.error(error.message)
     }
   } 
 
