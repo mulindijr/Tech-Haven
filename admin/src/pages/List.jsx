@@ -4,7 +4,7 @@ import { backendUrl, currency } from '../App';
 import { toast } from 'react-toastify';
 import { FiEdit, FiTrash2, FiStar } from 'react-icons/fi';
 
-const List = () => {
+const List = ({token}) => {
 
   const [list, setList] = useState([]);
 
@@ -13,6 +13,22 @@ const List = () => {
       const response = await axios.get(backendUrl + '/api/product/list');
       if (response.data.success) {
         setList(response.data.products);
+      } else {
+        toast.error(response.data.message);
+      }
+    }catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  }
+
+  const removeProduct = async (id) => {
+    try {
+      const response = await axios.post(backendUrl + '/api/product/remove/', {id}, {headers:{token}});
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+        await fetchList();
       } else {
         toast.error(response.data.message);
       }
@@ -51,7 +67,7 @@ const List = () => {
                 <button className='text-2xl text-green-500 hover:text-green-600 px-2 py-1 rounded' title='Edit'>
                   <FiEdit />
                 </button>
-                <button className='text-2xl text-red-500 hover:text-red-600 px-2 py-1 rounded' title='Delete'>
+                <button onClick={() => removeProduct(item._id)} className='text-2xl text-red-500 hover:text-red-600 px-2 py-1 rounded' title='Delete'>
                   <FiTrash2 />
                 </button>
               </div>
