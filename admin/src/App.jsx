@@ -29,7 +29,7 @@ function App() {
           <Navbar setToken = {setToken}/>
           <div className="flex w-full">
             <Sidebar />
-            <div className="w-[70%] mx-auto ml-[max(5vw, 25px)] my-8 text-gray-600 text-base">
+            <div className="w-[82%] ml-[18%] px-6 my-8 text-gray-600 text-base">
               <Routes>
                 <Route path="/" element={<Navigate to="/add" />} />
                 <Route path="/add" element={<Add token = {token}/>} />
