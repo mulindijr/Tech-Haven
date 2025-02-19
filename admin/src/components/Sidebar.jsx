@@ -5,7 +5,7 @@ import { IoBagCheckOutline } from 'react-icons/io5';
 
 const Sidebar = () => {
   return (
-    <div className="w-[18%] min-h-screen border-r-2 border-gray-200 bg-white">
+    <div className="fixed left-0 w-[18%] h-screen border-r-2 border-gray-200 bg-white">
       <div className="flex flex-col gap-3 pt-8 pl-[5%]">
         {/* Add Items Link */}
         <NavLink
