@@ -24,9 +24,10 @@ const Add = ({token}) => {
 
   // Update brands when category changes
   const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
-    setBrand(""); // Reset brand selection when category changes
-  };
+    const newCategory = e.target.value;
+    setCategory(newCategory);
+    setBrand(categoryBrands[newCategory][0]); // Set first brand in the list
+  };  
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
