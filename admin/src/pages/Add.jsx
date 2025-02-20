@@ -133,9 +133,6 @@ const Add = ({token}) => {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Brand</label>
             <select onChange={(e) => setBrand(e.target.value)} value={brand} className="w-full px-4 py-2.5 border-xl transition-all"> 
-              <option value="" disabled>
-                Select a brand
-              </option>
               {categoryBrands[category].map((br) => (
                 <option key={br} value={br}>
                   {br}
