@@ -1,13 +1,15 @@
 import { createContext, useEffect, useState } from "react";
-import { productsData } from "../constants";
+import axios from "axios";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
 
 export const ShopContext = createContext();
 
 const ShopContextProvider = ({children}) => {
     const currency = 'Ksh';
     const delivery_fee = 200
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    const[products, setProducts] = useState([])
     const[search, setSearch] = useState('')
     const[showSearch, setShowSearch] = useState(false)
     const[cartItems, setCartItems] = useState({})
@@ -73,7 +75,7 @@ const ShopContextProvider = ({children}) => {
         let totalAmount = 0;
     
         for (const itemId in cartItems) {
-            let itemInfo = productsData.find(product => product._id === itemId);
+            let itemInfo = products.find(product => product._id === itemId);
             if (itemInfo && cartItems[itemId] > 0) {
                 // Remove commas from the price string and convert it to a number
                 const price = parseInt(itemInfo.price.replace(/,/g, ''), 10);
@@ -83,13 +85,31 @@ const ShopContextProvider = ({children}) => {
     
         // Format the total amount with commas
         return totalAmount.toLocaleString();
-    };       
+    };
+
+    const getProductsData = async () => {
+        try {
+            const response = await axios.get(backendUrl + '/api/product/list');
+            if (response.data.success) {
+                setProducts(response.data.products);
+            } else {
+                toast.error(response.data.message);
+            }
+        }catch (error) {
+            console.log(error);
+            toast.error(error.message);
+        }
+    }
+
+    useEffect(() => {
+        getProductsData();
+    }, [])
 
     const value ={
-        productsData, currency, delivery_fee,  
+        products, currency, delivery_fee,  
         search, setSearch, showSearch, setShowSearch,
         cartItems, addToCart, getCartCount, updateQuantity,
-        getCartAmount, navigate, recentlyViewed, addToRecentlyViewed        
+        getCartAmount, navigate, recentlyViewed, addToRecentlyViewed, backendUrl, getProductsData        
     }
     
     return (
