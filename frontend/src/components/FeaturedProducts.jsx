@@ -5,12 +5,12 @@ import ProductItem from "./ProductItem"
 
 const FeaturedProducts = () => {
 
-    const {productsData}=useContext(ShopContext)
+    const {products}=useContext(ShopContext)
     const [featuredProducts, setFeaturedProducts] = useState([])
 
     useEffect(()=>{ 
-        setFeaturedProducts(productsData.slice(0,10));
-    },[])
+        setFeaturedProducts(products.slice(0,10));
+    },[products])
 
   return (
     <div className="my-10">

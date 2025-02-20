@@ -6,13 +6,13 @@ import { useContext } from "react"
 
 const BestSellers = () => {
 
-    const {productsData} =useContext(ShopContext)
+    const {products} =useContext(ShopContext)
     const [bestSellers, setBestSellers] = useState([])
 
     useEffect(()=>{
-        const bestProduct = (productsData.filter(item => item.rating>=4));
+        const bestProduct = (products.filter(item => item.rating>=4));
         setBestSellers(bestProduct.slice(0,5));
-    },[])
+    },[products])
 
   return (
     <>

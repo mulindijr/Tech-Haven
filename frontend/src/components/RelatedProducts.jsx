@@ -5,19 +5,19 @@ import Title from "./Title";
 import ProductItem from "./ProductItem";
 
 const RelatedProducts = ({ category, brand, currentProductId }) => {
-  const { productsData } = useContext(ShopContext);
+  const { products } = useContext(ShopContext);
   const [related, setRelated] = useState([]);
   const navigate = useNavigate(); 
 
   useEffect(() => {
-    if (productsData.length > 0) {
-      let productsDataCopy = productsData.slice();
+    if (products.length > 0) {
+      let productsDataCopy = products.slice();
       productsDataCopy = productsDataCopy.filter((item) => item.category === category);
       productsDataCopy = productsDataCopy.filter((item) => item.brand === brand);
       productsDataCopy = productsDataCopy.filter((item) => item._id !== currentProductId);
       setRelated(productsDataCopy.slice(0, 5));
     }
-  }, [productsData, category, brand, currentProductId]);
+  }, [products, category, brand, currentProductId]);
 
   const handleProductClick = (id) => {
     window.scrollTo({
