@@ -44,15 +44,17 @@ const List = ({token}) => {
 
   return (
     <>
-      <p className='mb-2'>All Products List</p>
       <div className='flex flex-col gap-2'>
-        <div className='hidden md:grid grid-cols-[1fr_3fr_1fr_1fr_1fr_1fr] items-center border border-red-500 bg-gray-200 py-2 px-3'>
-          <b>Image</b>
-          <b>Name</b>
-          <b>Brand</b>
-          <b>Price</b>
-          <b>Rating</b>
-          <b className='text-center'>Action</b>
+        <div className='sticky top-[72px] z-10 bg-gray-100 p-2 shadow-md'>
+          <p className='mb-2 mt-2 text-lg font-semibold'>All Products List</p>
+          <div className='hidden md:grid grid-cols-[1fr_3fr_1fr_1fr_1fr_1fr] items-center border border-red-500 bg-gray-200 py-2 px-3'>
+            <b>Image</b>
+            <b>Name</b>
+            <b>Brand</b>
+            <b>Price</b>
+            <b>Rating</b>
+            <b className='text-center'>Action</b>
+          </div>
         </div>
         {
           list.map((item, index) => (                          
