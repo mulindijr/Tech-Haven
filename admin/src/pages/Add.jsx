@@ -22,6 +22,12 @@ const Add = ({token}) => {
     Audio: ["Bose", "Sony", "JBL", "Sennheiser", "Beats", "Samsung"],
   };
 
+  // Update brands when category changes
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
+    setBrand(""); // Reset brand selection when category changes
+  };
+
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -109,31 +115,31 @@ const Add = ({token}) => {
             />
           </div>
 
-          {/* Brand Input */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Brand
-            </label>
-            <input
-              onChange = {e => setBrand(e.target.value)}
-              value={brand}
-              type="text"
-              required
-              className="w-full px-4 py-2.5 border-xl transition-all"
-              placeholder="Enter brand name"
-            />
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
           {/* Category Select */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
-            <select onChange={e => setCategory(e.target.value)} className="w-full px-4 py-2.5 border-xl transition-all"> 
-              <option value="Laptop">Laptop</option>
-              <option value="Smartphone">Smartphone</option>
-              <option value="Television">Television</option>
-              <option value="Audio">Audio</option>
+            <select onChange = {handleCategoryChange} value={category} className="w-full px-4 py-2.5 border-xl transition-all"> 
+              {Object.keys(categoryBrands).map(cat => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Brand Select (Filtered Based on Category) */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Brand</label>
+            <select onChange={(e) => setBrand(e.target.value)} value={brand} className="w-full px-4 py-2.5 border-xl transition-all"> 
+              <option value="" disabled>
+                Select a brand
+              </option>
+              {categoryBrands[category].map((br) => (
+                <option key={br} value={br}>
+                  {br}
+                </option>
+              ))}
             </select>
           </div>
 
