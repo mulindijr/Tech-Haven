@@ -5,7 +5,7 @@ import Title from "../components/Title";
 import ProductItem from "../components/ProductItem";
 
 const Shop = () => {
-  const {productsData, search, showSearch} =useContext(ShopContext)
+  const {products, search, showSearch} =useContext(ShopContext)
   const [showFilter, setShowFilter] = useState(false)
   const [filterProducts, setFilterProducts] = useState([])
   const [category, setCategory] = useState([])
@@ -31,7 +31,7 @@ const Shop = () => {
   }
 
   const applyFilter = () => {
-    let productsCopy = productsData.slice()
+    let productsCopy = products.slice()
 
     if(showSearch && search){
       productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
@@ -67,7 +67,7 @@ const Shop = () => {
 
   useEffect(() => {
     applyFilter();
-  },[category, brand, search, showSearch])
+  },[category, brand, search, showSearch, products])
 
   useEffect(() => { 
     sortProduct();
@@ -85,7 +85,7 @@ const Shop = () => {
           <p className="mb-3 font-medium text-sm">FILTER BY CATEGORY</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={'phone'} onChange={toggleCategory}/>SmartPhones
+              <input className="w-3" type="checkbox" value={'smartphone'} onChange={toggleCategory}/>SmartPhones
             </p>
             <p className="flex gap-2">
               <input className="w-3" type="checkbox" value={'television'} onChange={toggleCategory}/>Televisions

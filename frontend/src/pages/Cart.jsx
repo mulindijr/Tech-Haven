@@ -8,7 +8,7 @@ import RecentlyViewedProducts from "../components/RecentlyViewedProducts";
 import {toast} from 'react-toastify';
 
 const Cart = () => {
-  const { productsData, currency, cartItems, updateQuantity,navigate } = useContext(ShopContext);
+  const { products, currency, cartItems, updateQuantity,navigate } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const Cart = () => {
     for (const itemId in cartItems) {
       const quantity = cartItems[itemId];
       if (quantity > 0) {
-        const product = productsData.find((product) => product._id === itemId);
+        const product = products.find((product) => product._id === itemId);
         if (product) {
           tempData.push({
             ...product,
@@ -28,7 +28,7 @@ const Cart = () => {
     }
     
     setCartData(tempData);
-  }, [cartItems, productsData]);
+  }, [cartItems, products]);
 
   const handleDelete = (itemId) => {
     updateQuantity(itemId, 0);

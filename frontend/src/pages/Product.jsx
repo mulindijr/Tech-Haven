@@ -7,16 +7,16 @@ import { toast, ToastContainer } from 'react-toastify';
 
 const Product = () => {
   const { productId } = useParams();
-  const { productsData, currency, addToCart, addToRecentlyViewed } = useContext(ShopContext);
+  const { products, currency, addToCart, addToRecentlyViewed } = useContext(ShopContext);
   const [productData, setProductData] = useState(null);
 
   useEffect(() => {
-    const product = productsData.find(item => item._id === productId);
+    const product = products.find(item => item._id === productId);
     if (product) {
       setProductData(product);
       addToRecentlyViewed(product);
     }
-  }, [productId, productsData, addToRecentlyViewed]);
+  }, [productId, products, addToRecentlyViewed]);
 
   if (!productData) return <div>Loading...</div>;
 
