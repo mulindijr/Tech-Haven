@@ -14,6 +14,14 @@ const Add = ({token}) => {
   const [description,setDescription] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Category-wise brand mapping
+  const categoryBrands = {
+    Laptop: ["Apple", "Dell", "Lenovo", "HP", "Asus", "Acer"],
+    Smartphone: ["Apple", "Samsung", "OnePlus", "Xiaomi", "Tecno", "Infinix"],
+    Television: ["Samsung", "LG", "Sony", "TCL", "Hisense", "Vitron"],
+    Audio: ["Bose", "Sony", "JBL", "Sennheiser", "Beats", "Samsung"],
+  };
+
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
