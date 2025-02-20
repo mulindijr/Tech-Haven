@@ -122,10 +122,10 @@ const Add = ({token}) => {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
             <select onChange={e => setCategory(e.target.value)} className="w-full px-4 py-2.5 border-xl transition-all"> 
-              <option value="laptop">Laptop</option>
-              <option value="smartphone">Smartphone</option>
-              <option value="television">Television</option>
-              <option value="soundDevice">Sound Device</option>
+              <option value="Laptop">Laptop</option>
+              <option value="Smartphone">Smartphone</option>
+              <option value="Television">Television</option>
+              <option value="Audio">Audio</option>
             </select>
           </div>
 
