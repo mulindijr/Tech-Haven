@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MdOutlineCloudUpload } from "react-icons/md";
+import { FaSpinner } from "react-icons/fa";
 import axios from 'axios';
 import {backendUrl} from '../App';
 import { toast } from 'react-toastify';
@@ -194,11 +195,15 @@ const Add = ({token}) => {
       <button
         type="submit"
         disabled={loading}
-        className={`w-full rounded text-white py-3.5 font-semibold transition-colors duration-200 ${
+        className={`w-full flex justify-center items-center gap-2 rounded text-white py-3.5 font-semibold transition-colors duration-200 ${
           loading ? 'bg-blue-900 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
         }`}
       >
-        {loading ? `Adding ${name}...` : 'Add Product'}
+        {loading ? (
+          <FaSpinner className="animate-spin text-white text-xl" />
+        ) : (
+          'Add Product'
+        )}
       </button>
     </form>
   );
