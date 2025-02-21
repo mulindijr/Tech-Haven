@@ -3,15 +3,18 @@ import axios from 'axios';
 import { backendUrl, currency } from '../App';
 import { toast } from 'react-toastify';
 import { FiEdit, FiTrash2, FiStar, FiX } from 'react-icons/fi';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Add from './Add'
 
 const List = ({token}) => {
 
   const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [updatingProduct, setUpdatingProduct] = useState(null);
   const [deleteProductId, setDeleteProductId] = useState(null);
 
   const fetchList = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(backendUrl + '/api/product/list');
       if (response.data.success) {
@@ -22,6 +25,8 @@ const List = ({token}) => {
     }catch (error) {
       console.log(error);
       toast.error(error.message);
+    }finally {
+      setLoading(false);
     }
   }
 
@@ -73,29 +78,42 @@ const List = ({token}) => {
             <b className='text-center'>Action</b>
           </div>
         </div>
-        {
-          list.map((item, index) => (                          
-            <div key={index} className='flex flex-col md:grid md:grid-cols-[1fr_3fr_1fr_1fr_1fr_1fr_1fr] items-center border py-2 px-3 gap-2'>
-              <img src = {item.imgURL} alt = {item.name} className='w-24 h-24 object-cover' />
-              <p className='text-center md:text-start'>{item.name}</p>
-              <p>{item.brand}</p>
-              <p>{item.category}</p>
-              <p className='flex items-center'>{currency} {item.price}</p>
-              <div className='flex items-center gap-1'>
-                <span className="text-sm font-medium">{item.rating}</span>
-                <FiStar className="text-yellow-400" />                
-              </div>
-              <div className='flex justify-center gap-2'>
-                <button onClick={() => handleEdit(item)} className='text-2xl text-green-500 hover:bg-gray-100 px-2 py-1 rounded' title='Edit'>
-                  <FiEdit />
-                </button>
-                <button onClick={() => setDeleteProductId(item._id)} className='text-2xl text-red-500 hover:bg-gray-100 px-2 py-1 rounded' title='Delete'>
-                  <FiTrash2 />
-                </button>
-              </div>
-            </div>            
-          ))
-        }
+        {loading ? (
+          <div className="text-center py-10">
+            <AiOutlineLoading3Quarters size={60} className="animate-spin text-4xl mx-auto text-blue-500 mb-4" />
+            <p className="text-lg font-semibold">Loading products...</p>
+          </div>
+        ) : list.length === 0 ? (
+          <div className="text-center py-10">
+            <p className="text-lg font-semibold">No products found</p>
+          </div>
+        ): (
+          <>
+            {
+              list.map((item, index) => (                          
+                <div key={index} className='flex flex-col md:grid md:grid-cols-[1fr_3fr_1fr_1fr_1fr_1fr_1fr] items-center border py-2 px-3 gap-2'>
+                  <img src = {item.imgURL} alt = {item.name} className='w-24 h-24 object-cover' />
+                  <p className='text-center md:text-start'>{item.name}</p>
+                  <p>{item.brand}</p>
+                  <p>{item.category}</p>
+                  <p className='flex items-center'>{currency} {item.price}</p>
+                  <div className='flex items-center gap-1'>
+                    <span className="text-sm font-medium">{item.rating}</span>
+                    <FiStar className="text-yellow-400" />                
+                  </div>
+                  <div className='flex justify-center gap-2'>
+                    <button onClick={() => handleEdit(item)} className='text-2xl text-green-500 hover:bg-gray-100 px-2 py-1 rounded' title='Edit'>
+                      <FiEdit />
+                    </button>
+                    <button onClick={() => setDeleteProductId(item._id)} className='text-2xl text-red-500 hover:bg-gray-100 px-2 py-1 rounded' title='Delete'>
+                      <FiTrash2 />
+                    </button>
+                  </div>
+                </div>            
+              ))
+            } 
+          </>                   
+        )}
       </div>
 
       {/* Edit Modal: Render the Add component in edit mode */}
