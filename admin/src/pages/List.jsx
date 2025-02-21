@@ -118,8 +118,8 @@ const List = ({token}) => {
 
       {/* Edit Modal: Render the Add component in edit mode */}
       {updatingProduct && (
-        <div className='bg-black bg-opacity-50 fixed inset-0 flex items-center justify-center z-50'>
-          <div className='bg-white p-6 rounded-lg shadow-lg w-full max-w-lg max-h-[90vh] overflow-auto'>
+        <div onClick={() => setUpdatingProduct(null)} className='bg-black bg-opacity-50 fixed inset-0 flex items-center justify-center z-50'>
+          <div onClick={(e) => e.stopPropagation()} className='bg-white p-6 rounded-lg shadow-lg w-full max-w-lg max-h-[90vh] overflow-auto'>
             <div className='flex justify-between items-center mb-4'>
               <h2 className='text-xl font-bold'>Update Product</h2>
               <FiX onClick={() => setUpdatingProduct(null)} size={24}  style={{ strokeWidth: 3 }} className='cursor-pointer text-red-500 hover:bg-gray-100'/>
@@ -139,8 +139,8 @@ const List = ({token}) => {
 
       {/* Delete Confirmation Modal */}
       {deleteProductId && (
-        <div role='dialog' aria-modal='true' className="bg-black bg-opacity-50 fixed inset-0 flex items-center justify-center z-50 transition-opacity duration-300">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm">
+        <div role='dialog' aria-modal='true' onClick={() => setDeleteProductId(null)} className="bg-black bg-opacity-50 fixed inset-0 flex items-center justify-center z-50 transition-opacity duration-300">
+          <div onClick={(e) => e.stopPropagation()} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm">
             <h2 className="text-lg font-semibold text-center">
               Are you sure you want to delete this product?
             </h2>
