@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { backendUrl, currency } from '../App';
 import { toast } from 'react-toastify';
-import { FiEdit, FiTrash2, FiStar } from 'react-icons/fi';
+import { FiEdit, FiTrash2, FiStar, FiX } from 'react-icons/fi';
 import Add from './Add'
 
 const List = ({token}) => {
@@ -98,7 +98,10 @@ const List = ({token}) => {
       {updatingProduct && (
         <div className='bg-black bg-opacity-50 fixed inset-0 flex items-center justify-center z-50'>
           <div className='bg-white p-6 rounded-lg shadow-lg w-full max-w-lg max-h-[90vh] overflow-auto'>
-            <h2 className='mb-4 text-xl font-bold'>Update Product</h2>
+            <div className='flex justify-between items-center mb-4'>
+              <h2 className='text-xl font-bold'>Update Product</h2>
+              <FiX onClick={() => setUpdatingProduct(null)} size={24}  style={{ strokeWidth: 3 }} className='cursor-pointer text-red-500 hover:bg-gray-100'/>
+            </div>
             <Add 
               token={token}
               product={updatingProduct}
