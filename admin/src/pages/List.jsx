@@ -129,9 +129,6 @@ const List = ({token}) => {
               product={updatingProduct}
               onUpdateComplete = {handleUpdateComplete}
             />
-            <button onClick={() => setUpdatingProduct(null)} className='mt-4 bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded'>
-              Cancel
-            </button>
           </div>
         </div>
       )
