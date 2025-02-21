@@ -3,10 +3,12 @@ import axios from 'axios';
 import { backendUrl, currency } from '../App';
 import { toast } from 'react-toastify';
 import { FiEdit, FiTrash2, FiStar } from 'react-icons/fi';
+import Add from './Add'
 
 const List = ({token}) => {
 
   const [list, setList] = useState([]);
+  const [updatingProduct, setUpdatingProduct] = useState(null);
 
   const fetchList = async () => {
     try {
@@ -36,6 +38,16 @@ const List = ({token}) => {
       console.log(error);
       toast.error(error.message);
     }
+  }
+
+  // Implement edit functionality
+  const handleEdit = (product) => {
+    setUpdatingProduct(product);
+  }
+
+  const handleUpdateComplete = () => {
+    setUpdatingProduct(null);
+    fetchList();
   }
 
   useEffect(() => {
@@ -70,7 +82,7 @@ const List = ({token}) => {
                 <FiStar className="text-yellow-400" />                
               </div>
               <div className='flex justify-center gap-2'>
-                <button className='text-2xl text-green-500 hover:bg-gray-100 px-2 py-1 rounded' title='Edit'>
+                <button onClick={() => handleEdit(item)} className='text-2xl text-green-500 hover:bg-gray-100 px-2 py-1 rounded' title='Edit'>
                   <FiEdit />
                 </button>
                 <button onClick={() => removeProduct(item._id)} className='text-2xl text-red-500 hover:bg-gray-100 px-2 py-1 rounded' title='Delete'>
@@ -81,6 +93,25 @@ const List = ({token}) => {
           ))
         }
       </div>
+
+      {/* Edit Modal: Render the Add component in edit mode */}
+      {updatingProduct && (
+        <div className='bg-black bg-opacity-50 fixed inset-0 flex items-center justify-center z-50'>
+          <div className='bg-white p-6 rounded-lg shadow-lg w-full max-w-lg max-h-[90vh] overflow-auto'>
+            <h2 className='mb-4 text-xl font-bold'>Update Product</h2>
+            <Add 
+              token={token}
+              product={updatingProduct}
+              onUpdateComplete = {handleUpdateComplete}
+            />
+            <button onClick={() => setUpdatingProduct(null)} className='mt-4 bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded'>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )
+
+      }
     </>
   )
 }
