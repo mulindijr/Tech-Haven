@@ -9,6 +9,7 @@ const List = ({token}) => {
 
   const [list, setList] = useState([]);
   const [updatingProduct, setUpdatingProduct] = useState(null);
+  const [deleteProductId, setDeleteProductId] = useState(null);
 
   const fetchList = async () => {
     try {
@@ -25,6 +26,7 @@ const List = ({token}) => {
   }
 
   const removeProduct = async (id) => {
+    if (!id) return;
     try {
       const response = await axios.post(backendUrl + '/api/product/remove/', {id}, {headers:{token}});
 
@@ -37,6 +39,8 @@ const List = ({token}) => {
     }catch (error) {
       console.log(error);
       toast.error(error.message);
+    }finally {  
+      setDeleteProductId(null);
     }
   }
 
@@ -85,7 +89,7 @@ const List = ({token}) => {
                 <button onClick={() => handleEdit(item)} className='text-2xl text-green-500 hover:bg-gray-100 px-2 py-1 rounded' title='Edit'>
                   <FiEdit />
                 </button>
-                <button onClick={() => removeProduct(item._id)} className='text-2xl text-red-500 hover:bg-gray-100 px-2 py-1 rounded' title='Delete'>
+                <button onClick={() => setDeleteProductId(item._id)} className='text-2xl text-red-500 hover:bg-gray-100 px-2 py-1 rounded' title='Delete'>
                   <FiTrash2 />
                 </button>
               </div>
@@ -113,8 +117,32 @@ const List = ({token}) => {
           </div>
         </div>
       )
-
       }
+
+      {/* Delete Confirmation Modal */}
+      {deleteProductId && (
+        <div role='dialog' aria-modal='true' className="bg-black bg-opacity-50 fixed inset-0 flex items-center justify-center z-50 transition-opacity duration-300">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-xs sm:max-w-sm">
+            <h2 className="text-lg font-semibold text-center">
+              Are you sure you want to delete this product?
+            </h2>
+            <div className="flex justify-center gap-4 mt-4">
+              <button
+                onClick={() => removeProduct(deleteProductId)}
+                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+              >
+                Yes, Delete
+              </button>
+              <button
+                onClick={() => setDeleteProductId(null)}
+                className="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }
