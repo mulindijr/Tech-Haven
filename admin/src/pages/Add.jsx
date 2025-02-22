@@ -82,7 +82,7 @@ const Add = ({token, product, onUpdateComplete}) => {
       // In edit mode, append the product ID and call the update endpoint
       if(product) {
         formData.append("id", product._id);
-        response = await axios.post(backendUrl + '/api/product/update', formData, {headers:{token}});
+        response = await axios.put(backendUrl + '/api/product/update', formData, { headers: { token, "Content-Type": "multipart/form-data" } });
       }else {
         // In add mode, call the add endpoint
         response = await axios.post(backendUrl + '/api/product/add', formData, {headers:{token}});
