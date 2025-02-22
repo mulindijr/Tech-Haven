@@ -71,8 +71,8 @@ const List = ({token}) => {
           <div className='hidden md:grid grid-cols-[1fr_3fr_1fr_1fr_1fr_1fr_1fr] items-center border border-red-500 bg-gray-200 py-2 px-3'>
             <b>Image</b>
             <b>Name</b>
-            <b>Brand</b>
             <b>Category</b>
+            <b>Brand</b>
             <b>Price</b>
             <b>Rating</b>
             <b className='text-center'>Action</b>
@@ -94,8 +94,8 @@ const List = ({token}) => {
                 <div key={index} className='flex flex-col md:grid md:grid-cols-[1fr_3fr_1fr_1fr_1fr_1fr_1fr] items-center border py-2 px-3 gap-2'>
                   <img src = {item.imgURL} alt = {item.name} className='w-24 h-24 object-cover' />
                   <p className='text-center md:text-start'>{item.name}</p>
-                  <p>{item.brand}</p>
                   <p>{item.category}</p>
+                  <p>{item.brand}</p>                  
                   <p className='flex items-center'>{currency} {item.price}</p>
                   <div className='flex items-center gap-1'>
                     <span className="text-sm font-medium">{item.rating}</span>
