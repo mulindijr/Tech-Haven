@@ -106,25 +106,36 @@ const Add = ({token, product, onUpdateComplete}) => {
         <p className="text-lg font-semibold text-gray-700 mb-2">Upload Product Image</p>
         <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center transition-colors duration-200 hover:border-blue-500 hover:bg-gray-50">
           <label htmlFor="image" className="group flex flex-col items-center gap-3 cursor-pointer">
-            {!image ? (
-              <>
-                <MdOutlineCloudUpload 
-                  size={60} 
-                  className="text-gray-400 group-hover:text-blue-500 transition-colors duration-200" 
-                />
-                <div className="space-y-1">
-                  <p className="text-gray-600 group-hover:text-blue-500 transition-colors duration-200">
-                    Click to upload or drag and drop
-                  </p>
-                  <p className="text-sm text-gray-500">PNG, JPG, JPEG (max. 5MB)</p>
-                </div>
-              </>
-            ): (
+            {image ? (
+              // New image preview if one is selected
               <img 
                 src={URL.createObjectURL(image)}
                 alt="Preview" 
                 className="w-36 h-36 sm:w-48 sm:h-48 object-cover rounded-lg shadow-sm" 
               />
+            ) : (
+              // If no new image, show the existing product image (if available)
+              product && product.imgURL ? (
+                <img 
+                  src={product.imgURL} 
+                  alt={product.name} 
+                  className="w-36 h-36 sm:w-48 sm:h-48 object-cover rounded-lg shadow-sm" 
+                />
+              ) : (
+                // Otherwise, show the upload icon and instructions
+                <>
+                  <MdOutlineCloudUpload 
+                    size={60} 
+                    className="text-gray-400 group-hover:text-blue-500 transition-colors duration-200" 
+                  />
+                  <div className="space-y-1">
+                    <p className="text-gray-600 group-hover:text-blue-500 transition-colors duration-200">
+                      Click to upload or drag and drop
+                    </p>
+                    <p className="text-sm text-gray-500">PNG, JPG, JPEG (max. 5MB)</p>
+                  </div>
+                </>
+              )
             )}
             <input type="file" id="image" hidden onChange={e => setImage(e.target.files[0])} />
           </label>
