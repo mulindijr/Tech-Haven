@@ -9,6 +9,19 @@ const Sidebar = () => {
       <div className="flex flex-col gap-3 pt-8 pl-[5%]">
         {/* Add Items Link */}
         <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-4 py-3 rounded-l-lg transition-all duration-200 ${
+              isActive
+                ? 'bg-[#ffebf5] border-l-4 border border-red-300 border-r-0 text-black font-semibold'
+                : 'text-gray-600 bg-gray-100 border border-r-0 hover:text-gray-900'
+            }`
+          }   
+        >
+          <IoIosAddCircleOutline className="text-2xl" />
+          <p className="hidden md:block text-sm">Dashboard</p>  
+        </NavLink>
+        <NavLink
           to="/add"
           className={({ isActive }) =>
             `flex items-center gap-3 px-4 py-3 rounded-l-lg transition-all duration-200 ${
