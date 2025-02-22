@@ -76,6 +76,44 @@ const removeProduct = async (req, res) => {
     }
 }
 
+//Function for updating a product
+const updateProduct = async (req, res) => {
+    try {
+        const {id, name, category, brand, price, rating, description} = req.body;
+        
+        if(!id) {
+            return res.status(400).json({ success:false, message:'Product Id is required'})
+        }
+
+        const product = await productModel.findById(id);
+        if(!product){
+            return res.status(404).json({ success:false, message:'Product not found'})
+        }
+
+        //Update product details
+        product.name = name || product.name;
+        product.category = category || product.category;
+        product.brand = brand || product.brand;
+        product.price = price || product.price;
+        product.rating = rating || product.rating;
+        product.description = description || product.description;
+
+        //If a new image is uploaded, update cloudinary image
+        if(req.file) {
+            const result = await cloudinary.uploader.upload(req.file.path, {
+                folder: "products",
+                use_filename: true,
+                unique_filename: false,
+            });
+            product.imgURL = result.secure_url;
+        }
+        await product.save();
+        res.json({ success:true, message:'Product updated successfully'});
+    }catch (error) {
+        console.error(error);
+        res.json({ success:false, message:error.message });
+    }
+}
 
 // Function for getting a single product
 const singleProduct = async (req, res) => {
@@ -95,4 +133,4 @@ const singleProduct = async (req, res) => {
 
 }
 
-export { addProduct, listProducts, removeProduct, singleProduct };
+export { addProduct, listProducts, removeProduct, updateProduct, singleProduct };
