@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdOutlineCloudUpload } from "react-icons/md";
 import { FaSpinner } from "react-icons/fa";
 import axios from 'axios';
 import {backendUrl} from '../App';
 import { toast } from 'react-toastify';
 
-const Add = ({token}) => {
+const Add = ({token, product, onUpdateComplete}) => {
   const [image, setImage] = useState(null);
   const [name,setName] = useState('');
   const [brand,setBrand] = useState('');
@@ -23,6 +23,19 @@ const Add = ({token}) => {
     Audio: ["Bose", "Sony", "JBL", "Sennheiser", "Beats", "Samsung"],
   };
 
+  //Prefill form fields if its in edit mode
+  useEffect(() => {
+    if(product) {
+      setImage(product.image);
+      setName(product.name);
+      setBrand(product.brand);
+      setCategory(product.category);
+      setRating(product.rating);
+      setPrice(product.price);
+      setDescription(product.description);
+    }
+  }, [product]);
+  
   // Update brands when category changes
   const handleCategoryChange = (e) => {
     const newCategory = e.target.value;
@@ -42,26 +55,45 @@ const Add = ({token}) => {
     formData.append("rating", rating);
     formData.append("price", price);
     formData.append("description", description);
-    formData.append("image", image);
+
+    // Append the image only if a new one was selected
+    if (image){
+      formData.append("image", image);
+    }
 
     try {
-      const response = await axios.post(backendUrl + '/api/product/add', formData, {headers:{token}});
+      let response;
+      // In edit mode, append the product ID and call the update endpoint
+      if(product) {
+        formData.append("id", product._id);
+        response = await axios.post(backendUrl + '/api/product/update', formData, {headers:{Authorization: `Bearer ${token}`}});
+      }else {
+        // In add mode, call the add endpoint
+        response = await axios.post(backendUrl + '/api/product/add', formData, {headers:{Authorization: `Bearer ${token}`}});
+      }
 
       if(response.data.success) {
         toast.success(response.data.message);
-        setImage(null);
-        setName('');
-        setBrand('');
-        setCategory('Laptop');
-        setRating('');
-        setPrice('');
-        setDescription('');
-      } else {
-        toast.error(response.data.message);
-      }
 
+        if(product) {
+          // Call the update completion handler
+          onUpdateComplete();
+        } else {
+          // Clear form fields if adding a new product
+          setImage(null);
+          setName('');
+          setBrand('');
+          setCategory('Laptop');
+          setRating('');
+          setPrice('');
+          setDescription('');
+        }
+
+      } else {
+        toast.error(response.data.message || "Something went wrong!");
+      }
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error?.response?.data?.message || "Server error. Please try again.");
     }finally{
       setLoading(false);
     }
