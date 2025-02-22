@@ -66,10 +66,10 @@ const Add = ({token, product, onUpdateComplete}) => {
       // In edit mode, append the product ID and call the update endpoint
       if(product) {
         formData.append("id", product._id);
-        response = await axios.post(backendUrl + '/api/product/update', formData, {headers:{Authorization: `Bearer ${token}`}});
+        response = await axios.post(backendUrl + '/api/product/update', formData, {headers:{token}});
       }else {
         // In add mode, call the add endpoint
-        response = await axios.post(backendUrl + '/api/product/add', formData, {headers:{Authorization: `Bearer ${token}`}});
+        response = await axios.post(backendUrl + '/api/product/add', formData, {headers:{token}});
       }
 
       if(response.data.success) {
