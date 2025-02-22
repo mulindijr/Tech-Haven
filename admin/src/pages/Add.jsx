@@ -33,8 +33,8 @@ const Add = ({token, product, onUpdateComplete}) => {
     ],
     Audio: [
       "Bose", "Sony", "JBL", "Sennheiser", "Beats", "Samsung", "Anker", "Marshall", 
-      "Harman Kardon", "Edifier", "Bang & Olufsen", "Shure", "Logitech", "Razer", 
-      "Bowers & Wilkins", "Klipsch", "Polk Audio", "Yamaha", "Denon", "Vitron"
+      "Harman Kardon", "Edifier", "Bang & Olufsen", "Amtec", "Logitech", "Razer", 
+      "Bowers & Wilkins", "Vitron", "Polk Audio", "Yamaha", "Denon"
     ]
   };  
 
