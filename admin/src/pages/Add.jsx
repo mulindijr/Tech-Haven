@@ -17,11 +17,26 @@ const Add = ({token, product, onUpdateComplete}) => {
 
   // Category-wise brand mapping
   const categoryBrands = {
-    Laptop: ["Apple", "Dell", "Lenovo", "HP", "Asus", "Acer"],
-    Smartphone: ["Apple", "Samsung", "OnePlus", "Xiaomi", "Tecno", "Infinix"],
-    Television: ["Samsung", "LG", "Sony", "TCL", "Hisense", "Vitron"],
-    Audio: ["Bose", "Sony", "JBL", "Sennheiser", "Beats", "Samsung"],
-  };
+    Laptop: [
+      "Apple", "Dell", "Lenovo", "HP", "Asus", "Acer", "MSI", "Razer", "Samsung", 
+      "Microsoft", "Gigabyte", "Toshiba", "Huawei", "LG", "Xiaomi", "Chuwi"
+    ],
+    Smartphone: [
+      "Apple", "Samsung", "OnePlus", "Xiaomi", "Tecno", "Infinix", "Google", 
+      "Realme", "Nokia", "Huawei", "Oppo", "Vivo", "Motorola", "Sony", "Asus", 
+      "Lenovo", "Meizu", "ZTE", "BlackBerry"
+    ],
+    Television: [
+      "Samsung", "LG", "Sony", "TCL", "Hisense", "Vitron", "Panasonic", "Philips", 
+      "Vizio", "Sharp", "Skyworth", "JVC", "Toshiba", "Westinghouse", "Haier", 
+      "Sansui", "Insignia"
+    ],
+    Audio: [
+      "Bose", "Sony", "JBL", "Sennheiser", "Beats", "Samsung", "Anker", "Marshall", 
+      "Harman Kardon", "Edifier", "Bang & Olufsen", "Shure", "Logitech", "Razer", 
+      "Bowers & Wilkins", "Klipsch", "Polk Audio", "Yamaha", "Denon", "Vitron"
+    ]
+  };  
 
   //Prefill form fields if its in edit mode
   useEffect(() => {
