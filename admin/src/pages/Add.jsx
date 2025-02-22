@@ -28,7 +28,7 @@ const Add = ({token, product, onUpdateComplete}) => {
     ],
     Television: [
       "Samsung", "LG", "Sony", "TCL", "Hisense", "Vitron", "Panasonic", "Philips", 
-      "Vizio", "Sharp", "Skyworth", "JVC", "Toshiba", "Westinghouse", "Haier", 
+      "Vizio", "Sharp", "Skyworth", "JVC", "Toshiba", "Tornado", "Haier", 
       "Sansui", "Insignia"
     ],
     Audio: [
