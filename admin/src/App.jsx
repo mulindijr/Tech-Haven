@@ -2,6 +2,7 @@ import { useState,useEffect} from "react"
 import { Routes, Route, Navigate } from "react-router-dom"
 import Navbar from "./components/Navbar"
 import Sidebar from "./components/Sidebar"
+import Dashboard from "./pages/Dashboard"
 import Add from "./pages/Add"
 import List from "./pages/List"
 import Orders from "./pages/Orders"
@@ -31,7 +32,7 @@ function App() {
             <Sidebar />
             <div className="w-[82%] ml-[18%] px-6 my-8 text-gray-600 text-base">
               <Routes>
-                <Route path="/" element={<Navigate to="/add" />} />
+                <Route path="/" element={<Dashboard />} />
                 <Route path="/add" element={<Add token = {token}/>} />
                 <Route path="/list" element={<List token = {token}/>} />
                 <Route path="/orders" element={<Orders token = {token}/>} />
