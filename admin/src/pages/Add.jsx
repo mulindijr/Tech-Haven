@@ -29,7 +29,8 @@ const Add = ({token, product, onUpdateComplete}) => {
       setImage(product.image);
       setName(product.name);
       setBrand(product.brand);
-      setCategory(product.category);
+      // If the product's category isn't in the mapping, fallback to a default
+      setCategory(categoryBrands[product.category] ? product.category : 'Laptop');
       setRating(product.rating);
       setPrice(product.price);
       setDescription(product.description);
@@ -245,7 +246,7 @@ const Add = ({token, product, onUpdateComplete}) => {
         {loading ? (
           <FaSpinner className="animate-spin text-white text-xl" />
         ) : (
-          'Add Product'
+          product ? 'Update Product' : 'Add Product'
         )}
       </button>
     </form>
