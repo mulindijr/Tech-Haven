@@ -1,4 +1,5 @@
 import React from 'react'
+import { FiBell } from 'react-icons/fi';
 
 const Navbar = ({setToken}) => {
   return (
@@ -6,10 +7,20 @@ const Navbar = ({setToken}) => {
         <h1 className='text-xl font-bold cursor-pointer'>
             Tech<span className='text-red-500'>Haven</span>
         </h1>
-
-        <button onClick={() => setToken('')} className='bg-red-400 text-white px-4 py-2 rounded-full'>
-            Logout
-        </button>
+        
+        <div className='flex items-center space-x-4'>
+          <div className='hover:bg-gray-100 p-2 rounded-full cursor-pointer'>
+            <div className="relative">
+              <FiBell className="text-2xl text-gray-700" />            
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                3
+              </span>
+            </div>
+          </div>          
+          <button onClick={() => setToken('')} className='bg-red-400 text-white px-4 py-2 rounded-full'>
+              Logout
+          </button>
+        </div>
     </div>
   )
 }
