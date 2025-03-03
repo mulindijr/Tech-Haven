@@ -85,16 +85,16 @@ const Shop = () => {
           <p className="mb-3 font-medium text-sm">FILTER BY CATEGORY</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={'smartphone'} onChange={toggleCategory}/>SmartPhones
+              <input className="w-3" type="checkbox" value={'Smartphone'} onChange={toggleCategory}/>SmartPhones
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={'television'} onChange={toggleCategory}/>Televisions
+              <input className="w-3" type="checkbox" value={'Television'} onChange={toggleCategory}/>Televisions
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={'laptop'} onChange={toggleCategory}/>Laptops
+              <input className="w-3" type="checkbox" value={'Laptop'} onChange={toggleCategory}/>Laptops
             </p>
             <p className="flex gap-2">
-              <input className="w-3" type="checkbox" value={'soundDevice'} onChange={toggleCategory}/>SoundDevices
+              <input className="w-3" type="checkbox" value={'Audio'} onChange={toggleCategory}/>SoundDevices
             </p>
           </div>
         </div> 
