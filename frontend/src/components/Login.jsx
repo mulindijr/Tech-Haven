@@ -1,14 +1,37 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { MdClose } from "react-icons/md";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { ShopContext } from "../context/ShopContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Login = ({setShowLogin}) => {
 
   const [currentState, setCurrentState] = useState('Login')
   const [showPassword, setShowPassword] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { token, setToken, backendUrl } = useContext(ShopContext);
 
-  const onSubmitHandler = async (event) => {
-    event.preventDefault();
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      if (currentState === 'Sign Up') {
+        const response = await axios.post(backendUrl + '/api/user/register', {name, email, password});
+        if (response.data.success) {
+          setToken(response.data.token)
+          localStorage.setItem('token', response.data.token)
+        } else {
+          toast.error(response.data.message)
+        }
+      } else {
+        const response = await axios.post(backendUrl + '/api/user/login', {email, password})
+        console.log(response.data)
+      }
+    } catch {
+
+    }
   }
 
   // Prevent scrolling when the modal is open
@@ -33,10 +56,10 @@ const Login = ({setShowLogin}) => {
             <h2 className="text-3xl">{currentState}</h2>
             <MdClose onClick={() => typeof setShowLogin === "function" && setShowLogin(false)} className="w-8 h-8 cursor-pointer"/>
           </div>      
-          {currentState === "Login" ? <></>: <input type="text" placeholder="Fullname" required className="w-full px-3 py-2 border border-gray-400 outline-none rounded"/>}
-          <input type="email" placeholder="Email" required className="w-full px-3 py-2 border border-gray-400 outline-none rounded"/>
+          {currentState === "Login" ? <></>: <input onChange={(e) => setName(e.target.value)} value={name} type="text" placeholder="Fullname" required className="w-full px-3 py-2 border border-gray-400 outline-none rounded"/>}
+          <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" placeholder="Email" required className="w-full px-3 py-2 border border-gray-400 outline-none rounded"/>
           <div className="relative">
-            <input type={showPassword ? "text" : "password"} placeholder="Password" required className="w-full px-3 py-2 border border-gray-400 outline-none rounded"/>
+            <input onChange={(e) => setPassword(e.target.value)} value={password} type={showPassword ? "text" : "password"} placeholder="Password" required className="w-full px-3 py-2 border border-gray-400 outline-none rounded"/>
             <span onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-3 cursor-pointer text-sm text-red-500">
               {showPassword ? <AiOutlineEyeInvisible className="w-5 h-5" /> : <AiOutlineEye className="w-5 h-5" />}
             </span>
