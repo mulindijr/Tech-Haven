@@ -9,6 +9,7 @@ const ShopContextProvider = ({children}) => {
     const currency = 'Ksh';
     const delivery_fee = 200
     const backendUrl = import.meta.env.VITE_BACKEND_URL
+    const [token, setToken] = useState('')
     const[products, setProducts] = useState([])
     const[search, setSearch] = useState('')
     const[showSearch, setShowSearch] = useState(false)
@@ -109,7 +110,8 @@ const ShopContextProvider = ({children}) => {
         products, currency, delivery_fee,  
         search, setSearch, showSearch, setShowSearch,
         cartItems, addToCart, getCartCount, updateQuantity,
-        getCartAmount, navigate, recentlyViewed, addToRecentlyViewed, backendUrl, getProductsData        
+        getCartAmount, navigate, recentlyViewed, addToRecentlyViewed, backendUrl, getProductsData,
+        token, setToken        
     }
     
     return (
