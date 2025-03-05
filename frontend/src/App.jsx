@@ -3,7 +3,7 @@ import { Home, Shop, About, Contact, Cart, Faqs, Product, PlaceOrder, Orders } f
 import Navigation from './components/Navigation'; 
 import Footer from './components/Footer'
 import SearchBar from './components/SearchBar';
-import Login from './components/Login';
+import Login from './pages/Login';
 import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
