@@ -1,89 +1,116 @@
-import { useState, useEffect, useContext } from "react"
-import { MdClose } from "react-icons/md";
+import { useState, useContext } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { loginVideo } from "../assets/vids";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
-const Login = ({setShowLogin}) => {
-
-  const [currentState, setCurrentState] = useState('Login')
+const Login = () => {
+  const [currentState, setCurrentState] = useState("Login");
   const [showPassword, setShowPassword] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const { token, setToken, backendUrl } = useContext(ShopContext);
+  const { setToken, navigate, backendUrl } = useContext(ShopContext);
 
-  const onSubmitHandler = async (e) => {
-    e.preventDefault();
+  const validationSchema = Yup.object({
+    name: currentState === "Sign Up" ? Yup.string().required("Fullname is required") : Yup.string(),
+    email: Yup.string().email("Invalid email format").required("Email is required"),
+    password: Yup.string().min(8, "Password must be at least 8 characters").required("Password is required"),
+  });
+
+  const onSubmitHandler = async (values, { setSubmitting }) => {
     try {
-      if (currentState === 'Sign Up') {
-        const response = await axios.post(backendUrl + '/api/user/register', {name, email, password});
-        if (response.data.success) {
-          setToken(response.data.token)
-          localStorage.setItem('token', response.data.token)
-        } else {
-          toast.error(response.data.message)
-        }
+      const url = currentState === "Sign Up" ? "/api/user/register" : "/api/user/login";
+      const response = await axios.post(backendUrl + url, values);
+
+      if (response.data.success) {
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+        navigate("/");
       } else {
-        const response = await axios.post(backendUrl + '/api/user/login', {email, password})
-        if (response.data.success) {
-          setToken(response.data.token)
-          localStorage.setItem('token', response.data.token)
-        } else {
-          toast.error(response.data.message)
-        }
+        toast.error(response.data.message);
       }
     } catch (error) {
-      console.log(error)
-      toast.error(error.message)
+      toast.error(error.response?.data?.message || "Something went wrong");
     }
-  }
-
-  // Prevent scrolling when the modal is open
-  useEffect(() => {
-    if (setShowLogin) {
-      document.body.style.overflow = "hidden";
-    } 
-    // Cleanup function to restore scrolling on unmount
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [setShowLogin]);
+    setSubmitting(false);
+  };
 
   return (
-    <div className="absolute z-[9999]  w-full h-full bg-[#00000090] grid">
-      <div className="place-self-center animate-fadeIn">
-        <form onSubmit={onSubmitHandler} className="flex flex-col w-full sm:max-w-96 m-auto mt-14 gap-4 text-gray-800 bg-slate-200 px-5 py-5 rounded mb-10">
-          <div className="flex items-center justify-between mb-2">
-            <h2 className="text-3xl">{currentState}</h2>
-            <MdClose onClick={() => typeof setShowLogin === "function" && setShowLogin(false)} className="w-8 h-8 cursor-pointer"/>
-          </div>      
-          {currentState !== 'Login' && <input onChange={(e) => setName(e.target.value)} value={name} type="text" placeholder="Fullname" required className="w-full px-3 py-2 border border-gray-400 outline-none rounded"/>}
-          <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" placeholder="Email" required className="w-full px-3 py-2 border border-gray-400 outline-none rounded"/>
-          <div className="relative">
-            <input onChange={(e) => setPassword(e.target.value)} value={password} type={showPassword ? "text" : "password"} placeholder="Password" required className="w-full px-3 py-2 border border-gray-400 outline-none rounded"/>
-            <span onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-3 cursor-pointer text-sm text-red-500">
-              {showPassword ? <AiOutlineEyeInvisible className="w-5 h-5" /> : <AiOutlineEye className="w-5 h-5" />}
-            </span>
-          </div>
-          <button className="w-full py-2 text-xl border-none rounded text-white bg-red-500">{currentState === 'Sign Up' ? "Create Account" : "Login"}</button>
+    <div className="relative min-h-screen w-full overflow-hidden">
+      {/* Background Video */}
+      <video 
+        autoPlay 
+        loop 
+        muted 
+        playsInline
+        preload="auto"
+        controlsList="nodownload" 
+        className="absolute top-0 left-0 w-full h-full object-cover"
+      >
+        <source src={loginVideo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
-          {currentState === 'Sign Up' 
-          ? <div className="flex gap-2">
-              <input type="checkbox" required className="cursor-pointer"/>
-              <p>I agree to terms of use and privacy policy</p>
-            </div>
-          : ""
-          }
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <Formik
+          initialValues={{ name: "", email: "", password: "" }}
+          validationSchema={validationSchema}
+          onSubmit={onSubmitHandler}
+        >
+          {({ isSubmitting }) => (
+            <Form className="flex flex-col sm:w-full max-w-96 m-auto gap-4 text-gray-800 bg-transparent bg-opacity-90 px-5 py-5 rounded-lg shadow-xl border-2">
+              <h2 className="text-2xl font-semibold text-center text-gray-100">{currentState}</h2>              
 
-          {currentState === 'Login' 
-          ? <p>Create new Account? <span onClick={() => setCurrentState("Sign Up")}  className="cursor-pointer text-red-500">Click here</span></p> 
-          : <p>Already have an Account? <span onClick={() => setCurrentState("Login")}  className="cursor-pointer text-red-500">Login here</span></p>}      
-        </form>
+              {currentState === "Sign Up" && (
+                <div>
+                  <Field name="name" placeholder="Fullname" className="w-full px-3 py-2 border border-gray-400 outline-none rounded" />
+                  <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
+                </div>
+              )}
+
+              <div>
+                <Field name="email" type="email" placeholder="Email" className="w-full px-3 py-2 border border-gray-400 outline-none rounded" />
+                <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
+              </div>
+
+              <div className="relative">
+                <Field name="password" type={showPassword ? "text" : "password"} placeholder="Password" className="w-full px-3 py-2 border border-gray-400 outline-none rounded" />
+                <span onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-3 cursor-pointer text-gray-600">
+                  {showPassword ? <AiOutlineEyeInvisible className="w-5 h-5" /> : <AiOutlineEye className="w-5 h-5" />}
+                </span>
+                <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
+              </div>
+
+              {currentState === "Sign Up" && (
+                <div className="flex gap-2 items-center">
+                  <Field type="checkbox" name="terms" required className="cursor-pointer" />
+                  <p className="text-sm text-gray-100">I agree to the terms of use and privacy policy</p>
+                </div>
+              )}
+
+              <button type="submit" disabled={isSubmitting} className={`w-full py-2 text-xl rounded text-white bg-red-500 transition ${isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:bg-red-600"}`}>
+                {isSubmitting ? "Processing..." : currentState === "Sign Up" ? "Create Account" : "Login"}
+              </button>
+
+              {currentState === "Login" ? (
+                <p className="text-center text-gray-100">
+                  Create a new account?{" "}
+                  <span onClick={() => setCurrentState("Sign Up")} className="cursor-pointer text-red-500 hover:underline">Click here</span>
+                </p>
+              ) : (
+                <p className="text-center text-gray-100">
+                  Already have an account?{" "}
+                  <span onClick={() => setCurrentState("Login")} className="cursor-pointer text-red-500 hover:underline">Login here</span>
+                </p>
+              )}
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
