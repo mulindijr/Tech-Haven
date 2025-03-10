@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import { loginVideo } from "../assets/vids";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
@@ -61,8 +62,10 @@ const Login = () => {
         >
           {({ isSubmitting }) => (
             <Form className="flex flex-col sm:w-full max-w-96 m-auto gap-4 text-gray-800 bg-transparent bg-opacity-90 px-5 py-5 rounded-lg shadow-xl border-2">
-              <h2 className="text-2xl font-semibold text-center text-gray-100">{currentState}</h2>              
-
+              <div className="flex items-center gap-20">
+                <FaArrowLeftLong onClick={() => navigate("/")} className="w-6 h-6 cursor-pointer text-gray-100 hover:text-red-400" />             
+                <h2 className="text-2xl font-semibold text-center text-gray-100">{currentState}</h2>              
+              </div>
               {currentState === "Sign Up" && (
                 <div>
                   <Field name="name" placeholder="Fullname" className="w-full px-3 py-2 border border-gray-400 outline-none rounded" />
