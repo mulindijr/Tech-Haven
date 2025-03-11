@@ -117,7 +117,7 @@ const ShopContextProvider = ({children}) => {
         search, setSearch, showSearch, setShowSearch,
         cartItems, addToCart, getCartCount, updateQuantity,
         getCartAmount, navigate, recentlyViewed, addToRecentlyViewed, backendUrl, getProductsData,
-        token, setToken        
+        token, setToken, setCartItems       
     }
     
     return (
