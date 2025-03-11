@@ -4,7 +4,7 @@ import Title from '../components/Title';
 
 const Orders = () => {
 
-    const {productsData, currency } = useContext(ShopContext);
+    const {products, currency } = useContext(ShopContext);
   return (
     <div className='border-t pt-16'>
 
@@ -13,7 +13,7 @@ const Orders = () => {
         </div>
 
         <div>
-            {productsData.slice(1,4).map((item, index) => (
+            {products.slice(1,4).map((item, index) => (
                 <div key={index} className='py-4 border-t border-b text-gray-700 flex flex-col md:flex-row md:items-center md:justify-between gap-4'>
                     
                     <div className='flex items-start gap-6 text-sm'>
