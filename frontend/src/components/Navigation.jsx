@@ -1,4 +1,4 @@
-import React, { useState,useContext,useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { navLinks } from '../constants';
 import { CiSearch } from "react-icons/ci";
@@ -8,12 +8,17 @@ import { FaBars } from "react-icons/fa";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { ShopContext } from '../context/ShopContext';
 
-
-const Navigation = ({setShowLogin}) => {
-
+const Navigation = () => {
   const [visible, setVisible] = useState(false);
-  const {setShowSearch, getCartCount} = useContext(ShopContext);
+  const { setShowSearch, getCartCount, navigate, token, setToken, setCartItems } = useContext(ShopContext);
   const location = useLocation();
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    setToken('');
+    setCartItems({});
+    navigate('/login');
+  };
 
   useEffect(() => {
     if (visible) {
@@ -48,22 +53,24 @@ const Navigation = ({setShowLogin}) => {
           ))}
         </ul>
         <div className='flex items-center gap-4'>
-          {location.pathname === '/shop' && ( // Show search icon only on the Shop page
+          {location.pathname === '/shop' && (
             <CiSearch onClick={() => setShowSearch(true)} className='w-5 cursor-pointer'/>
           )}
           <div className='group relative'>
-            <div onClick={() => setShowLogin(true)}>
-              <FaRegUser className='w-5 cursor-pointer'/>
-            </div>
-            {/*
-            <div className='group-hover:block hidden absolute dropdown-menu right-0 p-4'>
-              <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
-                <p className='cursor-pointer hover:text-black'>My Profile</p>
-                <p className='cursor-pointer hover:text-black'>Orders</p>
-                <p className='cursor-pointer hover:text-black'>Logout</p>
-              </div>
-            </div>
-            */}
+            {token ? (
+              <>
+                <FaRegUser className='w-5 cursor-pointer'/>
+                <div className='group-hover:block hidden absolute dropdown-menu right-0 p-4'>
+                  <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
+                    <p className='cursor-pointer hover:text-gray-700'>My Profile</p>
+                    <p className='cursor-pointer hover:text-gray-700'>Orders</p>
+                    <p onClick={logout} className='cursor-pointer hover:text-gray-700'>Logout</p>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <Link to='/login'><FaRegUser className='w-5 cursor-pointer'/></Link>
+            )}
           </div>
           <Link to='/cart' className='relative'>
             <AiOutlineShopping className='w-5 m-w-5 bg-white'/>
@@ -71,25 +78,25 @@ const Navigation = ({setShowLogin}) => {
           </Link> 
           <FaBars onClick={() => setVisible(true)} className='w-5 cursor-pointer sm:hidden'/>   
         </div>
-          {/* Mobile Navigation */}
-          <div className={`absolute h-screen top-0 right-0 overflow-hidden bg-white z-10 transition-all ${visible ? 'w-full': 'w-0'}`}>
-            <div className='flex flex-col text-gray-600'>
-              <div onClick={()=>setVisible(false)} className='flex items-center gap-4 p-3'>
-                <MdOutlineKeyboardArrowRight className='h-4 rotate-180'/>
-                <p>Back</p>
-              </div>
-              {navLinks.map((link) => (
-                <NavLink 
-                  to={link.path} 
-                  key={link.path} 
-                  onClick={()=>setVisible(false)}
-                  className='py-2 pl-6 border'
-                >
-                  {link.label}
-                </NavLink>
-              ))}
+        {/* Mobile Navigation */}
+        <div className={`absolute h-screen top-0 right-0 overflow-hidden bg-white z-10 transition-all ${visible ? 'w-full' : 'w-0'}`}>
+          <div className='flex flex-col text-gray-600'>
+            <div onClick={() => setVisible(false)} className='flex items-center gap-4 p-3'>
+              <MdOutlineKeyboardArrowRight className='h-4 rotate-180'/>
+              <p>Back</p>
             </div>
+            {navLinks.map((link) => (
+              <NavLink 
+                to={link.path} 
+                key={link.path} 
+                onClick={() => setVisible(false)}
+                className='py-2 pl-6 border'
+              >
+                {link.label}
+              </NavLink>
+            ))}
           </div>
+        </div>
       </nav>
     </header>
   );
