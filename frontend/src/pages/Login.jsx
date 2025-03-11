@@ -7,14 +7,23 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { Navigate } from "react-router-dom";
 
 const Login = () => {
   const [currentState, setCurrentState] = useState("Login");
   const [showPassword, setShowPassword] = useState(false);
-  const { setToken, navigate, backendUrl } = useContext(ShopContext);
+  const { token, setToken, backendUrl } = useContext(ShopContext);
+
+  // If the user is already logged in, immediately redirect to home.
+  if (token) {
+    return <Navigate to="/" />;
+  }
 
   const validationSchema = Yup.object({
-    name: currentState === "Sign Up" ? Yup.string().required("Fullname is required") : Yup.string(),
+    name:
+      currentState === "Sign Up"
+        ? Yup.string().required("Fullname is required")
+        : Yup.string(),
     email: Yup.string().email("Invalid email format").required("Email is required"),
     password: Yup.string().min(8, "Password must be at least 8 characters").required("Password is required"),
   });
@@ -27,7 +36,6 @@ const Login = () => {
       if (response.data.success) {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
-        navigate("/");
       } else {
         toast.error(response.data.message);
       }
@@ -63,7 +71,7 @@ const Login = () => {
           {({ isSubmitting }) => (
             <Form className="flex flex-col sm:w-full max-w-96 m-auto gap-4 text-gray-800 bg-transparent bg-opacity-90 px-5 py-5 rounded-lg shadow-xl border-2">
               <div className="flex items-center gap-20">
-                <FaArrowLeftLong onClick={() => navigate("/")} className="w-6 h-6 cursor-pointer text-gray-100 hover:text-red-400" />             
+                <FaArrowLeftLong onClick={() => window.history.back()} className="w-6 h-6 cursor-pointer text-gray-100 hover:text-red-400" />             
                 <h2 className="text-2xl font-semibold text-center text-gray-100">{currentState}</h2>              
               </div>
               {currentState === "Sign Up" && (
