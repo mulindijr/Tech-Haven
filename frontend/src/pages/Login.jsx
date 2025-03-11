@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { loginVideo } from "../assets/vids";
 import { ShopContext } from "../context/ShopContext";
@@ -101,8 +101,19 @@ const Login = () => {
                 </div>
               )}
 
-              <button type="submit" disabled={isSubmitting} className={`w-full py-2 text-xl rounded text-white bg-red-500 transition ${isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:bg-red-600"}`}>
-                {isSubmitting ? "Processing..." : currentState === "Sign Up" ? "Create Account" : "Login"}
+              <button 
+                type="submit" 
+                disabled={isSubmitting} 
+                className={`w-full py-2 text-xl rounded text-white bg-red-500 transition ${isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:bg-red-600"}`}
+              >
+                {isSubmitting ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <AiOutlineLoading3Quarters className="animate-spin w-5 h-5" />
+                    {currentState === "Sign Up" ? "Signing up..." : "Logging in..."}
+                  </div>
+                ) : (
+                  currentState === "Sign Up" ? "Create Account" : "Login"
+                )}
               </button>
 
               {currentState === "Login" ? (
