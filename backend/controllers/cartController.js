@@ -29,7 +29,27 @@ const addToCart = async (req, res)=> {
 
 // Update User Cart
 const updateCart = async (req, res)=> {
-    
+
+    try {
+
+        const { userId, itemId, quantity } = req.body;
+
+        const userData = await userModel.findById(userId);
+        if (!userData) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        let cartData = userData.cartData || {};
+        cartData[itemId] = quantity ; 
+
+        await userModel.findByIdAndUpdate(userId, { cartData });
+
+        res.status(200).json({message: "Cart Updated Successfully"});
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: error.message || "Internal Server Error"});        
+    }
 }
 
 // Get User Cart Data
