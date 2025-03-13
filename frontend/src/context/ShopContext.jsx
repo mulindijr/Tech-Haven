@@ -114,6 +114,19 @@ const ShopContextProvider = ({children}) => {
         }
     }
 
+    const getUserCart = async (token) => {
+
+        try {
+            const response = await axios.post(backendUrl + '/api/cart/get', {}, {headers:{token}});
+            if (response.data.success) {
+                setCartItems(response.data.cartData);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error.message);
+        }
+    }
+
     useEffect(() => {
         getProductsData();
     }, [])
@@ -122,7 +135,13 @@ const ShopContextProvider = ({children}) => {
         if (!token && localStorage.getItem('token')) {
             setToken(localStorage.getItem('token'));
         }
-    })
+    }, [])
+
+    useEffect(() => {
+        if (token) {
+            getUserCart(token);
+        }
+    }, [token]);
 
     const value ={
         products, currency, delivery_fee,  
