@@ -27,6 +27,18 @@ const ShopContextProvider = ({children}) => {
         }
     
         setCartItems(cartData);
+
+        if (token) {
+
+            try {
+
+                await axios.post(backendUrl + '/api/cart/add', { itemId }, { headers: {token} });
+                
+            } catch (error) {
+                console.log(error);
+                toast.error(error.message);                
+            }
+        }
     }
 
     // Function to add a product to recently viewed
