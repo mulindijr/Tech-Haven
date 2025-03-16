@@ -20,7 +20,7 @@ const Product = () => {
 
   if (!productData) return (
     <div className="flex flex-col items-center justify-center h-96 gap-4">
-      <div className="h-40 w-40 border-4 border-blue-700 border-t-transparent rounded-full animate-spin"></div>
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-red-500"></div>
       <p className="text-2xl">Loading Product ...</p>
     </div>
   );
