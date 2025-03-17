@@ -13,19 +13,19 @@ const Cart = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (products.length === 0) return;
-
-    const tempData = [];
-    for (const itemId in cartItems) {
-      const quantity = cartItems[itemId];
-      if (quantity > 0) {
-        const product = products.find(p => p._id === itemId);
-        if (product) tempData.push({ ...product, quantity });
+    if (products.length > 0) {
+      const tempData = [];
+      for (const itemId in cartItems) {
+        const quantity = cartItems[itemId];
+        if (quantity > 0) {
+          const product = products.find(p => p._id === itemId);
+          if (product) tempData.push({ ...product, quantity });
+        }
       }
-    }
 
-    setCartData(tempData);
-    setLoading(false);
+      setCartData(tempData);
+      setLoading(false);
+    }
   }, [cartItems, products]);
 
   const handleDelete = (itemId) => {
