@@ -29,6 +29,7 @@ const addToCart = async (req, res) => {
 };
 
 // Update User Cart
+// Update User Cart
 const updateCart = async (req, res) => {
     try {
         const { userId, itemId, quantity } = req.body;
@@ -39,7 +40,12 @@ const updateCart = async (req, res) => {
         }
 
         let cartData = userData.cartData || {};
-        cartData[itemId] = quantity;
+
+        if (quantity > 0) {
+            cartData[itemId] = quantity;
+        } else {
+            delete cartData[itemId];
+        }
 
         await userModel.findByIdAndUpdate(userId, { cartData });
 
