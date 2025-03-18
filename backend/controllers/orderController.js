@@ -1,8 +1,35 @@
-
+import orderModel from "../models/orderModel.js";
+import userModel from "../models/userModel.js";
 
 // Placing orders using Cash On Delivery method
 const placeOrder = async (req, res) => {
 
+    try {
+
+        const { userId, items, amount, address } = req.body;
+        
+        const orderData = {
+            userId,
+            items,
+            amount,
+            address,
+            paymentMethod: 'Cash On Delivery',
+            payment: false,
+            dateOrdered: Date.now()
+        }
+
+        const newOrder = new orderModel(orderData);
+        await newOrder.save();
+
+        // Clear the cart after placing the order
+        await userModel.findByIdAndUpdate(userId, {cartData: {}})
+
+        res.status(201).json({success: true, message: "Order Placed"})
+        
+    } catch (error) {
+        console.error("Error:", error)
+        res.status(500).json({success:false, message: error.message || "Internal Server Error" })        
+    }
 }
 
 // Placing orders using Stripe method
