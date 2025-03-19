@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react'
 import Title from "../components/Title"
 import CartTotal from "../components/CartTotal"
 import { ShopContext } from '../context/ShopContext';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const PlaceOrder = () => {
 
@@ -49,12 +51,29 @@ const PlaceOrder = () => {
             let orderData = {
                 address: formData,
                 items: orderItems,
-                amount: getCartAmount() + delivery_fee
+                amount: parseFloat(getCartAmount()) + parseFloat(delivery_fee)
+            }
+
+            switch (method) {
+
+                // API call for Cash On Delivery
+                case 'COD':
+                    const response = await axios.post(backendUrl + '/api/order/placeorder', orderData, { headers: {token} })
+                    if (response.data.success) {
+                        setCartItems({});
+                        navigate('/orders');
+                    } else {
+                        toast.error(response.data.message);
+                    }                    
+                    break;
+            
+                default:
+                    break;
             }
     
         } catch (error) {
             console.log(error);
-            res.json({success: false, error: error.message});
+            toast.error( error.message || 'Something went wrong');
         }
     };    
     
