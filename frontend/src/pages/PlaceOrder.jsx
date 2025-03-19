@@ -6,7 +6,7 @@ import { ShopContext } from '../context/ShopContext';
 const PlaceOrder = () => {
 
     const [method, setMethod] = useState('COD');
-    const {navigate} = useContext(ShopContext)
+    const {navigate, backendUrl, token, cartItems, setCartItems, getCartAmount, delivery_fee, products } = useContext(ShopContext)
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -25,9 +25,41 @@ const PlaceOrder = () => {
 
         setFormData(data => ({...data, [name]: value}))
     }
+
+    const onSubmitHandler = async (event) => {
+        event.preventDefault();
+    
+        try {
+
+            let orderItems = [];
+
+            for (const itemId in cartItems) {
+                const quantity = cartItems[itemId];
+    
+                if (quantity > 0) {
+                    const itemInfo = JSON.parse(JSON.stringify(products.find(product => product._id === itemId)));
+    
+                    if (itemInfo) {
+                        itemInfo.quantity = quantity;
+                        orderItems.push(itemInfo);
+                    }
+                }
+            }
+
+            let orderData = {
+                address: formData,
+                items: orderItems,
+                amount: getCartAmount() + delivery_fee
+            }
+    
+        } catch (error) {
+            console.log(error);
+            res.json({success: false, error: error.message});
+        }
+    };    
     
   return (
-    <form className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t">
+    <form onSubmit={onSubmitHandler} className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t">
         {/* ------Left------ */}
         <div className="flex flex-col gap-4 w-full sm:max-w-[480px]">
 
