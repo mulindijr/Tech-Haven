@@ -13,7 +13,7 @@ const placeOrder = async (req, res) => {
             items,
             amount,
             address,
-            paymentMethod: 'Cash On Delivery',
+            paymentMethod: 'COD',
             payment: false,
             dateOrdered: Date.now()
         }
