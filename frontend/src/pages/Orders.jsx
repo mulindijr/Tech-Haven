@@ -1,10 +1,48 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import Title from '../components/Title';
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Orders = () => {
 
-    const {products, currency } = useContext(ShopContext);
+    const {backendUrl, token, currency } = useContext(ShopContext);
+    const [orderData, setOrderData] = useState([]);
+
+    // Fetching Orders
+    const loadOrderData = async () => {
+        
+        try {
+            if (!token) {
+                return null
+            }
+
+            const response = await axios.post(backendUrl + '/api/order/userorders',{},{headers: {token}})
+            if (response.data.success) {
+                let allOrdersItem = [];
+
+                response.data.orders.map((order) => {
+                    order.items.map((item) => {
+                        item['status'] = order.status,
+                        item['payment'] = order.payment,
+                        item['paymentMethod'] = order.paymentMethod,
+                        item['status'] = order.status,
+                        allOrdersItem.push(item)
+                    })
+                    setOrderData(allOrdersItem.reverse());                    
+                })
+
+            }
+
+        } catch (error) {
+            console.log(error)
+            toast.error(error.message)
+        }
+    }
+
+    useEffect(() => {
+        loadOrderData()
+    }, [token])
 
   return (
     <div className='pt-4'>
@@ -12,7 +50,7 @@ const Orders = () => {
         <Title title1={'MY'} title2={'ORDERS'} />
 
         <div>
-            {products.slice(1,4).map((item, index) => (
+            {orderData.map((item, index) => (
                 <div key={index} className='py-4 border-t border-b text-gray-700 flex flex-col md:flex-row md:items-center md:gap-20'>
                     
                     <div className='md:w-1/2'>
