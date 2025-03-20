@@ -47,7 +47,7 @@ const Cart = () => {
 
   return (
     <div className="pt-4">
-      <Title title1={'YOUR'} title2={'CART'} />
+      <Title title1={'MY'} title2={'CART'} />
 
       {loading ? (
         <div className="flex items-center justify-center h-96">
