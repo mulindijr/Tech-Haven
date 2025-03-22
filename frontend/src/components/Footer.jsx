@@ -4,7 +4,7 @@ import SocialMediaLinks from "./SocialMediaLinks";
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t-2">
+    <footer className="bg-white border-t-2 mt-4">
         <div className="mx-10 pt-2">
             <div className="flex justify-between items-start flex-wrap max-lg:flex-col">
                 <div className="flex flex-col">
