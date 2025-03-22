@@ -51,7 +51,7 @@ const PlaceOrder = () => {
             let orderData = {
                 address: formData,
                 items: orderItems,
-                amount: parseFloat(getCartAmount()) + parseFloat(delivery_fee)
+                amount: (parseInt(getCartAmount().replace(/,/g, ''), 10) + delivery_fee),
             }
 
             switch (method) {
