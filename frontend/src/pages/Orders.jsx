@@ -7,10 +7,10 @@ import { toast } from 'react-toastify'
 const Orders = () => {
 
     const {backendUrl, token, currency } = useContext(ShopContext);
-    const [orderData, setOrderData] = useState([]);
+    const [ordersData, setOrdersData] = useState([]);
 
     // Fetching Orders
-    const loadOrderData = async () => {
+    const loadOrdersData = async () => {
         
         try {
             if (!token) {
@@ -19,19 +19,21 @@ const Orders = () => {
 
             const response = await axios.post(backendUrl + '/api/order/userorders',{},{headers: {token}})
             if (response.data.success) {
-                let allOrdersItem = [];
-
-                response.data.orders.map((order) => {
-                    order.items.map((item) => {
-                        item['status'] = order.status,
-                        item['payment'] = order.payment,
-                        item['paymentMethod'] = order.paymentMethod,
-                        item['status'] = order.status,
-                        allOrdersItem.push(item)
-                    })
-                    setOrderData(allOrdersItem.reverse());                    
-                })
-
+                const processedOrders = response.data.orders.map(order => ({
+                    _id: order._id,
+                    status: order.status,
+                    paymentMethod: order.paymentMethod,
+                    dateOrdered: order.dateOrdered,
+                    amount: order.amount,
+                    address: order.address,
+                    items: order.items.map(item => ({
+                        ...item,
+                        price: item.price,
+                        name: item.name,
+                        imgURL: item.imgURL
+                    }))
+                }));
+                setOrdersData(processedOrders.reverse());
             }
 
         } catch (error) {
@@ -41,7 +43,7 @@ const Orders = () => {
     }
 
     useEffect(() => {
-        loadOrderData()
+        loadOrdersData()
     }, [token])
 
   return (
