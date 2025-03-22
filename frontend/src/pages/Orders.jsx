@@ -3,10 +3,12 @@ import { ShopContext } from '../context/ShopContext';
 import Title from '../components/Title';
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { PiShoppingCartThin } from "react-icons/pi";
+import { FaExclamationTriangle } from 'react-icons/fa';
 
 const Orders = () => {
 
-    const {backendUrl, token, currency } = useContext(ShopContext);
+    const {backendUrl, token, currency, navigate } = useContext(ShopContext);
     const [ordersData, setOrdersData] = useState([]);
 
     // Fetching Orders
@@ -126,8 +128,26 @@ const Orders = () => {
                     ))}
                 </div>
             ) : (
-                <div className='mt-8 text-center text-gray-500'>
-                    No orders found
+                <div className='flex items-center justify-center h-screen text-center text-gray-500'>
+                    <div className="flex flex-col items-center justify-center text-center gap-4">
+                        <div className="relative text-gray-400">
+                            <PiShoppingCartThin className="w-28 h-28" />
+                            <FaExclamationTriangle className="absolute w-10 h-10 -top-2 -right-2 bg-white p-1 rounded-full"/>
+                        </div>
+        
+                        <h2 className="text-2xl font-semibold text-gray-600">
+                          No Orders Found
+                        </h2>
+                        <p className="text-gray-400 max-w-xs">
+                          Your order history is currently empty. Start shopping to fill it with wonderful items!
+                        </p>
+                        <button 
+                          onClick={() => navigate('/shop')} 
+                          className="flex items-center space-x-2 px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors duration-200"
+                        >
+                          Browse Our Shop
+                        </button>
+                    </div>
                 </div>
             )}
         </div>
