@@ -10,9 +10,11 @@ const Orders = () => {
 
     const {backendUrl, token, currency, navigate } = useContext(ShopContext);
     const [ordersData, setOrdersData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     // Fetching Orders
     const loadOrdersData = async () => {
+        setLoading(true);
         
         try {
             if (!token) {
@@ -41,6 +43,8 @@ const Orders = () => {
         } catch (error) {
             console.log(error)
             toast.error(error.message)
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -52,7 +56,11 @@ const Orders = () => {
         <div className='pt-4 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8'>
             <Title title1={'MY'} title2={'ORDERS'} />
 
-            {ordersData?.length > 0 ? (
+            {loading ? (
+                <div className="flex items-center justify-center h-96">
+                  <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-red-500"></div>
+                </div>
+            ):( ordersData?.length > 0 ? (
                 <div className='mt-6 space-y-8'>
                     {ordersData.map((order) => (
                         <div key={order._id} className='bg-white rounded-xl shadow-md sm:shadow-md border border-gray-100 p-6 transition-all hover:shadow-lg'>
@@ -127,6 +135,7 @@ const Orders = () => {
                         </div>
                     ))}
                 </div>
+                
             ) : (
                 <div className='flex items-center justify-center h-screen text-center text-gray-500'>
                     <div className="flex flex-col items-center justify-center text-center gap-4">
@@ -149,7 +158,7 @@ const Orders = () => {
                         </button>
                     </div>
                 </div>
-            )}
+            ))}
         </div>
     );
 }
