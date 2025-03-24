@@ -49,6 +49,16 @@ const placeOrderMpesa = async (req, res) => {
 
 // All Orders for Admin Panel
 const allOrders = async (req, res) => {
+
+    try {
+
+        const orders = await orderModel.find({});
+        res.status(200).json({success:true, orders})
+        
+    } catch (error) {
+        console.error("Error:", error)
+        res.status(500).json({success:false, message: error.message || "Internal Server Error" })
+    }
     
 }
 
