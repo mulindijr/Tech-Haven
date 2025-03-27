@@ -81,6 +81,18 @@ const userOrders = async (req, res) => {
 
 // Update Order Status from admin panel
 const updateOrderStatus = async (req, res) => {
+
+    try {
+
+        const [orderId, status] = req.body;
+
+        const orders = await orderModel.findByIdAndUpdate(orderId, {status});
+        res.status(200).json({success:true, message: 'Status Updated'})
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({success:false, message: error.message || "Internal Server Error" }) 
+    }
     
 }
 
