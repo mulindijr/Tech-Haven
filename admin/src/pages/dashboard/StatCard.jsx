@@ -1,4 +1,5 @@
 import React from 'react'
+import CountUp from 'react-countup';
 
 const StatCard = ({ icon, value, label, change }) => {
   return (
@@ -7,7 +8,9 @@ const StatCard = ({ icon, value, label, change }) => {
         {icon}
         <span className="text-green-500 text-sm">{change}</span>
       </div>
-      <h3 className="text-2xl font-bold mt-4">{value}</h3>
+      <h3 className="text-2xl font-bold mt-4">
+        <CountUp start={0} end={value} duration={2.5} separator="," />
+      </h3>
       <p className="text-gray-500">{label}</p>
     </div>
   )
