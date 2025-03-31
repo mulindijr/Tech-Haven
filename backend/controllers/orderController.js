@@ -99,6 +99,31 @@ const placeOrderStripe = async (req, res) => {
 
 }
 
+// Verify Stripe Payment
+const verifyStripePayment = async (req, res) => {
+
+    try {
+
+        const { orderId, success, userId } = req.body;
+
+        if (success === 'true') {
+            await orderModel.findByIdAndUpdate(orderId, {payment: true});
+            await userModel.findByIdAndUpdate(userId, {cartData: {}})
+
+            res.status(200).json({success: true})
+            
+        } else {
+            await orderModel.findByIdAndDelete(orderId);
+            res.status(200).json({success: false});           
+        }
+
+    } catch (error) {
+        console.error("Error:", error)
+        res.status(500).json({success:false, message: error.message || "Internal Server Error" })
+    }
+
+}
+
 // Placing orders using Razorpay method
 const placeOrderRazorpay = async (req, res) => {
 
@@ -158,4 +183,4 @@ const updateOrderStatus = async (req, res) => {
     
 }
 
-export { placeOrder, placeOrderStripe, placeOrderRazorpay, placeOrderMpesa, allOrders, userOrders, updateOrderStatus }
+export { placeOrder, placeOrderStripe, placeOrderRazorpay, placeOrderMpesa, allOrders, userOrders, updateOrderStatus, verifyStripePayment }
