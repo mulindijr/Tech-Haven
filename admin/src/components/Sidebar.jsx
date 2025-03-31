@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { IoIosAddCircleOutline, IoIosList } from 'react-icons/io';
 import { IoBagCheckOutline } from 'react-icons/io5';
+import { HiOutlineViewGrid } from "react-icons/hi";
 
 const Sidebar = () => {
   return (
@@ -18,7 +19,7 @@ const Sidebar = () => {
             }`
           }   
         >
-          <IoIosAddCircleOutline className="text-2xl" />
+          <HiOutlineViewGrid className="text-2xl" />
           <p className="hidden md:block text-sm">Dashboard</p>  
         </NavLink>
         <NavLink
