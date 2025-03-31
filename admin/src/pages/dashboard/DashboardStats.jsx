@@ -8,9 +8,10 @@ const DashboardStats = () => {
       {/* Total Revenue */}
       <StatCard
         icon={<HiOutlineCurrencyDollar className="w-12 h-12 text-indigo-500 p-2 bg-indigo-100 rounded-lg" />}
-        value="$45,231"
+        value="45231"
         label="Total Revenue"
         change="+12%"
+        prefix="Ksh "
       />
 
       {/* Total Orders */}
@@ -24,7 +25,7 @@ const DashboardStats = () => {
       {/* Total Customers */}
       <StatCard
         icon={<HiOutlineUserGroup className="w-12 h-12 text-blue-500 p-2 bg-blue-100 rounded-lg" />}
-        value="1,234"
+        value="1234"
         label="Customers"
         change="-3%"
       />
