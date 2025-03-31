@@ -9,6 +9,7 @@ import SignUp from './Signup';
 import Product from './Product';
 import PlaceOrder from './PlaceOrder';
 import Orders from './Orders';
+import VerifyPayment from './VerifyPayment';
 
 export {    
     Home,
@@ -21,5 +22,6 @@ export {
     SignUp,
     Product,
     PlaceOrder,
-    Orders
+    Orders,
+    VerifyPayment
 }
