@@ -1,5 +1,5 @@
 import express from 'express';
-import {  placeOrder, placeOrderStripe, placeOrderRazorpay, placeOrderMpesa, allOrders, userOrders, updateOrderStatus, verifyStripePayment } from '../controllers/orderController.js';
+import {  placeOrder, placeOrderStripe, placeOrderMpesa, allOrders, userOrders, updateOrderStatus, verifyStripePayment } from '../controllers/orderController.js';
 import userAuth from '../middleware/userAuth.js';
 import adminAuth from '../middleware/adminAuth.js';
 
@@ -12,7 +12,6 @@ orderRouter.post('/status', adminAuth, updateOrderStatus);
 // Payment Gateway Routes
 orderRouter.post('/placeorder', userAuth, placeOrder);
 orderRouter.post('/stripe', userAuth, placeOrderStripe);
-orderRouter.post('/razorpay', userAuth, placeOrderRazorpay);
 orderRouter.post('/mpesa', userAuth, placeOrderMpesa);
 
 // User Features

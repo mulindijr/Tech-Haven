@@ -124,11 +124,6 @@ const verifyStripePayment = async (req, res) => {
 
 }
 
-// Placing orders using Razorpay method
-const placeOrderRazorpay = async (req, res) => {
-
-}
-
 // Placing orders using Mpesa method
 const placeOrderMpesa = async (req, res) => {
 
@@ -183,4 +178,4 @@ const updateOrderStatus = async (req, res) => {
     
 }
 
-export { placeOrder, placeOrderStripe, placeOrderRazorpay, placeOrderMpesa, allOrders, userOrders, updateOrderStatus, verifyStripePayment }
+export { placeOrder, placeOrderStripe, placeOrderMpesa, allOrders, userOrders, updateOrderStatus, verifyStripePayment }
