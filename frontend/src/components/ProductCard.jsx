@@ -3,7 +3,7 @@ import { renderStars } from "./utils";
 import { ShopContext } from "../context/ShopContext";
 import { Link } from "react-router-dom";
 
-const ProductItem = ({id, img, brand, name, price, rating, onClick}) => {
+const ProductCard = ({id, img, brand, name, price, rating, onClick}) => {
 
   const {currency} =useContext(ShopContext)
 
@@ -30,4 +30,4 @@ const ProductItem = ({id, img, brand, name, price, rating, onClick}) => {
     )
   }
   
-  export default ProductItem;
+export default ProductCard;

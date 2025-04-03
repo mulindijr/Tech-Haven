@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { ShopContext } from "../context/ShopContext"
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import Title from "../components/Title";
-import ProductItem from "../components/ProductItem";
+import ProductCard from "../components/ProductCard";
 
 const Shop = () => {
   const {products, search, showSearch} =useContext(ShopContext)
@@ -148,7 +148,7 @@ const Shop = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6 mb-6">
           {
             filterProducts.map((item,index) => (
-              <ProductItem 
+              <ProductCard 
                 key={index}
                 id = {item._id}
                 img = {item.imgURL}

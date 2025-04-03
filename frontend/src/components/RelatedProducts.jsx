@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import Title from "./Title";
-import ProductItem from "./ProductItem";
+import ProductCard from "./ProductCard";
 
 const RelatedProducts = ({ category, brand, currentProductId }) => {
   const { products } = useContext(ShopContext);
@@ -31,7 +31,7 @@ const RelatedProducts = ({ category, brand, currentProductId }) => {
       {related.length > 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
           {related.map((item, index) => (
-            <ProductItem
+            <ProductCard
               key={index}
               id={item._id}
               img={item.imgURL}

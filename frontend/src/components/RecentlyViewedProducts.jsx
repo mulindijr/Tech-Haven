@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ShopContext } from "../context/ShopContext";
 import Title from './Title';
-import ProductItem from './ProductItem';
+import ProductCard from './ProductCard';
 
 const RecentlyViewed = () => {
     const { recentlyViewed } = useContext(ShopContext);
@@ -14,7 +14,7 @@ const RecentlyViewed = () => {
             {recentlyViewed.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-6">
                     {recentlyViewed.map((item, index) => (
-                        <ProductItem 
+                        <ProductCard 
                             key={index}
                             id={item._id}
                             img={item.imgURL}
