@@ -2,12 +2,12 @@ import mongoose from 'mongoose';
 
 const addressSchema = new mongoose.Schema(
   {
-    street: { type: String, required: true },
-    city: { type: String, required: true },
-    state: { type: String, required: true },
-    zipcode: { type: String, required: true },
-    country: { type: String, required: true },
-    phone: { type: String, required: true },
+    street: { type: String, required: false },
+    city: { type: String, required: false },
+    state: { type: String, required: false },
+    zipcode: { type: String, required: false },
+    country: { type: String, required: false },
+    phone: { type: String, required: false },
     isDefault: { type: Boolean, default: false },
   }, { _id: false }
 );
