@@ -71,4 +71,35 @@ const updateUserProfile = async (req, res) => {
   }
 };
 
-export { getUserProfile, updateUserProfile };
+// Updating User Password
+const updatePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const userId = req.user.id;
+    const user = await userModel.findById(userId).select('+password');
+
+    if (!newPassword || newPassword.length < 8) {
+      return res.status(400).json({message: 'New password must be at least 8 characters long'})
+    }
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Verify current password
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Current password is incorrect' });
+    }
+
+    // Hash and save new password
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
+
+    res.status(200).json({ message: 'Password updated successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export { getUserProfile, updateUserProfile, updatePassword };
