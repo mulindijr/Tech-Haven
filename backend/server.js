@@ -8,6 +8,7 @@ import productRouter from './routes/productRoute.js';
 import cartRouter from './routes/cartRoute.js';
 import orderRouter from './routes/orderRoute.js';
 import dashboardRouter from './routes/dashboardRoute.js';
+import profileRouter from './routes/userProfileRoute.js';
 
 //app Config
 const app = express();
@@ -25,6 +26,7 @@ app.use('/api/product', productRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/dashboard', dashboardRouter);
+app.use('/api/profile', profileRouter);
 
 app.get('/', (req, res) => {
     res.status(200).send('Api is running');
