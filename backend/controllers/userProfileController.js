@@ -1,5 +1,6 @@
 import userModel from "../models/userModel.js";
 import bcrypt from 'bcrypt';
+import { v2 as cloudinary } from "cloudinary";
 
 // Getting User Profile
 const getUserProfile = async (req, res) => {
@@ -33,10 +34,20 @@ const updateUserProfile = async (req, res) => {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
+    //Upload profile picture to cloudinary if provided
+    if (profilePic) {
+      const result = await cloudinary.uploader.upload(profilePic, {
+        folder: 'profile_pics',
+        use_filename: true,
+      })
+
+      user.profilePic = result.secure_url;
+
+    }
+
     // Update basic fields
     if (firstName) user.firstName = firstName.trim();
     if (lastName) user.lastName = lastName.trim();
-    if (profilePic) user.profilePic = profilePic;
 
     // Update address if provided
     if (address) {
