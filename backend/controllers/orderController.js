@@ -14,7 +14,8 @@ const placeOrder = async (req, res) => {
 
     try {
 
-        const { userId, items, amount, address } = req.body;
+        const userId = req.user.id;
+        const { items, amount, address } = req.body;
         
         const orderData = {
             userId,
@@ -45,7 +46,8 @@ const placeOrderStripe = async (req, res) => {
 
     try {
 
-        const { userId, items, amount, address } = req.body;
+        const userId = req.user.id;
+        const { items, amount, address } = req.body;
         const { origin } = req.headers;
 
         const orderData = {
@@ -104,7 +106,8 @@ const verifyStripePayment = async (req, res) => {
 
     try {
 
-        const { orderId, success, userId } = req.body;
+        const userId = req.user.id;
+        const { orderId, success } = req.body;
 
         if (success === 'true') {
             await orderModel.findByIdAndUpdate(orderId, {payment: true});
@@ -149,7 +152,7 @@ const userOrders = async (req, res) => {
 
     try {
 
-        const {userId} = req.body;
+        const userId = req.user.id;
 
         const orders = await orderModel.find({userId});
         res.status(200).json({success:true, orders})

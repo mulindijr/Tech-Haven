@@ -3,7 +3,8 @@ import userModel from "../models/userModel.js";
 // Add Products To User Cart
 const addToCart = async (req, res) => {
     try {
-        const { userId, itemId } = req.body;
+        const userId = req.user.id;
+        const { itemId } = req.body;
 
         const userData = await userModel.findById(userId);
         if (!userData) {
@@ -29,10 +30,10 @@ const addToCart = async (req, res) => {
 };
 
 // Update User Cart
-// Update User Cart
 const updateCart = async (req, res) => {
     try {
-        const { userId, itemId, quantity } = req.body;
+        const userId = req.user.id;
+        const { itemId, quantity } = req.body;
 
         const userData = await userModel.findById(userId);
         if (!userData) {
@@ -60,7 +61,7 @@ const updateCart = async (req, res) => {
 // Get User Cart Data
 const getCart = async (req, res) => {
     try {
-        const { userId } = req.body;
+        const userId = req.user.id;
 
         const userData = await userModel.findById(userId);
         if (!userData) {
