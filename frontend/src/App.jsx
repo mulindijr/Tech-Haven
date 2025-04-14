@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Home, Shop, About, Contact, Cart, Faqs, Product, PlaceOrder, Orders, Login, VerifyPayment } from "./pages";
+import { Home, Shop, About, Contact, Cart, Faqs, Product, PlaceOrder, Orders, Login, VerifyPayment, Profile } from "./pages";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import { ToastContainer } from "react-toastify";
@@ -22,6 +22,7 @@ const App = () => {
           <Route path="/place-order" element={<PlaceOrder />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/verify" element={<VerifyPayment />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
 
         {/* Routes that use AuthLayout */}
