@@ -4,6 +4,7 @@ import { ShopContext } from "../context/ShopContext";
 import { toast } from "react-toastify";
 import { AiOutlineSave, AiOutlineLoading3Quarters, AiOutlineEdit, AiOutlineUser, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FiCamera } from "react-icons/fi";
+import Orders from "./Orders";
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -527,6 +528,12 @@ const Profile = () => {
           </div>
         )}
       </div>
+
+      <div className="max-w-4xl">
+        <h2 className="text-xl font-semibold text-gray-800 mt-4">Your Recent Orders</h2>
+        <Orders minimal={true} />
+      </div>
+      
     </div>
   );
 };
