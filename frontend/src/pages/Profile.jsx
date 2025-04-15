@@ -13,6 +13,12 @@ const Profile = () => {
   const [profilePicPreview, setProfilePicPreview] = useState("");
   const fileInputRef = useRef(null);
   const { token, backendUrl } = useContext(ShopContext);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [passwords, setPasswords] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
 
   // Fetch user profile data using the provided endpoint.
   useEffect(() => {
@@ -124,6 +130,33 @@ const Profile = () => {
       setLoading(false);
     }
   };  
+
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+    
+    if (passwords.newPassword !== passwords.confirmPassword) {
+      toast.error("New password and confirmation do not match.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(backendUrl + "/api/profile/password",
+        { currentPassword: passwords.currentPassword,
+          newPassword: passwords.newPassword 
+        }, { 
+          headers: { token } 
+        }
+      );
+
+      toast.success("Password updated successfully!");
+      setShowPasswordModal(false);
+      setPasswords({ currentPassword: "", newPassword: "", confirmPassword: "" });
+
+    } catch (error) {
+      console.error("Password update error:", error);
+      toast.error(error.response?.data?.message || "Failed to update password");
+    }
+  };
 
   if (!userData) {
     return (
