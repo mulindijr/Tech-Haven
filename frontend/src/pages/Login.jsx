@@ -20,10 +20,8 @@ const Login = () => {
   }
 
   const validationSchema = Yup.object({
-    name:
-      currentState === "Sign Up"
-        ? Yup.string().required("Fullname is required")
-        : Yup.string(),
+    firstName: currentState === "Sign Up" ? Yup.string().required("First name is required") : Yup.string(),
+    lastName: currentState === "Sign Up" ? Yup.string().required("Last name is required") : Yup.string(),
     email: Yup.string().email("Invalid email format").required("Email is required"),
     password: Yup.string().min(8, "Password must be at least 8 characters").required("Password is required"),
   });
@@ -48,13 +46,13 @@ const Login = () => {
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
       {/* Background Video */}
-      <video 
-        autoPlay 
-        loop 
-        muted 
+      <video
+        autoPlay
+        loop
+        muted
         playsInline
         preload="auto"
-        controlsList="nodownload" 
+        controlsList="nodownload"
         className="absolute top-0 left-0 w-full h-full object-cover"
       >
         <source src={loginVideo} type="video/mp4" />
@@ -64,31 +62,59 @@ const Login = () => {
       {/* Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center">
         <Formik
-          initialValues={{ name: "", email: "", password: "" }}
+          initialValues={{ firstName: "", lastName: "", email: "", password: "" }}
           validationSchema={validationSchema}
           onSubmit={onSubmitHandler}
         >
           {({ isSubmitting }) => (
             <Form className="flex flex-col sm:w-full max-w-96 m-auto gap-4 text-gray-800 bg-transparent bg-opacity-90 px-5 py-5 rounded-lg shadow-xl border-2">
               <div className="flex items-center gap-20">
-                <FaArrowLeftLong onClick={() => window.history.back()} className="w-6 h-6 cursor-pointer text-gray-100 hover:text-red-400" />             
-                <h2 className="text-2xl font-semibold text-center text-gray-100">{currentState}</h2>              
+                <FaArrowLeftLong onClick={() => window.history.back()} className="w-6 h-6 cursor-pointer text-gray-100 hover:text-red-400" />
+                <h2 className="text-2xl font-semibold text-center text-gray-100">{currentState}</h2>
               </div>
               {currentState === "Sign Up" && (
-                <div>
-                  <Field name="name" placeholder="Fullname" className="w-full px-3 py-2 border border-gray-400 outline-none rounded" />
-                  <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
-                </div>
+                <>
+                  <div>
+                    <Field
+                      name="firstName"
+                      placeholder="First Name"
+                      className="w-full px-3 py-2 border border-gray-400 outline-none rounded"
+                    />
+                    <ErrorMessage name="firstName" component="div" className="text-red-500 text-sm" />
+                  </div>
+
+                  <div>
+                    <Field
+                      name="lastName"
+                      placeholder="Last Name"
+                      className="w-full px-3 py-2 border border-gray-400 outline-none rounded"
+                    />
+                    <ErrorMessage name="lastName" component="div" className="text-red-500 text-sm" />
+                  </div>
+                </>
               )}
 
               <div>
-                <Field name="email" type="email" placeholder="Email" className="w-full px-3 py-2 border border-gray-400 outline-none rounded" />
+                <Field
+                  name="email"
+                  type="email"
+                  placeholder="Email"
+                  className="w-full px-3 py-2 border border-gray-400 outline-none rounded"
+                />
                 <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
               </div>
 
               <div className="relative">
-                <Field name="password" type={showPassword ? "text" : "password"} placeholder="Password" className="w-full px-3 py-2 border border-gray-400 outline-none rounded" />
-                <span onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-3 cursor-pointer text-gray-600">
+                <Field
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  className="w-full px-3 py-2 border border-gray-400 outline-none rounded"
+                />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-3 cursor-pointer text-gray-600"
+                >
                   {showPassword ? <AiOutlineEyeInvisible className="w-5 h-5" /> : <AiOutlineEye className="w-5 h-5" />}
                 </span>
                 <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
@@ -101,9 +127,9 @@ const Login = () => {
                 </div>
               )}
 
-              <button 
-                type="submit" 
-                disabled={isSubmitting} 
+              <button
+                type="submit"
+                disabled={isSubmitting}
                 className={`w-full py-2 text-xl rounded text-white bg-red-500 transition ${isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:bg-red-600"}`}
               >
                 {isSubmitting ? (
@@ -119,12 +145,16 @@ const Login = () => {
               {currentState === "Login" ? (
                 <p className="text-center text-gray-100">
                   Create a new account?{" "}
-                  <span onClick={() => setCurrentState("Sign Up")} className="cursor-pointer text-red-500 hover:underline">Click here</span>
+                  <span onClick={() => setCurrentState("Sign Up")} className="cursor-pointer text-red-500 hover:underline">
+                    Click here
+                  </span>
                 </p>
               ) : (
                 <p className="text-center text-gray-100">
                   Already have an account?{" "}
-                  <span onClick={() => setCurrentState("Login")} className="cursor-pointer text-red-500 hover:underline">Login here</span>
+                  <span onClick={() => setCurrentState("Login")} className="cursor-pointer text-red-500 hover:underline">
+                    Login here
+                  </span>
                 </p>
               )}
             </Form>
