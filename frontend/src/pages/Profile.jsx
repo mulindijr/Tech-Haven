@@ -212,13 +212,23 @@ const Profile = () => {
               </div>
             </div>
             {!isEditing && (
-              <button
-                onClick={() => setIsEditing(true)}
-                className="flex items-center space-x-2 bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors"
-              >
-                <AiOutlineEdit className="w-5 h-5" />
-                <span>Edit Profile</span>
-              </button>
+              <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="flex items-center space-x-2 bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+                >
+                  <AiOutlineEdit className="w-5 h-5" />
+                  <span>Edit Profile</span>
+                </button>
+
+                <button
+                  onClick={() => setShowPasswordModal(true)}
+                  className="ml-4 flex items-center space-x-2 bg-white text-blue-600 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+                >
+                  <AiOutlineEdit className="w-5 h-5" />
+                  <span>Change Password</span>
+                </button>
+              </div>
             )}
           </div>
         </div>
