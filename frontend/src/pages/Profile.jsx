@@ -2,7 +2,7 @@ import { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
 import { ShopContext } from "../context/ShopContext";
 import { toast } from "react-toastify";
-import { AiOutlineSave, AiOutlineLoading3Quarters, AiOutlineEdit, AiOutlineUser } from "react-icons/ai";
+import { AiOutlineSave, AiOutlineLoading3Quarters, AiOutlineEdit, AiOutlineUser, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FiCamera } from "react-icons/fi";
 
 const Profile = () => {
@@ -19,6 +19,9 @@ const Profile = () => {
     newPassword: "",
     confirmPassword: "",
   });
+  const [showCurrent, setShowCurrent] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   // Fetch user profile data using the provided endpoint.
   useEffect(() => {
@@ -411,35 +414,56 @@ const Profile = () => {
             <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6 space-y-4 relative">
               <h2 className="text-xl font-semibold text-gray-800">Change Password</h2>
               <form onSubmit={handlePasswordChange} className="space-y-4">
-                <div>
+                <div className="relative">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
                   <input
-                    type="password"
+                    type={showCurrent ? "text" : "password"}
                     value={passwords.currentPassword}
                     onChange={(e) => setPasswords({ ...passwords, currentPassword: e.target.value })}
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowCurrent(!showCurrent)}
+                    className="absolute right-3 top-9 text-gray-500"                                      
+                  >
+                    {showCurrent ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                  </button>
                 </div>
-                <div>
+                <div className="relative">
                   <label className="block text-sm font-medium text-gray-700 mb-1">New Password</label>
                   <input
-                    type="password"
+                    type={showNew ? "text" : "password"}
                     value={passwords.newPassword}
                     onChange={(e) => setPasswords({ ...passwords, newPassword: e.target.value })}
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowNew(!showNew)}
+                    className="absolute right-3 top-9 text-gray-500"
+                  >
+                    {showNew ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                  </button>
                 </div>
-                <div>
+                <div className="relative">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
                   <input
-                    type="password"
+                    type={showConfirm ? "text" : "password"}
                     value={passwords.confirmPassword}
                     onChange={(e) => setPasswords({ ...passwords, confirmPassword: e.target.value })}
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirm(!showConfirm)}
+                    className="absolute right-3 top-9 text-gray-500"
+                  >
+                    {showConfirm ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                  </button>
                 </div>
                 <div className="flex justify-end space-x-4 pt-2">
                   <button
