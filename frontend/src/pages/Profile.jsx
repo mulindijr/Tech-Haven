@@ -22,6 +22,7 @@ const Profile = () => {
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [errors, setErrors] = useState({});  
 
   // Fetch user profile data using the provided endpoint.
   useEffect(() => {
@@ -160,6 +161,26 @@ const Profile = () => {
       toast.error(error.response?.data?.message || "Failed to update password");
     }
   };
+
+  useEffect(() => {
+    const newErrors = {};
+  
+    if (passwords.currentPassword && passwords.currentPassword.length < 8) {
+      newErrors.currentPassword = "Current password must be at least 8 characters long.";
+    }
+  
+    if (passwords.newPassword && passwords.newPassword.length < 8) {
+      newErrors.newPassword = "New password must be at least 8 characters long.";
+    }
+  
+    if (passwords.confirmPassword) {
+      if (passwords.newPassword !== passwords.confirmPassword) {
+        newErrors.confirmPassword = "Passwords do not match";
+      }
+    }
+  
+    setErrors(newErrors);
+  }, [passwords]); 
 
   if (!userData) {
     return (
@@ -423,6 +444,12 @@ const Profile = () => {
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
+
+                  {/* Display error message if current password is invalid */}
+                  {errors.currentPassword && (
+                    <p className="text-sm text-red-500 mt-1">{errors.currentPassword}</p>
+                  )}
+
                   <button
                     type="button"
                     onClick={() => setShowCurrent(!showCurrent)}
@@ -440,6 +467,12 @@ const Profile = () => {
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
+
+                  {/* Display error message if new password is invalid */}
+                  {errors.newPassword && (
+                    <p className="text-sm text-red-500 mt-1">{errors.newPassword}</p>
+                  )}
+
                   <button
                     type="button"
                     onClick={() => setShowNew(!showNew)}
@@ -457,6 +490,12 @@ const Profile = () => {
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
+
+                  {/* Display error message if confirm password is invalid */}
+                  {errors.confirmPassword && (
+                    <p className="text-sm text-red-500 mt-1">{errors.confirmPassword}</p>
+                  )}
+                  
                   <button
                     type="button"
                     onClick={() => setShowConfirm(!showConfirm)}
