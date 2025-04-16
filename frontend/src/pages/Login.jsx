@@ -12,7 +12,7 @@ import { Navigate } from "react-router-dom";
 const Login = () => {
   const [currentState, setCurrentState] = useState("Login");
   const [showPassword, setShowPassword] = useState(false);
-  const { token, setToken, backendUrl } = useContext(ShopContext);
+  const { token, setToken, backendUrl, navigate } = useContext(ShopContext);
 
   // If the user is already logged in, immediately redirect to home.
   if (token) {
@@ -34,6 +34,12 @@ const Login = () => {
       if (response.data.success) {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
+
+        // ✅ Redirect user to intended page after login
+        const redirectPath = localStorage.getItem("redirectAfterLogin") || "/";
+        localStorage.removeItem("redirectAfterLogin"); // clean up
+        navigate(redirectPath);
+        
       } else {
         toast.error(response.data.message);
       }
