@@ -8,7 +8,7 @@ import RecentlyViewedProducts from "../components/RecentlyViewedProducts";
 import { toast } from 'react-toastify';
 
 const Cart = () => {
-  const { products, currency, cartItems, updateQuantity, navigate } = useContext(ShopContext);
+  const { products, currency, cartItems, updateQuantity, navigate, token } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -103,7 +103,22 @@ const Cart = () => {
               <CartTotal />
               <div className="w-full text-end">
                 <button 
-                  onClick={() => navigate('/place-order')} 
+                  onClick={() => {
+                    if (!token) {
+                      localStorage.setItem("redirectAfterLogin", "/place-order");
+                      toast.error('Please log in to proceed to checkout.', {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                      });
+                      navigate('/login');
+                      return;
+                    }
+                    navigate('/place-order')
+                  }} 
                   className="bg-black text-white text-sm my-8 px-8 py-3 hover:bg-gray-800 transition-colors"
                 >
                   PROCEED TO CHECKOUT
