@@ -76,6 +76,14 @@ const PlaceOrder = () => {
                         toast.error(responseStripe.data.message)
                     }
                     break;
+
+                case 'PAYPAL':
+                    toast.info('PayPal payment method will be implemented soon!');
+                    break;
+                
+                case 'M-PESA':
+                    toast.info('M-PESA payment method will be implemented soon!')
+                    break;
             
                 default:
                     break;
