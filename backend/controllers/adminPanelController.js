@@ -73,4 +73,20 @@ const deleteOrder = async (req, res) => {
   
 }
 
-export { getDashboardStats, getCustomers, deleteOrder };
+// Get Recent Orders
+const getRecentOrders = async (req, res) => {
+
+  try {
+
+    const recentOrders = await orderModel.find({}).sort({ dateOrdered: -1 }).limit(2).populate('userId', 'firstName lastName email');
+
+    res.status(200).json({ success: true, orders: recentOrders });
+
+  } catch (error) {
+    console.error("Error fetching recent orders:", error);
+    res.status(500).json({ success: false, message: "Failed to fetch recent orders" });
+  }
+
+};
+
+export { getDashboardStats, getCustomers, deleteOrder, getRecentOrders };
