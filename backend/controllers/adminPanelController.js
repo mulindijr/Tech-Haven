@@ -25,4 +25,30 @@ const getDashboardStats = async (req, res) => {
   }
 };
 
-export { getDashboardStats };
+// This function retrieves the total number of users
+const getCustomers = async (req, res) => {
+
+  try {
+    
+    const customers = await userModel.find({}, {
+      _id: 1,
+      firstName: 1,
+      lastName: 1,
+      email: 1,
+      profilePic: 1,
+      createdAt: 1,
+      'address.city': 1,
+      'address.country': 1,
+      'address.phone': 1
+    });
+
+    res.status(200).json({ success: true, count: customers.length, customers });
+
+  } catch (error) {
+    console.error("Error fetching customers:", error);
+    res.status(500).json({ success: false, message: "Failed to fetch customers" });
+  }
+
+}
+
+export { getDashboardStats, getCustomers };
