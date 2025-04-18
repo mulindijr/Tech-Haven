@@ -51,4 +51,26 @@ const getCustomers = async (req, res) => {
 
 }
 
-export { getDashboardStats, getCustomers };
+// Delete Order from admin panel
+const deleteOrder = async (req, res) => {
+
+  try {
+
+    const {orderId} = req.body;
+
+    const deletedOrder = await orderModel.findByIdAndDelete(orderId);
+
+    if (!deletedOrder) {
+      return res.status(404).json({success:false, message: 'Order Not Found'})
+    }
+
+    res.status(200).json({success:true, message: 'Order Deleted Successfully'})
+
+  } catch (error) {
+    console.error("Error:", error)
+    res.status(500).json({success:false, message: error.message || "Internal Server Error" })
+  }
+  
+}
+
+export { getDashboardStats, getCustomers, deleteOrder };
