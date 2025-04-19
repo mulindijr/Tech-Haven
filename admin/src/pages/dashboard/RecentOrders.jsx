@@ -45,7 +45,11 @@ const RecentOrders = ({ token }) => {
               className="flex items-center justify-between p-3 hover:bg-gray-50 rounded"
             >
               <div>
-                <p className="font-medium">Order #{order._id}</p>
+                <p className="font-medium">
+                  Order #
+                  <span className="sm:hidden">{order._id.slice(-6)}</span>
+                  <span className="hidden sm:inline">{order._id}</span>
+                </p>
                 <p className="text-sm text-gray-500">
                   {order.address?.firstName} {order.address?.lastName}
                 </p>
