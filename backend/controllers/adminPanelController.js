@@ -89,4 +89,37 @@ const getRecentOrders = async (req, res) => {
 
 };
 
-export { getDashboardStats, getCustomers, deleteOrder, getRecentOrders };
+// Get Top Products By Quantity or Revenue
+const getTopProducts = async (req, res) => {
+  const sortBy = req.query.sortBy || 'quantity'; // default to quantity
+
+  try {
+    
+    const topProducts = await orderModel.aggregate([
+      { $unwind: "$items" },
+      {
+        $group: {
+          _id: "$items._id",
+          name: { $first: "$items.name" },
+          imgURL: { $first: "$items.imgURL" },
+          totalQuantity: { $sum: "$items.quantity" },
+          totalRevenue: { $sum: { $multiply: ["$items.quantity", { $toInt: "$items.price" }] } }
+        }
+      },
+      {
+        $sort: sortBy === 'revenue'
+          ? { totalRevenue: -1 }
+          : { totalQuantity: -1 }
+      },
+      { $limit: 5 }
+    ]);
+
+    res.status(200).json({ success: true, topProducts });
+
+  } catch (error) {
+    console.error("Error fetching top products:", error);
+    res.status(500).json({ success: false, message: "Failed to fetch top products" });
+  }
+};
+
+export { getDashboardStats, getCustomers, deleteOrder, getRecentOrders, getTopProducts };
