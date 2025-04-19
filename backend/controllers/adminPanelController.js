@@ -78,7 +78,7 @@ const getRecentOrders = async (req, res) => {
 
   try {
 
-    const recentOrders = await orderModel.find({}).sort({ dateOrdered: -1 }).limit(2).populate('userId', 'firstName lastName email');
+    const recentOrders = await orderModel.find({}).sort({ dateOrdered: -1 }).limit(5).populate('userId', 'firstName lastName email');
 
     res.status(200).json({ success: true, orders: recentOrders });
 
