@@ -122,4 +122,47 @@ const getTopProducts = async (req, res) => {
   }
 };
 
-export { getDashboardStats, getCustomers, deleteOrder, getRecentOrders, getTopProducts };
+// Get Sales Chart Data
+// This function retrieves sales data for chart representation
+const getSalesChartData = async (req, res) => {
+  try {
+    const { period = "day" } = req.query;
+
+    // Match pattern for date grouping
+    let dateFormat;
+    switch (period) {
+      case "month":
+        dateFormat = "%Y-%m";
+        break;
+      case "week":
+        dateFormat = "%Y-%U"; // U = week number
+        break;
+      default:
+        dateFormat = "%Y-%m-%d"; // Default is day
+    }
+
+    const chartData = await orderModel.aggregate([
+      {
+        $group: {
+          _id: {
+            $dateToString: {
+              format: dateFormat,
+              date: { $toDate: "$dateOrdered" }
+            }
+          },
+          totalRevenue: { $sum: "$amount" },
+          orderCount: { $sum: 1 }
+        }
+      },
+      { $sort: { _id: 1 } }
+    ]);
+
+    res.status(200).json({ success: true, chartData });
+
+  } catch (error) {
+    console.error("Error generating sales chart data:", error);
+    res.status(500).json({ success: false, message: "Failed to generate chart data" });
+  }
+};
+
+export { getDashboardStats, getCustomers, deleteOrder, getRecentOrders, getTopProducts, getSalesChartData };
