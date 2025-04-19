@@ -5,7 +5,7 @@ import { backendUrl } from '../../App';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const DashboardStats = () => {
+const DashboardStats = ({token}) => {
   const [stats, setStats] = useState({
     totalRevenue: 0,
     totalOrders: 0,
@@ -16,7 +16,7 @@ const DashboardStats = () => {
 
     try {
 
-      const response = await axios.post(backendUrl + '/api/dashboard/stats');
+      const response = await axios.post(backendUrl + '/api/admin/stats', {}, { headers: { token } });
       
       if (response.data.success) {
         setStats({

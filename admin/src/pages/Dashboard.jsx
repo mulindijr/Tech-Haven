@@ -4,10 +4,10 @@ import SalesChart from './dashboard/SalesChart';
 import RecentOrders from './dashboard/RecentOrders';
 import TopProducts from './dashboard/TopProducts';
 
-const Dashboard = () => {
+const Dashboard = ({token}) => {
   return (
     <div className="pt-4">
-      <DashboardStats />
+      <DashboardStats token={token}/>
       <SalesChart />
 
       {/* Recent Orders & Top Products */}
