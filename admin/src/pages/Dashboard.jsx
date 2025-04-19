@@ -8,12 +8,12 @@ const Dashboard = ({token}) => {
   return (
     <div className="pt-4">
       <DashboardStats token={token}/>
-      <SalesChart />
+      <SalesChart token={token}/>
 
       {/* Recent Orders & Top Products */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <RecentOrders />
-        <TopProducts />
+        <RecentOrders token={token}/>
+        <TopProducts token={token}/>
       </div>
     </div>
   );
