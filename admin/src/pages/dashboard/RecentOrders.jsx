@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { backendUrl } from "../../App";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const RecentOrders = ({ token }) => {
   const [orders, setOrders] = useState([]);
@@ -16,7 +17,6 @@ const RecentOrders = ({ token }) => {
           { headers: { token } }
         );
 
-        console.log("Recent Orders Response:", response.data);
         setOrders(response.data.orders);
       } catch (error) {
         console.error("Error fetching recent orders:", error);
@@ -34,7 +34,9 @@ const RecentOrders = ({ token }) => {
       <h3 className="text-lg font-semibold mb-4">Recent Orders</h3>
 
       {loading ? (
-        <p className="flex items-center justify-center h-full w-full text-xl" >Loading recent orders...</p>
+        <p className="flex items-center justify-center h-full w-full text-xl" >
+          <AiOutlineLoading3Quarters className="animate-spin w-5 h-5 text-2xl mr-2 text-blue-600" /> Loading recent orders...
+        </p>
       ) : orders.length === 0 ? (
         <p className="flex items-center justify-center h-full w-full text-xl" >No recent orders found.</p>
       ) : (
