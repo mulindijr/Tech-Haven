@@ -12,7 +12,7 @@ const TopProducts = ({ token }) => {
     const fetchTopProducts = async () => {
       try {
 
-        const response = await axios.post( backendUrl + "/api/admin/top-products", { criteria }, { headers: { token } } );
+        const response = await axios.post( backendUrl + `/api/admin/top-products?sortBy=${criteria}`, {}, { headers: { token } } );
         setTopProducts(response.data.topProducts);
 
       } catch (error) {
