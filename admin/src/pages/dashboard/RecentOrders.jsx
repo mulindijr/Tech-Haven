@@ -31,14 +31,16 @@ const RecentOrders = ({ token }) => {
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-sm w-full">
-      <h3 className="text-lg font-semibold mb-4">Recent Orders</h3>
+      <h3 className="text-lg font-semibold mb-6">Recent Orders</h3>
 
       {loading ? (
-        <p className="flex items-center justify-center h-full w-full text-xl" >
-          <AiOutlineLoading3Quarters className="animate-spin w-5 h-5 text-2xl mr-2 text-blue-600" /> Loading recent orders...
-        </p>
+        <div className="space-y-4">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <div key={i} className="h-10 bg-gray-100 rounded-lg animate-pulse" />
+          ))}
+        </div>
       ) : orders.length === 0 ? (
-        <p className="flex items-center justify-center h-full w-full text-xl" >No recent orders found.</p>
+        <p className="flex items-center justify-center h-32 text-xl" >No recent orders found.</p>
       ) : (
         <div className="space-y-4">
           {orders.map((order) => (
