@@ -67,7 +67,13 @@ const TopProducts = ({ token }) => {
             <div key={i} className="h-10 bg-gray-100 rounded-lg animate-pulse" />
           ))}
         </div>
-      ) : (
+      ) : topProducts.length === 0 ? (
+        
+        <div className="flex items-center justify-center h-32">
+          <p className="text-gray-500 text-xl">No products found</p>
+        </div>
+        
+      ):(
         <div className="space-y-4">
           {topProducts.map((product) => (
             <div
