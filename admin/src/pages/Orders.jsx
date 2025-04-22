@@ -30,6 +30,22 @@ const Orders = ({token}) => {
 
   }
 
+  const deleteOrder = async (orderId) => {
+    try {
+
+      const response = await axios.post( backendUrl + '/api/admin/delete-order', { orderId }, { headers: { token } });
+  
+      if (response.data.success) {
+        toast.success('Order deleted successfully');
+        await fetchAllOrders();
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };  
+
   const statusHandler = async (event, orderId) => {
 
     try {
@@ -84,13 +100,21 @@ const Orders = ({token}) => {
                 <p>Date : {new Date (order.dateOrdered).toLocaleDateString()} </p>
               </div>
               <p className='text-sm sm:text-[15px]'> {currency} {order.amount} </p>
-              <select onChange={(event) => statusHandler(event, order._id)} value={order.status} className='p-2 font-semibold'>
-                <option value="Order Placed"> Order Placed </option>
-                <option value="Packing"> Packing </option>
-                <option value="Shipped"> Shipped </option>
-                <option value="Out for Delivery"> Out for Delivery </option>
-                <option value="Delivered"> Delivered </option>
-              </select>              
+              <div className='flex flex-col gap-2 items-start'>
+                <select onChange={(event) => statusHandler(event, order._id)} value={order.status} className='p-2 font-semibold'>
+                  <option value="Order Placed"> Order Placed </option>
+                  <option value="Packing"> Packing </option>
+                  <option value="Shipped"> Shipped </option>
+                  <option value="Out for Delivery"> Out for Delivery </option>
+                  <option value="Delivered"> Delivered </option>
+                </select> 
+                <button
+                  onClick={() => deleteOrder(order._id)}
+                  className='bg-red-500 hover:bg-red-600 text-white font-bold text-sm px-3 py-2 rounded w-full sm:w-3/4'
+                >
+                  Delete
+                </button>
+              </div>           
             </div>
           ))
         }
