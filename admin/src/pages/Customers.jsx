@@ -8,12 +8,14 @@ import { AiOutlineUser } from "react-icons/ai";
 import { backendUrl } from '../App' 
 import axios from 'axios'
 import CustomersSkeleton from './CustomersSkeleton';
+import { toast } from 'react-toastify'
 
 const Customers = ({token}) => {
   const [customers, setCustomers] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
+  const [customerToDelete, setCustomerToDelete] = useState(null)
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -70,9 +72,10 @@ const Customers = ({token}) => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Header and Search */}
-      <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+    <>
+      <div className="container mx-auto px-4 py-8">
+        {/* Header and Search */}
+        <div className="flex flex-col md:flex-row justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Customer Management</h1>
         </div>
@@ -88,10 +91,10 @@ const Customers = ({token}) => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-      </div>
-
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        </div>
+        
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="px-4 py-5 sm:p-6">
             <div className="flex items-center">
@@ -159,10 +162,10 @@ const Customers = ({token}) => {
             </div>
           </div>
         </div>
-      </div>
+        </div>
 
-      {/* Customers List */}
-      <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+        {/* Customers List */}
+        <div className="bg-white shadow overflow-hidden sm:rounded-lg">
         <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
           <h3 className="text-lg leading-6 font-medium text-gray-900">Customer List</h3>
         </div>
@@ -209,7 +212,10 @@ const Customers = ({token}) => {
                       <button className="text-green-600 hover:text-green-900">
                         <FiEdit2 />
                       </button>
-                      <button className="text-red-600 hover:text-red-900">
+                      <button 
+                        className="text-red-600 hover:text-red-700"                      
+                        onClick={() => setCustomerToDelete(customer._id)}
+                      >
                         <FiTrash2 />
                       </button>
                     </div>
@@ -235,8 +241,60 @@ const Customers = ({token}) => {
             ))}
           </ul>
         )}
+        </div>
       </div>
-    </div>
+    
+      {/* Delete Confirmation Modal */}
+      {customerToDelete && (
+        <div
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+        onClick={() => setCustomerToDelete(null)}
+      >
+        <div
+          className="bg-white rounded-lg shadow-lg p-6"
+          onClick={(e) => e.stopPropagation()} // Prevent closing modal when clicking inside it
+        >
+          <h2 className="text-lg font-semibold mb-4">Delete Customer</h2>
+          <p>Are you sure you want to delete this customer and all their orders?</p>
+          <div className="mt-4 flex justify-end">
+            <button
+              className="bg-gray-300 text-gray-800 px-4 py-2 rounded mr-2"
+              onClick={() => setCustomerToDelete(null)}
+            >
+              Cancel
+            </button>
+            <button
+              className="bg-red-500 text-white px-4 py-2 rounded"
+              onClick={async () => {
+                try {
+                  const response = await axios.post(
+                    backendUrl + "/api/admin/delete-customer",
+                    { customerId: customerToDelete },
+                    { headers: { token } }
+                  );
+              
+                  if (response.data.success) {
+                    toast.success("Customer deleted successfully");
+                    setCustomers((prev) =>
+                      prev.filter((c) => c._id !== customerToDelete)
+                    );
+                    setCustomerToDelete(null);
+                  } else {
+                    toast.error(response.data.message || "Failed to delete customer");
+                  }
+                } catch (error) {
+                  console.error("Error deleting customer:", error);
+                  toast.error("Error deleting customer");
+                }
+              }}
+            >
+              Yes, Delete
+            </button>
+          </div>
+        </div>
+        </div>
+      )}
+    </>
   )
 }
 
