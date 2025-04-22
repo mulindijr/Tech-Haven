@@ -3,8 +3,8 @@ import axios from 'axios';
 import { backendUrl, currency } from '../App';
 import { toast } from 'react-toastify';
 import { FiEdit, FiTrash2, FiStar, FiX } from 'react-icons/fi';
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Add from './Add'
+import ListSkeleton from './ListSkeleton';
 
 const List = ({token}) => {
 
@@ -79,10 +79,7 @@ const List = ({token}) => {
           </div>
         </div>
         {loading ? (
-          <div className="text-center py-10">
-            <AiOutlineLoading3Quarters size={60} className="animate-spin text-4xl mx-auto text-blue-500 mb-4" />
-            <p className="text-lg font-semibold">Loading products...</p>
-          </div>
+          <ListSkeleton />
         ) : list.length === 0 ? (
           <div className="text-center py-10">
             <p className="text-lg font-semibold">No products found</p>
