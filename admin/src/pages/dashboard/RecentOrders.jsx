@@ -17,7 +17,7 @@ const RecentOrders = ({ token }) => {
           { headers: { token } }
         );
 
-        setOrders(response.data.orders);
+        setOrders(response.data.orders || []);
       } catch (error) {
         console.error("Error fetching recent orders:", error);
         toast.error("Error fetching recent orders");
