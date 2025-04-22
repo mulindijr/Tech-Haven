@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { IoIosAddCircleOutline, IoIosList } from 'react-icons/io';
 import { IoBagCheckOutline } from 'react-icons/io5';
-import { HiOutlineViewGrid } from "react-icons/hi";
+import { HiOutlineViewGrid, HiOutlineUserGroup } from "react-icons/hi";
 
 const Sidebar = () => {
   return (
@@ -64,6 +64,21 @@ const Sidebar = () => {
         >
           <IoBagCheckOutline className="text-2xl" />
           <p className="hidden md:block text-sm">Orders</p>
+        </NavLink>
+
+        {/* Customers Link */}
+        <NavLink
+          to="/customers"
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-4 py-3 rounded-l-lg transition-all duration-200 ${
+              isActive
+                ? 'bg-[#ffebf5] border-l-4 border border-red-300 border-r-0 text-black font-semibold'
+                : 'text-gray-600 bg-gray-100 border border-r-0 hover:text-gray-900'
+            }`
+          }
+        >
+          <HiOutlineUserGroup className="text-2xl" />
+          <p className="hidden md:block text-sm">Customers</p>
         </NavLink>
       </div>
     </div>
