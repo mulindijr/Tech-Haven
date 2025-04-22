@@ -3,10 +3,12 @@ import axios from 'axios'
 import { backendUrl, currency} from '../App'
 import { toast } from 'react-toastify'
 import { BiPackage } from "react-icons/bi";
+import { FiTrash } from "react-icons/fi";
 
 const Orders = ({token}) => {
 
   const [orders, setOrders] = useState([]);
+  const [orderToDelete, setOrderToDelete] = useState(null);
 
   const fetchAllOrders = async () => {
 
@@ -28,23 +30,7 @@ const Orders = ({token}) => {
       toast.error(error.message)      
     }
 
-  }
-
-  const deleteOrder = async (orderId) => {
-    try {
-
-      const response = await axios.post( backendUrl + '/api/admin/delete-order', { orderId }, { headers: { token } });
-  
-      if (response.data.success) {
-        toast.success('Order deleted successfully');
-        await fetchAllOrders();
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };  
+  }  
 
   const statusHandler = async (event, orderId) => {
 
@@ -109,18 +95,67 @@ const Orders = ({token}) => {
                   <option value="Delivered"> Delivered </option>
                 </select> 
                 <button
-                  onClick={() => deleteOrder(order._id)}
-                  className='bg-red-500 hover:bg-red-600 text-white font-bold text-sm px-3 py-2 rounded w-full sm:w-3/4'
+                  onClick={() => setOrderToDelete(order._id)}
+                  className='flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white font-bold text-sm px-3 py-2 rounded w-full sm:w-3/4'
                 >
-                  Delete
+                  <FiTrash size={20} /> Delete
                 </button>
               </div>           
             </div>
           ))
         }
       </div>
+
+      {/* Modal for delete confirmation */}
+      {orderToDelete && (
+        <div
+          onClick={() => setOrderToDelete(null)}
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full"
+          >
+            <h2 className="text-lg font-semibold mb-4 text-center">
+              Are you sure you want to delete this order?
+            </h2>
+            <div className="flex justify-center gap-4 mt-4">
+              <button
+                onClick={async () => {
+                  try {
+                    const response = await axios.post(
+                      backendUrl + '/api/admin/delete-order',
+                      { orderId: orderToDelete },
+                      { headers: { token } }
+                    );
+                    if (response.data.success) {
+                      toast.success('Order deleted successfully');
+                      setOrderToDelete(null);
+                      fetchAllOrders(); // refresh the list
+                    } else {
+                      toast.error(response.data.message);
+                    }
+                  } catch (error) {
+                    toast.error(error.message);
+                  }
+                }}
+                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+              >
+                Yes, Delete
+              </button>
+              <button
+                onClick={() => setOrderToDelete(null)}
+                className="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}  
     </div>
   )
+
 }
 
 export default Orders
