@@ -7,7 +7,6 @@ const getDashboardStats = async (req, res) => {
     const totalRevenue = await orderModel.aggregate([
       { $group: { _id: null, total: { $sum: "$amount" } } }
     ]);
-    console.log("Total Revenue Aggregation Result:", totalRevenue);
 
     const totalOrders = await orderModel.countDocuments();
     const totalCustomers = await userModel.countDocuments();
@@ -50,6 +49,27 @@ const getCustomers = async (req, res) => {
   }
 
 }
+
+// Delete Customer and Their Orders from admin panel
+const deleteCustomer = async (req, res) => {
+  try {
+    const { customerId } = req.body;
+
+    // Delete the customer
+    const deletedCustomer = await userModel.findByIdAndDelete(customerId);
+    if (!deletedCustomer) {
+      return res.status(404).json({ success: false, message: "Customer not found" });
+    }
+
+    // Delete all orders associated with the customer
+    await orderModel.deleteMany({ userId: customerId });
+
+    res.status(200).json({ success: true, message: "Customer and their orders deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting customer:", error);
+    res.status(500).json({ success: false, message: "Failed to delete customer" });
+  }
+};
 
 // Delete Order from admin panel
 const deleteOrder = async (req, res) => {
@@ -165,4 +185,4 @@ const getSalesChartData = async (req, res) => {
   }
 };
 
-export { getDashboardStats, getCustomers, deleteOrder, getRecentOrders, getTopProducts, getSalesChartData };
+export { getDashboardStats, getCustomers, deleteOrder, getRecentOrders, getTopProducts, getSalesChartData, deleteCustomer };
