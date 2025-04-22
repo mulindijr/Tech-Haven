@@ -93,7 +93,7 @@ const TopProducts = ({ token }) => {
               <span className="text-sm font-medium text-gray-600">
                 {criteria === "quantity"
                   ? `${product.totalQuantity} sales`
-                  : `${currency} ${product.totalRevenue?.toFixed(2) || "0.00"}`}
+                  : `${currency} ${product.totalRevenue?.toLocaleString() || "0.00"}`}
               </span>
             </div>
           ))}
