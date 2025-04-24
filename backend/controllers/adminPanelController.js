@@ -167,7 +167,8 @@ const getSalesChartData = async (req, res) => {
           _id: {
             $dateToString: {
               format: dateFormat,
-              date: { $toDate: "$dateOrdered" }
+              date: { $toDate: "$dateOrdered" },
+              timezone: "Africa/Nairobi"
             }
           },
           totalRevenue: { $sum: "$amount" },
