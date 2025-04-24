@@ -258,7 +258,7 @@ const SalesChart = ({ token }) => {
               {currency} {(
                 chartData.reduce((sum, item) => sum + item.totalRevenue, 0) / 
                 chartData.reduce((sum, item) => sum + item.orderCount, 1)
-              ).toFixed(2)}
+              ).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
           </div>
         </div>
