@@ -9,12 +9,12 @@ const ShopContextProvider = ({children}) => {
     const currency = 'Ksh';
     const delivery_fee = 200
     const backendUrl = import.meta.env.VITE_BACKEND_URL
-    const [token, setToken] = useState('')
+    const [token, setToken] = useState(() => localStorage.getItem('token') || '');
     const[products, setProducts] = useState([])
     const[search, setSearch] = useState('')
     const[showSearch, setShowSearch] = useState(false)
-    const[cartItems, setCartItems] = useState({})
-    const [recentlyViewed, setRecentlyViewed] = useState([])
+    const [cartItems, setCartItems] = useState(() => JSON.parse(localStorage.getItem('cartItems')) || {});      
+    const [recentlyViewed, setRecentlyViewed] = useState(() => JSON.parse(localStorage.getItem('recentlyViewed')) || []);
     const navigate = useNavigate();
 
     const addToCart = async(itemId) => {
@@ -141,10 +141,12 @@ const ShopContextProvider = ({children}) => {
     }, [])
 
     useEffect(() => {
-        if (!token && localStorage.getItem('token')) {
-            setToken(localStorage.getItem('token'));
+        if (token) {
+            localStorage.setItem('token', token);
+        } else {
+            localStorage.removeItem('token');
         }
-    }, [])
+    }, [token]);
 
     useEffect(() => {
         if (token) {
