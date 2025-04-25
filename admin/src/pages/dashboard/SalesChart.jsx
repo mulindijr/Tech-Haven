@@ -230,7 +230,11 @@ const SalesChart = ({ token }) => {
             </div>
           </div>
         ) : chartData && chartData.length > 0 ? (
-          <Line data={formatChartData()} options={options} />
+          <div className="overflow-x-auto">
+            <div className="relative h-80 min-w-[600px]">
+              <Line data={formatChartData()} options={options} />
+            </div>
+          </div>
         ) : (
           <div className="h-full flex items-center justify-center bg-gray-50 rounded-lg">
             <p className="text-gray-400">No data available for the selected period</p>
