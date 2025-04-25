@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 export const ShopContext = createContext();
 
@@ -9,7 +10,24 @@ const ShopContextProvider = ({children}) => {
     const currency = 'Ksh';
     const delivery_fee = 200
     const backendUrl = import.meta.env.VITE_BACKEND_URL
-    const [token, setToken] = useState(() => localStorage.getItem('token') || '');
+    const [token, setToken] = useState(() => {
+        const storedToken = localStorage.getItem('token'); // Get token from localStorage
+        if (storedToken) {
+            try {
+                const decoded = jwt_decode(storedToken); // Decode the token to access its expiration
+                if (decoded.exp * 1000 < Date.now()) { // Check if token has expired
+                    localStorage.removeItem('token'); // Remove expired token from localStorage
+                    return ''; // Reset token state to empty
+                }
+                return storedToken; // If the token is valid, return it
+            } catch (error) {
+                console.log("Error decoding token:", error);
+                return ''; // If there’s an error decoding, reset the token
+            }
+        }
+        return ''; // If no token exists, return an empty string
+    });
+    
     const[products, setProducts] = useState([])
     const[search, setSearch] = useState('')
     const[showSearch, setShowSearch] = useState(false)
