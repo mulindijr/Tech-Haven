@@ -1,5 +1,6 @@
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
+import productModel from "../models/productModel.js";
 
 // This function retrieves dashboard statistics including total revenue, total orders, and total customers
 const getDashboardStats = async (req, res) => {
@@ -186,4 +187,18 @@ const getSalesChartData = async (req, res) => {
   }
 };
 
-export { getDashboardStats, getCustomers, deleteOrder, getRecentOrders, getTopProducts, getSalesChartData, deleteCustomer };
+// Function for getting all products in the admin panel
+const listProducts = async (req, res) => {
+
+  try {
+    const products = await productModel.find({});
+    res.json({ success: true, products });
+      
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, message:error.message });        
+  }
+
+}
+
+export { getDashboardStats, getCustomers, deleteOrder, getRecentOrders, getTopProducts, getSalesChartData, deleteCustomer, listProducts };
