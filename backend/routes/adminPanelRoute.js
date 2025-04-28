@@ -11,6 +11,6 @@ adminRouter.post('/recent-orders', adminAuth, getRecentOrders);
 adminRouter.post('/top-products', adminAuth, getTopProducts);
 adminRouter.post('/sales-chart', adminAuth, getSalesChartData);
 adminRouter.post('/delete-customer', adminAuth, deleteCustomer);
-adminRouter.get('/list-products', adminAuth, listProducts);
+adminRouter.post('/list-products', adminAuth, listProducts);
 
 export default adminRouter;
