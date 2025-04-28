@@ -1,5 +1,6 @@
 import React from 'react'
 import { FiBell } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 
 const Navbar = ({setToken}) => {
   return (
@@ -10,7 +11,7 @@ const Navbar = ({setToken}) => {
         
         <div className='flex items-center space-x-4'>
           <div className='hover:bg-gray-100 p-2 rounded-full cursor-pointer'>
-            <div className="relative">
+            <div className="relative" onClick={() => toast.info('Notifications functionality coming soon!')}>
               <FiBell className="text-2xl text-gray-700" />            
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
                 3
