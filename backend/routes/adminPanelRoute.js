@@ -1,5 +1,5 @@
 import express from 'express';
-import { deleteCustomer, deleteOrder, getCustomers, getDashboardStats, getRecentOrders, getSalesChartData, getTopProducts } from '../controllers/adminPanelController.js';
+import { deleteCustomer, deleteOrder, getCustomers, getDashboardStats, getRecentOrders, getSalesChartData, getTopProducts, listProducts } from '../controllers/adminPanelController.js';
 import adminAuth from '../middleware/adminAuth.js';
 
 const adminRouter = express.Router();
@@ -11,5 +11,6 @@ adminRouter.post('/recent-orders', adminAuth, getRecentOrders);
 adminRouter.post('/top-products', adminAuth, getTopProducts);
 adminRouter.post('/sales-chart', adminAuth, getSalesChartData);
 adminRouter.post('/delete-customer', adminAuth, deleteCustomer);
+adminRouter.get('/list-products', adminAuth, listProducts);
 
 export default adminRouter;
