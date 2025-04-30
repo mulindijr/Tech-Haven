@@ -133,4 +133,21 @@ const singleProduct = async (req, res) => {
 
 }
 
-export { addProduct, listProducts, removeProduct, updateProduct, singleProduct };
+// New function to get a single product by slug
+const singleProductBySlug = async (req, res) => {
+    try {
+      const { slug } = req.params;
+  
+      const product = await productModel.findOne({ slug });
+      if (!product) {
+        return res.status(404).json({ success: false, message: "Product not found" });
+      }
+  
+      res.json({ success: true, product });
+    } catch (error) {
+      console.error(error);
+      res.json({ success: false, message: error.message });
+    }
+}; 
+
+export { addProduct, listProducts, removeProduct, updateProduct, singleProduct, singleProductBySlug };
