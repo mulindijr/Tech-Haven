@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Home, Shop, About, Contact, Cart, Faqs, Product, PlaceOrder, Orders, Login, VerifyPayment, Profile } from "./pages";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
@@ -12,6 +12,7 @@ const App = () => {
       <Routes>
         {/* Routes that use MainLayout */}
         <Route element={<MainLayout />}>
+          <Route path="*" element={<Navigate to="/" />} />
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/product/:productId" element={<Product />} />
