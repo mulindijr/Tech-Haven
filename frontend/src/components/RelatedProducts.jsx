@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import Title from "./Title";
 import ProductCard from "./ProductCard";
@@ -7,7 +6,6 @@ import ProductCard from "./ProductCard";
 const RelatedProducts = ({ category, brand, currentProductId }) => {
   const { products } = useContext(ShopContext);
   const [related, setRelated] = useState([]);
-  const navigate = useNavigate(); 
 
   useEffect(() => {
     if (products.length > 0) {
@@ -19,35 +17,32 @@ const RelatedProducts = ({ category, brand, currentProductId }) => {
     }
   }, [products, category, brand, currentProductId]);
 
-  const handleProductClick = (id) => {
-    window.open(`/product/${id}`, '_self');
+  const handleProductClick = (slug) => {
+    window.open(`/product/${slug}`, '_self');
   };
+
+  // If there are no related products, return null
+  if (related.length === 0) return null;
 
   return (
     <div className="my-10">
       <div>
         <Title title1={'Related'} title2={'Products'} />
+      </div>      
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
+        {related.map((item, index) => (
+          <ProductCard
+            key={index}
+            slug={item.slug}
+            img={item.imgURL}
+            brand={item.brand}
+            name={item.name}
+            price={item.price}
+            rating={item.rating}
+            onClick={() => handleProductClick(item.slug)}
+          />
+        ))}
       </div>
-      {related.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
-          {related.map((item, index) => (
-            <ProductCard
-              key={index}
-              id={item._id}
-              img={item.imgURL}
-              brand={item.brand}
-              name={item.name}
-              price={item.price}
-              rating={item.rating}
-              onClick={() => handleProductClick(item._id)}
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="bg-slate-200 p-10 text-center text-lg sm:text-3xl text-red-500 rounded-xl">
-          No related products are available.
-        </div>
-      )}
     </div>
   );
 };
