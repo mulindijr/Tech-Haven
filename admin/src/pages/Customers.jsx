@@ -206,10 +206,10 @@ const Customers = ({token}) => {
                       </div>
                     </div>
                     <div className="flex space-x-2">
-                      <button className="text-blue-600 hover:text-blue-900">
+                      <button onClick={() => {toast.info("This function will be implemented soon!")}} className="text-blue-600 hover:text-blue-900">
                         <FiEye />
                       </button>
-                      <button className="text-green-600 hover:text-green-900">
+                      <button onClick={() => {toast.info("This function will be implemented soon!")}} className="text-green-600 hover:text-green-900">
                         <FiEdit2 />
                       </button>
                       <button 
