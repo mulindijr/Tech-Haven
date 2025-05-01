@@ -3,15 +3,15 @@ import { renderStars } from "./utils";
 import { ShopContext } from "../context/ShopContext";
 import { Link } from "react-router-dom";
 
-const ProductCard = ({id, img, brand, name, price, rating, onClick}) => {
+const ProductCard = ({img, brand, name, price, rating, onClick, slug}) => {
 
   const {currency} =useContext(ShopContext)
 
     return (
       <Link 
         className="border shadow-md rounded-md p-5 cursor-pointer group"
-        to={`/product/${id}`}
-        onClick={() => onClick(id)}
+        to={`/product/${slug}`}
+        onClick={() => onClick(slug)}
       >
       <div className="">
         <div className="flex justify-center items-center">
