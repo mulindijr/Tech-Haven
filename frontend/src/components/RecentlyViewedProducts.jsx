@@ -16,7 +16,7 @@ const RecentlyViewed = () => {
                     {recentlyViewed.map((item, index) => (
                         <ProductCard 
                             key={index}
-                            id={item._id}
+                            slug={item.slug}
                             img={item.imgURL}
                             brand={item.brand}
                             name={item.name}

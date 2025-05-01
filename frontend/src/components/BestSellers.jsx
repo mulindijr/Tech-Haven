@@ -33,7 +33,7 @@ const BestSellers = () => {
                     : bestSellers.map((item) => (
                         <ProductCard
                             key={item._id}
-                            id={item._id}
+                            slug={item.slug}
                             name={item.name}
                             price={item.price}
                             img={item.imgURL}
