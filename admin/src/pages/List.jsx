@@ -140,7 +140,8 @@ const List = ({token}) => {
             </h2>
             <div className="flex justify-center gap-4 mt-4">
               <button
-                onClick={() => removeProduct(deleteProductId)}
+                // onClick={() => removeProduct(deleteProductId)}
+                onClick={() => toast.info("Product deletion is currently disabled to prevent removal of test products.")}
                 className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
               >
                 Yes, Delete

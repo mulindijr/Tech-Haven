@@ -121,24 +121,25 @@ const Orders = ({token}) => {
             </h2>
             <div className="flex justify-center gap-4 mt-4">
               <button
-                onClick={async () => {
-                  try {
-                    const response = await axios.post(
-                      backendUrl + '/api/admin/delete-order',
-                      { orderId: orderToDelete },
-                      { headers: { token } }
-                    );
-                    if (response.data.success) {
-                      toast.success('Order deleted successfully');
-                      setOrderToDelete(null);
-                      fetchAllOrders(); // refresh the list
-                    } else {
-                      toast.error(response.data.message);
-                    }
-                  } catch (error) {
-                    toast.error(error.message);
-                  }
-                }}
+                // onClick={async () => {
+                //   try {
+                //     const response = await axios.post(
+                //       backendUrl + '/api/admin/delete-order',
+                //       { orderId: orderToDelete },
+                //       { headers: { token } }
+                //     );
+                //     if (response.data.success) {
+                //       toast.success('Order deleted successfully');
+                //       setOrderToDelete(null);
+                //       fetchAllOrders(); // refresh the list
+                //     } else {
+                //       toast.error(response.data.message);
+                //     }
+                //   } catch (error) {
+                //     toast.error(error.message);
+                //   }
+                // }}
+                onClick={() => toast.info("Order deletion is currently disabled to prevent removal of test orders data.")}
                 className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
               >
                 Yes, Delete

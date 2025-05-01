@@ -265,28 +265,29 @@ const Customers = ({token}) => {
             </button>
             <button
               className="bg-red-500 text-white px-4 py-2 rounded"
-              onClick={async () => {
-                try {
-                  const response = await axios.post(
-                    backendUrl + "/api/admin/delete-customer",
-                    { customerId: customerToDelete },
-                    { headers: { token } }
-                  );
+              // onClick={async () => {
+              //   try {
+              //     const response = await axios.post(
+              //       backendUrl + "/api/admin/delete-customer",
+              //       { customerId: customerToDelete },
+              //       { headers: { token } }
+              //     );
               
-                  if (response.data.success) {
-                    toast.success("Customer deleted successfully");
-                    setCustomers((prev) =>
-                      prev.filter((c) => c._id !== customerToDelete)
-                    );
-                    setCustomerToDelete(null);
-                  } else {
-                    toast.error(response.data.message || "Failed to delete customer");
-                  }
-                } catch (error) {
-                  console.error("Error deleting customer:", error);
-                  toast.error("Error deleting customer");
-                }
-              }}
+              //     if (response.data.success) {
+              //       toast.success("Customer deleted successfully");
+              //       setCustomers((prev) =>
+              //         prev.filter((c) => c._id !== customerToDelete)
+              //       );
+              //       setCustomerToDelete(null);
+              //     } else {
+              //       toast.error(response.data.message || "Failed to delete customer");
+              //     }
+              //   } catch (error) {
+              //     console.error("Error deleting customer:", error);
+              //     toast.error("Error deleting customer");
+              //   }
+              // }}
+              onClick={() => toast.info("Customer deletion is currently disabled to prevent removal of test customer data.")}
             >
               Yes, Delete
             </button>
