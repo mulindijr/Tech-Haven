@@ -6,17 +6,17 @@ import RelatedProducts from "../components/RelatedProducts";
 import { toast, ToastContainer } from 'react-toastify';
 
 const Product = () => {
-  const { productId } = useParams();
+  const { slug } = useParams();
   const { products, currency, addToCart, addToRecentlyViewed } = useContext(ShopContext);
   const [productData, setProductData] = useState(null);
 
   useEffect(() => {
-    const product = products.find(item => item._id === productId);
+    const product = products.find(item => item.slug === slug);
     if (product) {
       setProductData(product);
       addToRecentlyViewed(product);
     }
-  }, [productId, products, addToRecentlyViewed]);
+  }, [slug, products, addToRecentlyViewed]);
 
   if (!productData) return (
     <div className="flex flex-col items-center justify-center h-96 gap-4">
@@ -77,7 +77,7 @@ const Product = () => {
         </div>
       </div>
       {/* ----------- Display Related Products ----------- */}
-      <RelatedProducts category={productData.category} brand={productData.brand} currentProductId={productId} />
+      <RelatedProducts category={productData.category} brand={productData.brand} currentProductId={productData._id} />
     </div>
   );
 };
