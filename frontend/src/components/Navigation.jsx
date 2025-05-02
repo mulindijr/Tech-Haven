@@ -17,7 +17,7 @@ const Navigation = () => {
     localStorage.removeItem('token');
     setToken('');
     setCartItems({});
-    navigate('/login');
+    navigate('/');
   };
 
   useEffect(() => {
