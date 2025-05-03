@@ -69,7 +69,12 @@ const Navigation = () => {
                 </div>
               </>
             ) : (
-              <Link to='/login' className='flex items-center gap-1 border border-gray-400 py-1 px-3 rounded-full hover:bg-slate-100'><FaRegUser className='w-5 cursor-pointer'/>Login</Link>
+              <Link to='/login' 
+                className='flex items-center gap-1 border border-gray-400 py-1 px-3 rounded-full hover:bg-slate-100'
+              >
+                <FaRegUser className='w-5 cursor-pointer'/>
+                <span className="hidden sm:inline">Login</span>
+              </Link>
             )}
           </div>
           <Link to='/cart' className='relative'>
