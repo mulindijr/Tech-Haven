@@ -16,7 +16,7 @@ const Hero = () => {
     };
 
   return (
-    <div className="hero-slider h-[225px] overflow-hidden">
+    <div className="hero-slider h-[225px] sm:h-[500px] overflow-hidden">
       <Slider {...settings}>
         <div>
           <img src={infinixHeroBackground} alt="Spark 20" className="object-cover w-full"/>
