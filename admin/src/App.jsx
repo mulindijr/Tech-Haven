@@ -9,17 +9,38 @@ import Orders from "./pages/Orders"
 import Login from "./components/Login"
 import Customers from "./pages/Customers"
 import { ToastContainer } from 'react-toastify';
+import jwt_decode from "jwt-decode";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL
 export const currency = 'Ksh'
 
 function App() {
 
-  const [token, setToken] = useState(localStorage.getItem('token') || '');
+  const [token, setToken] = useState(() => {
+    const storedToken = localStorage.getItem('token'); // Get token from localStorage
+    if (storedToken) {
+      try {
+          const decoded = jwt_decode(storedToken); // Decode the token to access its expiration
+          if (decoded.exp * 1000 < Date.now()) { // Check if token has expired
+              localStorage.removeItem('token'); // Remove expired token from localStorage
+              return ''; // Reset token state to empty
+          }
+          return storedToken; // If the token is valid, return it
+      } catch (error) {
+          console.log("Error decoding token:", error);
+          return ''; // If there’s an error decoding, reset the token
+      }
+    }
+    return ''; // If no token exists, return an empty string
+  });
 
   useEffect(() => {
-    localStorage.setItem('token', token)
-  }, [token])
+    if (token) {
+      localStorage.setItem("token", token);
+    } else {
+      localStorage.removeItem("token");
+    }
+  }, [token]);
 
   return (
     <div className="bg-gray-50 min-h-screen">
