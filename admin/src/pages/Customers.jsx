@@ -121,10 +121,10 @@ const Customers = ({token}) => {
                 <dd className="flex items-baseline">
                   <div className="text-2xl font-semibold text-gray-900">
                     {customers.filter(c => {
-                      const custDate = new Date(c.createdAt)
-                      const monthAgo = new Date()
-                      monthAgo.setMonth(monthAgo.getMonth() - 1)
-                      return custDate > monthAgo
+                      const custDate = new Date(c.createdAt);
+                      const currentMonth = new Date().getMonth(); // Get the current month
+                      const currentYear = new Date().getFullYear(); // Get the current year
+                      return custDate.getMonth() === currentMonth && custDate.getFullYear() === currentYear; // Check if the customer was created this month and this year
                     }).length}
                   </div>
                 </dd>
