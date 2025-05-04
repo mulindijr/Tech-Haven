@@ -33,8 +33,8 @@ const Navigation = () => {
   }, [visible]);
 
   return (
-    <header className='sticky top-0 z-10 bg-white shadow px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
-      <nav className='flex justify-between items-center font-medium p-5'>
+    <header className='sticky top-0 z-10 bg-white shadow py-4 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
+      <nav className='flex justify-between items-center font-medium'>
         <Link to="/">
           <h1 className='text-xl font-bold cursor-pointer'>
             Tech<span className='text-red-500'>Haven</span>
@@ -70,7 +70,7 @@ const Navigation = () => {
               </>
             ) : (
               <Link to='/login' 
-                className='flex items-center gap-1 border border-gray-400 py-1 px-3 rounded-full hover:bg-slate-100'
+                className='sm:flex sm:items-center sm:gap-1 sm:border sm:border-gray-400 py-1 px-3 rounded-full hover:bg-slate-100'
               >
                 <FaRegUser className='w-5 cursor-pointer'/>
                 <span className="hidden sm:inline">Login</span>
