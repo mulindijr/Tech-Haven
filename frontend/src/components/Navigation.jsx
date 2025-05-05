@@ -33,7 +33,7 @@ const Navigation = () => {
   }, [visible]);
 
   return (
-    <header className='sticky top-0 z-10 bg-white shadow py-4 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
+    <header className='sticky top-0 z-10 bg-white shadow sm:py-4 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
       <nav className='flex justify-between items-center font-medium'>
         <Link to="/">
           <h1 className='text-xl font-bold cursor-pointer'>
