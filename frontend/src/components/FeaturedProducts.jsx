@@ -17,7 +17,7 @@ const FeaturedProducts = () => {
     }, [products]);
 
     return (
-        <div className="my-10">
+        <div>
             <div className="text-center py-8 text-3xl">
                 <Title title1="Featured" title2="Products" />
                 <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600">
