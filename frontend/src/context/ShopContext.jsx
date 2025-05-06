@@ -68,17 +68,7 @@ const ShopContextProvider = ({children}) => {
           const newRecent = [product, ...prev];
           return newRecent.length > 5 ? newRecent.slice(0, 5) : newRecent;
         });
-    };     
-
-    useEffect(() => {
-        // Load cart items from local storage on component mount
-        const storedCartItems = JSON.parse(localStorage.getItem('cartItems')) || {};
-        setCartItems(storedCartItems);
-        
-        // Load recently viewed items from local storage on component mount
-        const storedRecentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed')) || [];
-        setRecentlyViewed(storedRecentlyViewed);
-    }, []);
+    };
     
     useEffect(() => {
         // Save cart items to local storage whenever they change
