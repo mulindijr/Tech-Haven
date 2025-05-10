@@ -47,7 +47,7 @@ const Cart = () => {
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-red-500"></div>
         </div>
       ) : cartData.length === 0 ? (
-        <div className="bg-slate-300 p-5 my-2 rounded">
+        <div className="bg-slate-300 p-24 my-2 rounded">
           <div className="flex flex-col items-center justify-center text-center gap-4">
             <div className="flex items-center justify-center p-5 bg-slate-400 w-24 h-24 rounded-full">
               <PiShoppingCartThin className="w-20 h-20 text-red-700" />
