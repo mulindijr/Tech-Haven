@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   return (
     <>
-      <ToastContainer />
+      <ToastContainer position="top-center"/>
       <Routes>
         {/* Routes that use MainLayout */}
         <Route element={<MainLayout />}>
