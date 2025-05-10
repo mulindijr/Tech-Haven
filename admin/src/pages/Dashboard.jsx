@@ -6,7 +6,7 @@ import TopProducts from './dashboard/TopProducts';
 
 const Dashboard = ({token}) => {
   return (
-    <div className="pt-4">
+    <div className="pt-4 pb-16 lg:pb-0">
       <DashboardStats token={token}/>
       <SalesChart token={token}/>
 

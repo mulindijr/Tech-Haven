@@ -116,7 +116,7 @@ const Add = ({token, product, onUpdateComplete}) => {
   } 
 
   return (
-    <form onSubmit={onSubmitHandler} className="space-y-6 p-6 border rounded-xl shadow-lg w-full max-w-2xl mx-auto bg-white">
+    <form onSubmit={onSubmitHandler} className="space-y-6 p-6 border rounded-xl shadow-lg w-full max-w-2xl mx-auto bg-white pb-16 lg:pb-6">
       {/* Image Upload Section */}
       <div>
         <p className="text-lg font-semibold text-gray-700 mb-2">Upload Product Image</p>

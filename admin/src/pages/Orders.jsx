@@ -53,7 +53,7 @@ const Orders = ({token}) => {
   }, [token])
 
   return (
-    <div>
+    <div className='pb-16 lg:pb-0'>
       <h1>Orders</h1>
       <div>
         {

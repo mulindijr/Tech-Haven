@@ -65,7 +65,7 @@ const List = ({token}) => {
 
   return (
     <>
-      <div className='flex flex-col gap-2'>
+      <div className='flex flex-col gap-2 pb-16 lg:pb-0'>
         <div className='sticky top-[72px] z-10 bg-gray-100 p-2 shadow-md'>
           <p className='mb-2 mt-2 text-lg font-semibold'>All Products List</p>
           <div className='hidden md:grid grid-cols-[1fr_3fr_1fr_1fr_1fr_1fr_1fr] items-center border border-red-500 bg-gray-200 py-2 px-3'>
