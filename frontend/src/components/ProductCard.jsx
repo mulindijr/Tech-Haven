@@ -34,7 +34,7 @@ const ProductCard = ({_id, img, brand, name, price, rating, onClick, slug}) => {
       </Link>
       <div className="flex items-center justify-between">
         <p className="text-red-500 font-extrabold">{currency} {price}</p>
-        <AiOutlineShopping className="text-lg cursor-pointer" onClick={handleAddToCart}/>
+        <AiOutlineShopping className="text-lg cursor-pointer hover:text-red-500" onClick={handleAddToCart}/>
       </div>
     </div>
   )
