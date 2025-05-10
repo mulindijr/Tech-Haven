@@ -144,6 +144,23 @@ const ShopContextProvider = ({children}) => {
         }
     }
 
+    // Function to merge guest cart with user cart
+    // This function is called after a user logs in
+    const mergeGuestCart = async (token, guestCart) => {
+        try {
+            const response = await axios.post(backendUrl + "/api/cart/merge",{ guestCart },{ headers: { token } } );
+            if (response.data.success) {
+              // overwrite client cart with merged server cart
+              setCartItems(response.data.cartData);
+              // remove guest cart from localStorage
+              localStorage.removeItem("cartItems");
+            }
+        } catch (error) {
+            console.error("Merge failed:", error);
+            toast.error("Failed to merge cart.");
+        }
+    };
+
     useEffect(() => {
         getProductsData();
     }, [])
@@ -167,7 +184,7 @@ const ShopContextProvider = ({children}) => {
         search, setSearch, showSearch, setShowSearch,
         cartItems, addToCart, getCartCount, updateQuantity,
         getCartAmount, navigate, recentlyViewed, addToRecentlyViewed, backendUrl, getProductsData,
-        token, setToken, setCartItems       
+        token, setToken, setCartItems, mergeGuestCart, getUserCart     
     }
     
     return (
