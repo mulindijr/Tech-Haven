@@ -12,7 +12,7 @@ import { Navigate } from "react-router-dom";
 const Login = () => {
   const [currentState, setCurrentState] = useState("Login");
   const [showPassword, setShowPassword] = useState(false);
-  const { token, setToken, backendUrl, navigate } = useContext(ShopContext);
+  const { token, setToken, backendUrl, navigate, mergeGuestCart, getUserCart } = useContext(ShopContext);
 
   // If the user is already logged in, immediately redirect to home.
   if (token) {
@@ -28,25 +28,39 @@ const Login = () => {
 
   const onSubmitHandler = async (values, { setSubmitting }) => {
     try {
+      // 1️⃣ Login / Sign up
       const url = currentState === "Sign Up" ? "/api/user/register" : "/api/user/login";
       const response = await axios.post(backendUrl + url, values);
 
-      if (response.data.success) {
-        setToken(response.data.token);
-        localStorage.setItem("token", response.data.token);
-
-        // ✅ Redirect user to intended page after login
-        const redirectPath = localStorage.getItem("redirectAfterLogin") || "/";
-        localStorage.removeItem("redirectAfterLogin"); // clean up
-        navigate(redirectPath);
-        
-      } else {
+      if (!response.data.success) {
         toast.error(response.data.message);
+        setSubmitting(false);
+        return;
       }
+
+      const newToken = response.data.token;
+      setToken(newToken);
+      localStorage.setItem("token", newToken);
+
+      // 2️⃣ Merge guest cart, if any
+      const guestCart = JSON.parse(localStorage.getItem("cartItems")) || {};
+      if (Object.keys(guestCart).length) {
+        await mergeGuestCart(newToken, guestCart);
+      }
+
+      // 3️⃣ Fetch the up-to-date (merged) cart
+      await getUserCart(newToken);
+
+      // 4️⃣ Finally, redirect to intended page
+      const redirectPath = localStorage.getItem("redirectAfterLogin") || "/";
+      localStorage.removeItem("redirectAfterLogin");
+      navigate(redirectPath);
+
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setSubmitting(false);
     }
-    setSubmitting(false);
   };
 
   return (
