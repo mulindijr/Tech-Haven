@@ -70,7 +70,7 @@ const Navigation = () => {
               </>
             ) : (
               <Link to='/login' 
-                className='sm:flex sm:items-center sm:gap-1 sm:border sm:border-gray-400 py-1 px-3 rounded-full hover:bg-slate-100'
+                className='sm:flex sm:items-center sm:gap-1 sm:border sm:border-gray-400 py-1 sm:px-3 rounded-full hover:bg-slate-100'
               >
                 <FaRegUser className='w-5 cursor-pointer'/>
                 <span className="hidden sm:inline">Login</span>
