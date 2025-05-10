@@ -33,6 +33,7 @@ const RelatedProducts = ({ category, brand, currentProductId }) => {
         {related.map((item, index) => (
           <ProductCard
             key={index}
+            _id={item._id}
             slug={item.slug}
             img={item.imgURL}
             brand={item.brand}
