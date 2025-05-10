@@ -119,6 +119,7 @@ const Shop = () => {
             filteredAndSortedProducts.map((item) => (
               <ProductCard
                 key={item._id}
+                _id={item._id}
                 slug={item.slug}
                 img={item.imgURL}
                 brand={item.brand}
