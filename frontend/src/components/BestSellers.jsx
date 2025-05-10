@@ -22,7 +22,7 @@ const BestSellers = () => {
         <>
             <div className="text-center py-8 text-3xl">
                 <Title title1="Best" title2="Sellers" />
-                <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600">
+                <p className="w-3/4 m-auto text-sm md:text-base text-gray-600">
                     Discover our best sellers, where quality meets popularity. These top-rated products have captured the hearts of our customers and continue to stand out for their exceptional value and style.
                 </p>
             </div>

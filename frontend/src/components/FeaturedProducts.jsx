@@ -20,7 +20,7 @@ const FeaturedProducts = () => {
         <div>
             <div className="text-center py-8 text-3xl">
                 <Title title1="Featured" title2="Products" />
-                <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600">
+                <p className="w-3/4 m-auto text-sm md:text-base text-gray-600">
                     Check out our top selections, showcasing quality and style that stand out. Each product is a customer favorite, carefully chosen to enhance your experience.
                 </p>
             </div>
