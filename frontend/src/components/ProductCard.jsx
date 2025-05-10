@@ -3,10 +3,15 @@ import { renderStars } from "./utils";
 import { ShopContext } from "../context/ShopContext";
 import { Link } from "react-router-dom";
 import { AiOutlineShopping } from "react-icons/ai";
+import { toast } from "react-toastify";
 
-const ProductCard = ({img, brand, name, price, rating, onClick, slug}) => {
+const ProductCard = ({_id, img, brand, name, price, rating, onClick, slug}) => {
+  const {currency, addToCart} = useContext(ShopContext);
 
-  const {currency} =useContext(ShopContext)
+  const handleAddToCart = () => {
+    addToCart(_id);
+    toast.success("Item added to cart!")
+  };
 
   return (
     <div className="border shadow-md rounded-md p-5 cursor-pointer group flex flex-col justify-between h-full">
@@ -29,7 +34,7 @@ const ProductCard = ({img, brand, name, price, rating, onClick, slug}) => {
       </Link>
       <div className="flex items-center justify-between">
         <p className="text-red-500 font-extrabold">{currency} {price}</p>
-        <AiOutlineShopping className="text-lg"/>
+        <AiOutlineShopping className="text-lg cursor-pointer" onClick={handleAddToCart}/>
       </div>
     </div>
   )
