@@ -78,4 +78,30 @@ const getCart = async (req, res) => {
     }
 };
 
-export { addToCart, updateCart, getCart };
+// Merge guest cart with authenticated user cart
+const mergeCart = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { guestCart } = req.body;
+
+        const user = await userModel.findById(userId);
+        if (!user) return res.status(404).json({ success: false, message: "User not found" });
+
+        // Start with server‐side cart or empty
+        const merged = { ...(user.cartData || {}) };
+
+        // Add guestCart quantities
+        for (const [itemId, qty] of Object.entries(guestCart)) {
+          merged[itemId] = (merged[itemId] || 0) + qty;
+        }
+
+        // Update user doc
+        await userModel.findByIdAndUpdate(userId, { cartData: merged });
+        return res.status(200).json({ success: true, cartData: merged });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+export { addToCart, updateCart, getCart, mergeCart };
