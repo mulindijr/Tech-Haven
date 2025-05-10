@@ -174,7 +174,8 @@ const ShopContextProvider = ({children}) => {
     }, [token]);
 
     useEffect(() => {
-        if (token) {
+        // only auto-fetch if we're not in the middle of a merge
+        if (token && !localStorage.getItem("cartItems")) {
             getUserCart(token);
         }
     }, [token]);
