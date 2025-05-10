@@ -99,14 +99,7 @@ const Cart = () => {
                   onClick={() => {
                     if (!token) {
                       localStorage.setItem("redirectAfterLogin", "/place-order");
-                      toast.error('Please log in to proceed to checkout.', {
-                        position: "top-right",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                      });
+                      toast.error('Please log in to proceed to checkout.');
                       navigate('/login');
                       return;
                     }
