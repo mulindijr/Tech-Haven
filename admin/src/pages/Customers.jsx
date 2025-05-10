@@ -73,7 +73,7 @@ const Customers = ({token}) => {
 
   return (
     <>
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-1 py-8">
         {/* Header and Search */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-8">
         <div>
@@ -183,7 +183,7 @@ const Customers = ({token}) => {
             {filteredCustomers.map((customer) => (
               <li key={customer._id}>
                 <div className="px-4 py-4 sm:px-6">
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-wrap items-center justify-between">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-10 w-10">
                         {
@@ -205,7 +205,7 @@ const Customers = ({token}) => {
                         <div className="text-sm text-gray-500">{customer.email}</div>
                       </div>
                     </div>
-                    <div className="flex space-x-2">
+                    <div className="flex space-x-2 my-4 sm:my-0">
                       <button onClick={() => {toast.info("This function will be implemented soon!")}} className="text-blue-600 hover:text-blue-900">
                         <FiEye />
                       </button>
