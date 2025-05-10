@@ -30,14 +30,7 @@ const Cart = () => {
 
   const handleDelete = (itemId) => {
     updateQuantity(itemId, 0);
-    toast.success('Item removed from cart!', {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
+    toast.success('Item removed from cart!');
   };
 
   const handleQuantityChange = (itemId, value) => {

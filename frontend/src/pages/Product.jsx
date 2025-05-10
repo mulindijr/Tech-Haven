@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import { renderStars } from "../components/utils";
 import RelatedProducts from "../components/RelatedProducts";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const Product = () => {
   const { slug } = useParams();
@@ -27,15 +27,7 @@ const Product = () => {
 
   const handleAddToCart = (productId) => {
     addToCart(productId);
-    toast.success('Item added to cart!', {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    toast.success('Item added to cart!');
   };
 
   return (
