@@ -13,7 +13,7 @@ const BestSellers = () => {
     useEffect(() => {
         if (products?.length) {
             const bestProduct = products.filter(item => item.rating >= 4);
-            setBestSellers(bestProduct.slice(0, 5));
+            setBestSellers(bestProduct.slice(0, 6));
             setLoading(false);
         }
     }, [products]);
@@ -29,8 +29,9 @@ const BestSellers = () => {
             {/* Render Best Sellers */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6 pb-10">
                 {loading || error
-                    ? Array.from({ length: 5 }).map((_, i) => <ProductCardSkeleton key={i} />)
-                    : bestSellers.map((item) => (
+                ? Array.from({ length: 5 }).map((_, i) => <ProductCardSkeleton key={i} />)
+                : bestSellers.map((item, index) => (
+                    <div className={index === 5 ? "block lg:hidden" : "block"} key={item._id}>
                         <ProductCard
                             key={item._id}
                             _id={item._id}
@@ -41,7 +42,8 @@ const BestSellers = () => {
                             brand={item.brand}
                             rating={item.rating}
                         />
-                    ))}
+                    </div>
+                ))}
             </div>
         </>
     );
