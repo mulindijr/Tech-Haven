@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "./Title";
 import ProductCard from "./ProductCard";
+import { Link } from "react-router-dom";
 
 const RelatedProducts = ({ category, brand, currentProductId }) => {
   const { products } = useContext(ShopContext);
@@ -17,10 +18,6 @@ const RelatedProducts = ({ category, brand, currentProductId }) => {
     }
   }, [products, category, brand, currentProductId]);
 
-  const handleProductClick = (slug) => {
-    window.open(`/product/${slug}`, '_self');
-  };
-
   // If there are no related products, return null
   if (related.length === 0) return null;
 
@@ -31,17 +28,17 @@ const RelatedProducts = ({ category, brand, currentProductId }) => {
       </div>      
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
         {related.map((item, index) => (
-          <ProductCard
-            key={index}
-            _id={item._id}
-            slug={item.slug}
-            img={item.imgURL}
-            brand={item.brand}
-            name={item.name}
-            price={item.price}
-            rating={item.rating}
-            onClick={() => handleProductClick(item.slug)}
-          />
+          <Link to={`/product/${item.slug}`} key={item._id}>
+            <ProductCard
+              _id={item._id}
+              slug={item.slug}
+              img={item.imgURL}
+              brand={item.brand}
+              name={item.name}
+              price={item.price}
+              rating={item.rating}
+            />
+          </Link>
         ))}
       </div>
     </div>
