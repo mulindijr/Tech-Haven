@@ -4,11 +4,13 @@ import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
   return (
     <>
       <ToastContainer position="top-center"/>
+      <ScrollToTop />
       <Routes>
         {/* Routes that use MainLayout */}
         <Route element={<MainLayout />}>
